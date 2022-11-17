@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	private int restNo;
+	private int basNo;
+	private String restOpenTime;
+	private String restLock;
+	private int restTol;
+	private int restUri;
+	private int restDisTol;
+	private int restDisUri;
+	private String restClTime;
+	private String restStatus;
+	private String restKey;
+	
+ -->
+<mapper namespace="com.project.root.mybatis.restdata.RestDataMapper">
+	<resultMap type="com.project.root.restData.dto.RestDataDTO" id="restData">
+		<id property="restNo" column="rest_no"/>
+		<result property="basNo" column="bas_no"/>
+		<result property="restOpenTime" column="rest_opentime"/>
+		<result property="restLock" column="rest_lock"/>
+		<result property="restTol" column="rest_tol"/>
+		<result property="restUri" column="rest_uri"/>
+		<result property="restDisTol" column="rest_dis_tol"/>
+		<result property="restDisUri" column="rest_dis_uri"/>
+		<result property="restClTime" column="rest_cl_time"/>
+		<result property="restStatus" column="rest_status"/>
+		<result property="restKey" column="rest_key"/>
+	</resultMap>
+	
+	
+</mapper>
