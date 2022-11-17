@@ -1,7 +1,5 @@
 package com.project.root;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -24,16 +22,74 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		return "index";
+	}
+	@RequestMapping(value = "blank", method = RequestMethod.GET)
+	public String blank(Locale locale, Model model) {
 		
-		String formattedDate = dateFormat.format(date);
+		return "blank";
+	}
+	@RequestMapping(value = "buttons", method = RequestMethod.GET)
+	public String buttons(Locale locale, Model model) {
 		
-		model.addAttribute("serverTime", formattedDate );
+		return "buttons";
+	}
+	@RequestMapping(value = "cards", method = RequestMethod.GET)
+	public String cards(Locale locale, Model model) {
 		
-		return "home";
+		return "cards";
+	}
+	@RequestMapping(value = "charts", method = RequestMethod.GET)
+	public String charts(Locale locale, Model model) {
+		
+		return "charts";
+	}
+	@RequestMapping(value = "forgotPassword", method = RequestMethod.GET)
+	public String forgotPassword(Locale locale, Model model) {
+		
+		return "forgotPassword";
+	}
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public String login(Locale locale, Model model) {
+		
+		return "login";
+	}
+	@RequestMapping(value = "register", method = RequestMethod.GET)
+	public String register(Locale locale, Model model) {
+		
+		return "register";
+	}
+	@RequestMapping(value = "tables", method = RequestMethod.GET)
+	public String tables(Locale locale, Model model) {
+		
+		return "tables";
+	}
+	@RequestMapping(value = "utilitiesAnimation", method = RequestMethod.GET)
+	public String utilitiesAnimation(Locale locale, Model model) {
+		
+		return "utilitiesAnimation";
+	}
+	@RequestMapping(value = "utilitiesBorder", method = RequestMethod.GET)
+	public String utilitiesBorder(Locale locale, Model model) {
+		
+		return "utilitiesBorder";
+	}
+	@RequestMapping(value = "utilitiesColor", method = RequestMethod.GET)
+	public String utilitiesColor(Locale locale, Model model) {
+		
+		return "utilitiesColor";
+	}
+	@RequestMapping(value = "utilitiesOther", method = RequestMethod.GET)
+	public String utilitiesOther(Locale locale, Model model) {
+		
+		return "utilitiesOther";
+	}
+	
+	@RequestMapping(value = "404", method = RequestMethod.GET)
+	public String notFindPage(Locale locale, Model model) {
+		
+		return "404";
 	}
 	
 }
