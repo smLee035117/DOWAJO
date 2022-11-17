@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	private int memNo;
+	private String memId;
+	private String memPass;
+	private String memKey;
+	
+ -->
+<mapper namespace="com.project.root.mybatis.member.MemberMapper">
+	<resultMap type="com.project.root.member.dto.MemberDTO" id="member">
+		<id property="memNo" column="mem_no"/>
+		<result property="memId" column="mem_id"/>
+		<result property="memPass" column="mem_pass"/>
+		<result property="memKey" column="mem_key"/>
+	</resultMap>
+	
+	
+</mapper>
