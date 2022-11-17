@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	private int basNo;
+	private int catNo;
+	private String basAddr;
+	private String basLat;
+	private String basLon;
+
+ -->
+<mapper namespace="com.project.root.mybatis.basicdata.BasicDataMapper">
+	<resultMap type="com.project.root.basicdata.dto.BasicDataDTO" id="basicData">
+		<id property="basNo" column="bas_no"/>
+		<result property="catNo" column="cat_no"/>
+		<result property="basAddr" column="bas_addr"/>
+		<result property="basLat" column="bas_lat"/>
+		<result property="basLon" column="bas_lon"/>
+	</resultMap>
+
+</mapper>

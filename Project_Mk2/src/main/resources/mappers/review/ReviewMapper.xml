@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	private int reNo;
+	private int basNo;
+	private int reSco;
+	private String reContent;
+	
+ -->
+<mapper namespace="com.project.root.mybatis.review.ReviewMapper">
+	<resultMap type="com.project.root.review.dto.ReviewDTO" id="review">
+		<id property="reNo" column="re_no"/>
+		<result property="basNo" column="bas_no"/>
+		<result property="reSco" column="re_sco"/>
+		<result property="reContent" column="re_content"/>
+	</resultMap>
+	
+	
+</mapper>
