@@ -63,7 +63,7 @@ public class HomeController {
 	@RequestMapping(value = "tables", method = RequestMethod.GET)
 	public String tables(Locale locale, Model model) {
 		
-		return "tables";
+		return "tables2";
 	}
 	@RequestMapping(value = "utilitiesAnimation", method = RequestMethod.GET)
 	public String utilitiesAnimation(Locale locale, Model model) {
