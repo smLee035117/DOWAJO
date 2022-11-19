@@ -35,11 +35,6 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495"></script>
 <script type="text/javascript">
- $(document).on("click", ".btn-open", function (e){
-	  var target = $(this).attr("href");
-	  $(target).addClass("show");
-	});
-
 	// 외부영역 클릭 시 팝업 닫기
 	$(document).mouseup(function (e){
 	  var LayerPopup = $(".layer-popup");
@@ -48,36 +43,14 @@
 	  }
 	});
  $(function () {
-	
-	 
-/*	 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-	 var options = { //지도를 생성할 때 필요한 기본 옵션
-	 	center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-	 	level: 3 //지도의 레벨(확대, 축소 정도)
-	 };
-	// 마커가 표시될 위치입니다 
-	 var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
-
-	 // 마커를 생성합니다
-	 var marker = new kakao.maps.Marker({
-	     position: markerPosition
-	 });
-	 
-	 var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-	 
-	 marker.setMap(map); */
-
-
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	    mapOption = { 
-	        center: new kakao.maps.LatLng(37.5657, 126.9807), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(37.5657, 126.9807), // 바꿔야 하는 위도 경도
 	        level: 3 // 지도의 확대 레벨
 	    };
 	
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	 
-	
-	
+
 	// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다.
 	
 	var positions = [
@@ -98,41 +71,20 @@
 	        latlng: new kakao.maps.LatLng(37.5654, 126.9800)
 	    }
 	];
-	/* var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 	
-	// 인포윈도우를 생성합니다
-	var infowindows = new kakao.maps.InfoWindow({
-	    content : iwContent,
-	    removable : iwRemoveable
-	});
-	   
-	kakao.maps.event.addListener(marker, 'click', function() {
-		 infowindow.close();
-			console.log(marker)
-	      // 마커 위에 인포윈도우를 표시합니다
-	      infowindows.open(map, marker);  
-	}); */
-	// 마커에 클릭이벤트를 등록합니다
-	
-	
-	
-	   var infowindows = [];
 	for (var i = 0; i < positions.length; i ++) {
 	    // 마커를 생성합니다
 	     var marker = new kakao.maps.Marker({
 	        map: map, // 마커를 표시할 지도
 	        position: positions[i].latlng // 마커의 위치
 	    });
-	
+
+	   
+	    
 	    // 마커에 표시할 인포윈도우를 생성합니다 
 	     infowindow = new kakao.maps.InfoWindow({
 	        content: positions[i].content // 인포윈도우에 표시할 내용
 	    });
-	    
- 	     infowindows.push(infowindow)
-	     
-	      marker.infowindowIdx = infowindows.length - 1; 
 	    
 	    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 	    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
@@ -140,54 +92,36 @@
   	    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 	    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
 	    
-	   /*  kakao.maps.event.addListener(marker, 'click', function(mouseEvent) {
-	        allInfowindowClose();
-		    
-	        // 마커에 해당되는 infowindow를 열어줍니다.
-	        var infowindow = infowindows[this.infowindowIdx];
-	        infowindow.open(map, this);
-	        
-	        
-	    });   */
-
-	 // 지도를 클릭한 위치에 표출할 마커입니다
-	
 	}
 	
-		
+	//객체생성
+	 var marker2 = new kakao.maps.Marker({ });
+	
+	//
+	
+	
 	 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+		marker2.setMap(null);
 		   var latlng = mouseEvent.latLng; 
 		   
-		   	 var latlngs = [{
-				 lat : latlng.getLat(),
-				 lng : latlng.getLng()
-			 }];
-		   
-/* 	 	    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+	
+ 	 	    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
 	 	    message += '경도는 ' + latlng.getLng() + ' 입니다';
-	 	     */		 	    
-	 	     
-	 	 console.log(latlngs[0].lat)
-	 	 console.log(latlngs[0].lng)
-	 	 
-	 	 if((latlngs[0].lat!=latlng.getLat()) && (latlngs[0].lng!=latlng.getLng()))
-	 		removeMaker 
+	 		
 		// 마커가 표시될 위치입니다 
 		var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
-	
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-		    position: markerPosition
-		});
-		
+
 		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);
- 	 
+		 marker2.setPosition(latlng);
+		 marker2.setMap(map);
+		    
+		   $(document).on("click", ".btn-open", function (e){
+				  var target = $(this).attr("href");
+				  $(target).addClass("show");
+				});	
  	}); 
 	
  })
- 
- 	
  function allInfowindowClose() {
 	    for(var i=0; i<infowindows.length; i++) {
 	        var infowindow = infowindows[i];
@@ -249,8 +183,8 @@
 				<div class="modal-content">팝업 내용입니다.</div>
 			</div>
 		</div>
-	</div> -->
-	<!-- Page Wrapper -->
+	</div>
+	Page Wrapper -->
 	<div id="clickLatlng"></div>
 	<div id="wrapper">
 
