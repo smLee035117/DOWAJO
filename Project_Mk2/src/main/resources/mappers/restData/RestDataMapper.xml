@@ -16,7 +16,7 @@
 	
  -->
 <mapper namespace="com.project.root.mybatis.restdata.RestDataMapper">
-	<resultMap type="com.project.root.restData.dto.RestDataDTO" id="restData">
+	<resultMap type="com.project.root.restdata.dto.RestDataDTO" id="restData">
 		<id property="restNo" column="rest_no"/>
 		<result property="basNo" column="bas_no"/>
 		<result property="restOpenTime" column="rest_opentime"/>

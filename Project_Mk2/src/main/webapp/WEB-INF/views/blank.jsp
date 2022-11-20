@@ -35,10 +35,6 @@
 <script type="text/javascript"
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495"></script>
 <script type="text/javascript">
-
-
-
-
    // 외부영역 클릭 시 팝업 닫기
    $(document).mouseup(function (e){
      var LayerPopup = $(".layer-popup");
@@ -47,134 +43,83 @@
      }
    });
    
- 
 $(function () {
-	  var toilet = [];
-	  var mapContainer;
-	  var map;
+   /* $('#accordionSidebar').hide(); */
+     var toilet = [];
+     var mapContainer;
+     var map;
     //  공공데이터 api 정보가져오기 
    $.ajax({
-       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
+       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/100",
        type:"get",   
        dataType : "json",
        contentType:"application/json",
        success:function(responseData){         
           var j = Object.values(responseData)
              for(var i = 0 ; i < j[0].row.length; i++){
-                  //toilet.id = j[0].row[i].POI_ID; //고유번호
-                  
-       			/* toilet.content = ; //화장실이름 
-                  toilet.latlng = new kakao.maps.LatLng(j[0].row[i].Y_WGS84 , j[0].row[i].X_WGS84)
-                 */  
-                 
                  toilet[i] = {
-       								content: '<div>'+j[0].row[i].FNAME+'</div>', 
-       								latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84)
-       							}
-                /* 
-                  toiletList.push(toilet[i]); */
-       			
+                               content: '<div>'+j[0].row[i].FNAME+'</div>', 
+                               latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84)
+                            }            
              }
-   			 console.log('@'+toilet.length)
-   			 
+             
    mapContainer = document.getElementById('map'), // 지도를 표시할 div  
        mapOption = { 
            center: new kakao.maps.LatLng(37.5657, 126.9807), // 바꿔야 하는 위도 경도
            level: 3 // 지도의 확대 레벨
        };
-    console.log('@@@'+toilet.length)
     map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
    
-		   for (var i = 0; i < toilet.length; i ++) {
-		       // 마커를 생성합니다
-		       console.log('@@@@@@와따2')
-		          console.log('@@@@@@@@@@@@@@@@@'+toilet[i].latlng)
-		        var marker = new kakao.maps.Marker({
-		           map: map, // 마커를 표시할 지도
-		           position: toilet[i].latlng // 마커의 위치
-		       });
-		
-		      
-		       
-		       // 마커에 표시할 인포윈도우를 생성합니다 
-		        infowindow = new kakao.maps.InfoWindow({
-		           content: toilet[i].content // 인포윈도우에 표시할 내용
-		       });
-		       
-		       // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-		       // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-		       // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-		         kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-		       kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
-		       
-		       console.log('@@@@@@@@@@@@와따2')
-		       
-		       kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-		    	      marker2.setMap(null);
-		    	         var latlng = mouseEvent.latLng; 
-		    	         
-		    	   
-		    	            var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-		    	           message += '경도는 ' + latlng.getLng() + ' 입니다';
-		    	          
-		    	      // 마커가 표시될 위치입니다 
-		    	      var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
+         for (var i = 0; i < toilet.length; i ++) {
+             // 마커를 생성합니다
+              var marker = new kakao.maps.Marker({
+                 map: map, // 마커를 표시할 지도
+                 position: toilet[i].latlng // 마커의 위치
+             });
+      
+             // 마커에 표시할 인포윈도우를 생성합니다 
+              infowindow = new kakao.maps.InfoWindow({
+                 content: toilet[i].content // 인포윈도우에 표시할 내용
+             });
+             
+             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+               kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
+          
+             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+                   marker2.setMap(null);
+                      var latlng = mouseEvent.latLng; 
+                      
+                
+                         var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+                        message += '경도는 ' + latlng.getLng() + ' 입니다';
+                       
+                   // 마커가 표시될 위치입니다 
+                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
 
-		    	      // 마커가 지도 위에 표시되도록 설정합니다
-		    	       marker2.setPosition(latlng);
-		    	       marker2.setMap(map);
-		    	          
-		    	         $(document).on("click", ".btn-open", function (e){
-		    	              var target = $(this).attr("href");
-		    	              $(target).addClass("show");
-		    	            });   
-		    	    }); 
-		       
-		   }
+                   // 마커가 지도 위에 표시되도록 설정합니다
+                    marker2.setPosition(latlng);
+                    marker2.setMap(map);
+                       
+                      $(document).on("click", ".btn-open", function (e){
+                           var target = $(this).attr("href");
+                           $(target).addClass("show");
+                         });   
+                 }); 
+             
+         }
         },error : function () {
            console.log('fail')
         } 
     });
-    
-    
-    
-    
-    console.log('@@'+toilet.length)
-
 
    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다.
-  console.log('@@@@'+toilet.length)
-    /* var positions = [
-      {
-           content: '<div>화장실 이름</div>', 
-           latlng: new kakao.maps.LatLng(37.5652, 126.9815)
-       },
-       {
-           content: '<div style="color:red;">생태연못</div>', 
-           latlng: new kakao.maps.LatLng(37.5659, 126.9810)
-       },
-       {
-           content: '<div>텃밭</div>', 
-           latlng: new kakao.maps.LatLng(37.5657, 126.9808)
-       },
-       {
-           content: '<div>근린공원</div>',
-           latlng: new kakao.maps.LatLng(37.5654, 126.9800)
-       }
-   ];  */
-   
-       console.log('@@@@@@와따'+toilet.length)
 
- 
-   
    //객체생성
     var marker2 = new kakao.maps.Marker({ });
-   
-   //
-   
-   
-  
-   
+
  })
  function allInfowindowClose() {
        for(var i=0; i<infowindows.length; i++) {
@@ -182,16 +127,13 @@ $(function () {
            infowindow.close();
        }
    }
-
-   
-   
    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
    function makeOverListener(map, marker, infowindow) {
        return function() {
            infowindow.open(map, marker);
        };
    }
-   
+ 
    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
    function makeOutListener(infowindow) {
        return function() {

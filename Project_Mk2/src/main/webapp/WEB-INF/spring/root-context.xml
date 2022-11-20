@@ -23,7 +23,7 @@
    
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="ds"/>
-      <property name="mapperLocations" value="classpath:/mapper/**/*Mapper.xml"/>
+      <property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml"/>
    </bean>
    
    <!-- 매퍼는 상황에 따라 패키지에 맞게 추가 하여야합니다. -->
