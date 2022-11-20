@@ -62,7 +62,9 @@ $(function () {
                                latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84)
                             }            
              }
-             
+          
+         
+          
    mapContainer = document.getElementById('map'), // 지도를 표시할 div  
        mapOption = { 
            center: new kakao.maps.LatLng(37.5657, 126.9807), // 바꿔야 하는 위도 경도
@@ -88,6 +90,8 @@ $(function () {
                kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
              kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
           
+             
+             
              kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
                    marker2.setMap(null);
                       var latlng = mouseEvent.latLng; 
@@ -102,11 +106,8 @@ $(function () {
                    // 마커가 지도 위에 표시되도록 설정합니다
                     marker2.setPosition(latlng);
                     marker2.setMap(map);
-                       
-                      $(document).on("click", ".btn-open", function (e){
-                           var target = $(this).attr("href");
-                           $(target).addClass("show");
-                         });   
+                    $('#layer-popup').addClass("show");   
+ 					$('#latlng').val(latlng)
                  }); 
              
          }
@@ -169,18 +170,32 @@ $(function () {
    text-align: center;
    line-height: 100px;
 }
+
+#yellow {
+   width: 100%;
+   height: 100%;
+   background-color : red;
+}
 </style>
 <body id="page-top">
-<!--    <a href="#layer-popup" class="btn-open">팝업 열기</a>
    <div class="container">
-      <div class="layer-popup show" id="layer-popup">
+      <div class="layer-popup" id="layer-popup">
          <div class="modal-dialog">
-            <button>x</button>
-            <div class="modal-content">팝업 내용입니다.</div>
+            <div class="modal-content">
+	            <form name="frmModal" id="frmModal">
+	            	<label for="name">이름</label> <input type="text" id="name" name="name" placeholder="이름입력"><br>	   
+	            	<label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">                    
+	            	<input type="hidden" id="latlng" name="latlng">                         
+	            	<button id="" name="" value="확인"></button>
+	            	<!-- <br>	선택사항
+	            	있음<input type="radio" id="choice1" name="choice" value="Y"> &nbsp;
+	            	없음<input type="radio" id="choice2" name="choice" value="N" checked="checked"> -->
+	            </form>
+            </div>
          </div>
       </div>
    </div>
-   Page Wrapper -->
+   <!-- Page Wrapper -->
    <div id="clickLatlng"></div>
    <div id="wrapper">
 
@@ -294,7 +309,6 @@ $(function () {
 
       <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
-
          <!-- Main Content -->
          <div id="content">
 
@@ -307,19 +321,9 @@ $(function () {
          </div>
          <!-- End of Main Content -->
 
-         <!-- Footer -->
-         <!--   <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer> -->
-         <!-- End of Footer -->
 
-      </div>
       <!-- End of Content Wrapper -->
-
+   </div>
    </div>
    <!-- End of Page Wrapper -->
 
