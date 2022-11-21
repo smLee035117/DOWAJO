@@ -53,13 +53,13 @@ $(function () {
        url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
        type:"get",   
        dataType : "json",
-       contentType:"application/json",x
+       contentType:"application/json",
        success:function(responseData){         
           var j = Object.values(responseData)
              for(var i = 0 ; i < j[0].row.length; i++){
                  toilet[i] = {
                                content: '<div>'+j[0].row[i].FNAME+'</div>', 
-                               latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84)
+                               latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도
                             }            
              }
           
@@ -140,11 +140,10 @@ $(function () {
        };
    }
    function popData() {
-/*    var la = $('#latlng').val()
+    var la = $('#latlng').val()
        var newStr = la.replace('(', ' ');
        newStr = newStr.replace(')', ' ');
-	  
-       $('#latlng').val(newStr.trim()) */
+       $('#latlng').val(newStr.trim()) 
        var formData = $("#frmModal").serialize(); 
 	   $.ajax({
 	       url:"blank",
@@ -155,7 +154,6 @@ $(function () {
 	       success:function(responseData){        
 	          var j = Object.values(responseData)
 	    	   console.log(j)
-	       
 	        },error : function () {
 	           console.log('fail')
 	        } 
@@ -180,21 +178,29 @@ $(function () {
 
 .modal-dialog {
    width: 20%;
-   margin: 10% auto;
+   margin: 5px auto;
    background-color: #fff;
 }
 	
 .modal-content {
-   padding: 50px 15px;
+   padding: 50px 0px;
    text-align: center;
    height: 450px;
  
 }
- .modal-content #name{
-	display: block; 
-	width: 150px;
-	height: 50px;
-}  
+  .modal-content #restTol , .modal-content #restUri{
+	border:none;
+	width: 20%;
+	height: 50%;
+	
+}   
+  #tol{
+  	padding:10px;
+ 	display: flex;
+    flex-direction: row;
+    justify-content: center;
+ }
+ 
 </style>
 <body id="page-top">
    <div class="container">
@@ -203,15 +209,20 @@ $(function () {
             <div class="modal-content">
             <!-- <button onclick="bb()">xxxx</button> -->
 	            <form name="frmModal" id="frmModal" name="frmModal">
-	            	<label for="name">이름</label> <input type="text" id="basAddr" name="basAddr" placeholder="이름입력"><br>	   
-	            	<label for="name">소변기</label> <input type="text" id="restTol" name="restTol"><br>	   
-	            	<label for="name">좌변기</label> <input type="text" id="restUri" name="restUri"><br>	   	            	
+	            	<label for="name">이름</label><input type="text" id="basAddr" name="basAddr" placeholder="이름입력"><br>
+	            	<div id="tol">  
+		            	<div><label for="restTol">소변기</label><input type="text" id="restTol" name="restTol"></div>
+		            	<div><label for="restUri">좌변기</label><input type="text" id="restUri" name="restUri"></div>
+	            	</div>	 
+	            	<br>  	            	
 	            	<!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->       
-	            	<input type="hidden" id="latlng" name="latlng"><br>                         
-	            	<button onclick="popData()">확인</button>
-	            	<!-- <br>	선택사항
+	            	<input type="hidden" id="latlng" name="latlng">                      
+	            	<br>
+	            	 잠금 유무
 	            	있음<input type="radio" id="choice1" name="choice" value="Y"> &nbsp;
-	            	없음<input type="radio" id="choice2" name="choice" value="N" checked="checked"> -->
+	            	없음<input type="radio" id="choice2" name="choice" value="N" checked="checked">
+	            	<hr>
+	            	<button onclick="popData()">확인</button>
 	            </form>
             </div>
          </div>
