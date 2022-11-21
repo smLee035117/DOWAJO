@@ -53,7 +53,7 @@ $(function () {
        url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
        type:"get",   
        dataType : "json",
-       contentType:"application/json",
+       contentType:"application/json",x
        success:function(responseData){         
           var j = Object.values(responseData)
              for(var i = 0 ; i < j[0].row.length; i++){
