@@ -48,6 +48,11 @@ $(function () {
      var toilet = [];
      var mapContainer;
      var map;
+ 
+     navigator.geolocation.getCurrentPosition(function (position){
+    	 	
+     });
+    
     //  공공데이터 api 정보가져오기 
    $.ajax({
        url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
@@ -62,54 +67,128 @@ $(function () {
                                latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84)
                             }            
              }
-          
-   mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-       mapOption = {
-           center: new kakao.maps.LatLng(37.5657, 126.9807), // 바꿔야 하는 위도 경도
-           level: 3 // 지도의 확대 레벨
-       };
-    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-   
-         for (var i = 0; i < toilet.length; i ++) {
-             // 마커를 생성합니다
-              var marker = new kakao.maps.Marker({
-                 map: map, // 마커를 표시할 지도
-                 position: toilet[i].latlng // 마커의 위치
-             });
-      
-             // 마커에 표시할 인포윈도우를 생성합니다 
-              infowindow = new kakao.maps.InfoWindow({
-                 content: toilet[i].content // 인포윈도우에 표시할 내용
-             });
-             
-             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-               kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
-          
-             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-                   marker2.setMap(null);
-                      var latlng = mouseEvent.latLng; 
-                      
-                
-                         var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-                        message += '경도는 ' + latlng.getLng() + ' 입니다';
-                       
-                   // 마커가 표시될 위치입니다 
-                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
+          if ('geolocation' in navigator) {
+        	  navigator.geolocation.getCurrentPosition(function (position){
+        		  	var lat = position.coords.latitude, // 현재 위도
+      				lon = position.coords.longitude; // 현재 경도
+          	 	 	console.log(lat,lon);
+        		  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+        	       mapOption = {
+        	           center: new kakao.maps.LatLng(lat, lon), // 바꿔야 하는 위도 경도
+        	           level: 2 // 지도의 확대 레벨
+        	       };
+        	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+        	   
+        	    // 내 위치 마커 생성
+	        	var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+	        	    imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
+	        	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+	        	      
+	        	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+	        	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+	        	    markerPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치입니다
+	
+	        	// 마커를 생성합니다
+	        	var marker = new kakao.maps.Marker({
+	        	    position: markerPosition, 
+	        	    image: markerImage // 마커이미지 설정 
+	        	});
+	
+	        	// 마커가 지도 위에 표시되도록 설정합니다
+	        	marker.setMap(map);  
+        	   
+	        	// 공공api 마커 생성
+        	         for (var i = 0; i < toilet.length; i ++) {
+        	             // 마커를 생성합니다
+        	              var marker = new kakao.maps.Marker({
+        	                 map: map, // 마커를 표시할 지도
+        	                 position: toilet[i].latlng // 마커의 위치
+        	             });
+        	      
+        	             // 마커에 표시할 인포윈도우를 생성합니다 
+        	              infowindow = new kakao.maps.InfoWindow({
+        	                 content: toilet[i].content // 인포윈도우에 표시할 내용
+        	             });
+        	             
+        	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+        	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        	               kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
+        	          
+        	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+        	                   marker2.setMap(null);
+        	                      var latlng = mouseEvent.latLng; 
+        	                      
+        	                
+        	                         var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+        	                        message += '경도는 ' + latlng.getLng() + ' 입니다';
+        	                       
+        	                   // 마커가 표시될 위치입니다 
+        	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
 
-                   // 마커가 지도 위에 표시되도록 설정합니다
-                    marker2.setPosition(latlng);
-                    marker2.setMap(map);
-                    $('#layer-popup').addClass("show");   
+        	                   // 마커가 지도 위에 표시되도록 설정합니다
+        	                    marker2.setPosition(latlng);
+        	                    marker2.setMap(map);
+        	                    $('#layer-popup').addClass("show");   
 
-                    
- 					$('#latlng').val(latlng)
-                 }); 
-             
-         }
-        },error : function () {
+        	                    
+        	 					$('#latlng').val(latlng)
+        	                 }); 
+        	             
+        	         }
+        	        });
+          }else{
+        	  console.log('???');
+        	  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+     	       mapOption = {
+     	           center: new kakao.maps.LatLng(37.5657, 126.9807), // 바꿔야 하는 위도 경도
+     	           level: 3 // 지도의 확대 레벨
+     	       };
+     	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+     	   
+     	         for (var i = 0; i < toilet.length; i ++) {
+     	             // 마커를 생성합니다
+     	              var marker = new kakao.maps.Marker({
+     	                 map: map, // 마커를 표시할 지도
+     	                 position: toilet[i].latlng // 마커의 위치
+     	             });
+     	      
+     	             // 마커에 표시할 인포윈도우를 생성합니다 
+     	              infowindow = new kakao.maps.InfoWindow({
+     	                 content: toilet[i].content // 인포윈도우에 표시할 내용
+     	             });
+     	             
+     	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+     	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+     	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+     	               kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+     	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
+     	          
+     	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+     	                   marker2.setMap(null);
+     	                      var latlng = mouseEvent.latLng; 
+     	                      
+     	                
+     	                         var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+     	                        message += '경도는 ' + latlng.getLng() + ' 입니다';
+     	                       
+     	                   // 마커가 표시될 위치입니다 
+     	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
+
+     	                   // 마커가 지도 위에 표시되도록 설정합니다
+     	                    marker2.setPosition(latlng);
+     	                    marker2.setMap(map);
+     	                    $('#layer-popup').addClass("show");   
+
+     	                    
+     	 					$('#latlng').val(latlng)
+     	                 }); 
+     	             
+     	         }
+ 
+          }
+       },error : function () {
            console.log('fail')
         } 
     });
@@ -118,6 +197,7 @@ $(function () {
 
    //객체생성
     var marker2 = new kakao.maps.Marker({ });
+	
 
  })
  function allInfowindowClose() {
@@ -161,6 +241,38 @@ $(function () {
 	        } 
 	    });
 }
+ /*
+	// gps로 위치불러오기
+	function getCurrentPos(){
+			navigator.geolocation.getCurrentPosition(function (position) {
+				var lat = position.coords.latitude, // 위도
+				lon = position.coords.longitude; // 경도
+				var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+				message = '<div style="height: 25px; padding:2px 10px; margin: 3px;">현재 위치입니다.</div>' 	// 인포윈도우에 표시될 내용입니다
+				// 마커와 인포윈도우를 표시합니다
+				displayMarker(locPosition, message);
+		});
+	// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+	function displayMarker(locPosition, message) { // 마커를 생성합니다
+		var imageSrc_loc = "assets/img/marker_loc.png";
+		var imageSize_loc = new kakao.maps.Size(40, 40); // 마커 이미지 생성
+		var markerImage_loc = new kakao.maps.MarkerImage(imageSrc_loc, imageSize_loc);
+		var marker_loc = new kakao.maps.Marker({
+			map: map, 
+			position: locPosition,
+			image: markerImage_loc
+			});
+		var iwContent = message, // 인포윈도우에 표시할 내용
+			iwRemoveable = true;
+		// 인포윈도우를 생성합니다
+		var infowindow = new kakao.maps.InfoWindow({content: iwContent});
+		// 인포윈도우를 마커위에 표시합니다
+		infowindow.open(map, marker_loc);
+		// 지도 중심좌표를 접속위치로 변경합니다
+		map.setCenter(locPosition);
+	}
+};
+*/
 </script>
 <style>
 .layer-popup {
@@ -195,6 +307,11 @@ $(function () {
 	width: 150px;
 	height: 50px;
 }  
+#GPS {
+	position: fixed;
+	right: 5px;
+	z-index: 100;
+}
 </style>
 <body id="page-top">
    <div class="container">
@@ -217,6 +334,7 @@ $(function () {
          </div>
       </div>
    </div>
+   <div id="GPS"><button type="button" onclick="getCurrentPos()">GPS</button></div>
    <!-- Page Wrapper -->
    <div id="clickLatlng"></div>
    <div id="wrapper">

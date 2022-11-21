@@ -28,7 +28,7 @@ public class HomeController {
 	@RequestMapping(value = "blank", method = RequestMethod.GET)
 	public String blank(Locale locale, Model model) {
 		
-		return "blank";
+		return "blank2";
 	}
 	@RequestMapping(value = "buttons", method = RequestMethod.GET)
 	public String buttons(Locale locale, Model model) {
