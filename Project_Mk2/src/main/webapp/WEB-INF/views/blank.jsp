@@ -50,7 +50,7 @@ $(function () {
      var map;
     //  공공데이터 api 정보가져오기 
    $.ajax({
-       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/100",
+       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
        type:"get",   
        dataType : "json",
        contentType:"application/json",
@@ -62,8 +62,6 @@ $(function () {
                                latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84)
                             }            
              }
-          
-         
           
    mapContainer = document.getElementById('map'), // 지도를 표시할 div  
        mapOption = { 
@@ -90,8 +88,6 @@ $(function () {
                kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
              kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
           
-             
-             
              kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
                    marker2.setMap(null);
                       var latlng = mouseEvent.latLng; 
@@ -107,6 +103,8 @@ $(function () {
                     marker2.setPosition(latlng);
                     marker2.setMap(map);
                     $('#layer-popup').addClass("show");   
+
+                    
  					$('#latlng').val(latlng)
                  }); 
              
@@ -141,7 +139,28 @@ $(function () {
            infowindow.close();
        };
    }
-   
+   function popData() {
+/*    var la = $('#latlng').val()
+       var newStr = la.replace('(', ' ');
+       newStr = newStr.replace(')', ' ');
+	  
+       $('#latlng').val(newStr.trim()) */
+       var formData = $("#frmModal").serialize(); 
+	   $.ajax({
+	       url:"blank",
+	       type:"post",   
+	       dataType : "json",
+	       data:formData,
+	       contentType:"application/json",
+	       success:function(responseData){        
+	          var j = Object.values(responseData)
+	    	   console.log(j)
+	       
+	        },error : function () {
+	           console.log('fail')
+	        } 
+	    });
+}
 </script>
 <style>
 .layer-popup {
@@ -160,33 +179,36 @@ $(function () {
 }
 
 .modal-dialog {
-   width: 300px;
-   margin: 40px auto;
+   width: 20%;
+   margin: 10% auto;
    background-color: #fff;
 }
-
+	
 .modal-content {
-   padding: 10px 15px;
+   padding: 50px 15px;
    text-align: center;
-   line-height: 100px;
+   height: 450px;
+ 
 }
-
-#yellow {
-   width: 100%;
-   height: 100%;
-   background-color : red;
-}
+ .modal-content #name{
+	display: block; 
+	width: 150px;
+	height: 50px;
+}  
 </style>
 <body id="page-top">
    <div class="container">
       <div class="layer-popup" id="layer-popup">
          <div class="modal-dialog">
             <div class="modal-content">
-	            <form name="frmModal" id="frmModal">
-	            	<label for="name">이름</label> <input type="text" id="name" name="name" placeholder="이름입력"><br>	   
-	            	<label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">                    
-	            	<input type="hidden" id="latlng" name="latlng">                         
-	            	<button id="" name="" value="확인"></button>
+            <!-- <button onclick="bb()">xxxx</button> -->
+	            <form name="frmModal" id="frmModal" name="frmModal">
+	            	<label for="name">이름</label> <input type="text" id="basAddr" name="basAddr" placeholder="이름입력"><br>	   
+	            	<label for="name">소변기</label> <input type="text" id="restTol" name="restTol"><br>	   
+	            	<label for="name">좌변기</label> <input type="text" id="restUri" name="restUri"><br>	   	            	
+	            	<!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->       
+	            	<input type="hidden" id="latlng" name="latlng"><br>                         
+	            	<button onclick="popData()">확인</button>
 	            	<!-- <br>	선택사항
 	            	있음<input type="radio" id="choice1" name="choice" value="Y"> &nbsp;
 	            	없음<input type="radio" id="choice2" name="choice" value="N" checked="checked"> -->
