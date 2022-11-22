@@ -19,7 +19,9 @@
 
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-
+	<script type="text/javascript">
+	
+	</script>
 </head>
 
 <body class="bg-gradient-primary">
