@@ -43,13 +43,14 @@
        LayerPopup.removeClass("show");
      }
    });
-   
+   var infowindowOpened = [];
 $(function () {
    /* $('#accordionSidebar').hide(); */
      var toilet = [];
      var mapContainer;
      var map;
- 
+     /* selectedMarker = null; */
+
      navigator.geolocation.getCurrentPosition(function (position){
     	 	
      });
@@ -113,13 +114,12 @@ $(function () {
 	             });
 	             
 	             infowindowDetail = new kakao.maps.InfoWindow({
-	            	 content: toilet[i].content
-	            	 
+	            	 content: toilet[i].content	            	 
 	             });
 	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
 	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+	    /*          kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow)); */
 	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
 	             kakao.maps.event.addListener(marker,'click', function(){
 	            	 	infowindowDetail.open(map, marker);
@@ -143,7 +143,6 @@ $(function () {
           }
            
           function showErrorMsg(error) { // 실패했을때 실행
-        		  console.log('???');
             	  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
          	       mapOption = {
          	           center: new kakao.maps.LatLng(37.5657, 126.9807), // 기본지정  위도 경도
@@ -161,15 +160,24 @@ $(function () {
          	      
          	             // 마커에 표시할 인포윈도우를 생성합니다 
          	              infowindow = new kakao.maps.InfoWindow({
-         	                 content: toilet[i].content // 인포윈도우에 표시할 내용
+         	                 content: toilet[i].content+'222222' // 인포윈도우에 표시할 내용
          	             });
-         	             
          	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
          	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
          	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-         	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+          	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow)); 
+         	             
          	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
          	          
+         	          
+        	             infowindowDetail = new kakao.maps.InfoWindow({
+        	            	 content: toilet[i].content,
+        	            	 removable: true
+        	             });
+
+
+        	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
+        	             
          	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
          	                   marker2.setMap(null);
          	                      var latlng = mouseEvent.latLng; 
@@ -184,8 +192,9 @@ $(function () {
          	                 }); 
          	             
          	         }
-        	 
-              switch(error.code) {
+         	       
+    	             
+             /*  switch(error.code) {
                   case error.PERMISSION_DENIED:
            	   		 alert("GPS 위치 엑세스를 거부하였습니다 - 사용하시려면 위치 엑세스를 허용해 주세요")
                   break;
@@ -197,7 +206,7 @@ $(function () {
                   case error.UNKNOWN_ERROR:
                 	  alert("알수 없는 오류가 발생햇습니다.")
                   break;
-              }
+              } */
           }
        },error : function () {
            console.log('fail')
@@ -217,23 +226,45 @@ $(function () {
            infowindow.close();
        }
    }
+   
    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
    function makeOverListener(map, marker, infowindow) {
        return function() {
            infowindow.open(map, marker);
+           infowindowOpened[0] = infowindow;
        };
    }
    
    function makeClickListener(map, marker, infowindow) {
-       return function() {
-           infowindow.open(map, marker);
-       };
+	  		
+		   return function() {	
+			  //오버된 도중에 클릭시 오버 삭제
+	          if(infowindowOpened != null){
+	        	  for(var a = 0; a < infowindowOpened.length ; a++){
+	        		  infowindowOpened[a].close()
+	        	  }
+	          }
+			   infowindow.open(map, marker);
+	           infowindowOpened[1] = infowindow;
+		   };
+	       /* return function() {
+			if(selectedMarker !=null){
+				console.log(selectedMarker);
+				infowindow.close();
+			}
+	          infowindow.open(map, marker);
+	      		selectedMarker = marker;
+	      		console.log(selectedMarker);
+	      } */
+	   
    }
+   
+
    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
    function makeOutListener(infowindow) {
-       return function() {
-           infowindow.close();
-       };
+        return function() {
+           infowindow.close(); 
+       }; 
    }
    function popData() {
 /*    var la = $('#latlng').val()

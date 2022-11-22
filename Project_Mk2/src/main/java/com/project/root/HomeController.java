@@ -28,8 +28,17 @@ public class HomeController {
 	@RequestMapping(value = "blank", method = RequestMethod.GET)
 	public String blank(Locale locale, Model model) {
 		
+		return "blank";
+	}
+	
+	//개발 blank
+	@RequestMapping(value = "blank2", method = RequestMethod.GET)
+	public String blank2(Locale locale, Model model) {
+		
 		return "blank2";
 	}
+	//개발 blank
+	
 	@RequestMapping(value = "buttons", method = RequestMethod.GET)
 	public String buttons(Locale locale, Model model) {
 		
