@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,126 +68,136 @@ $(function () {
                                latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84)
                             }            
              }
-          if ('geolocation' in navigator) {
-        	  navigator.geolocation.getCurrentPosition(function (position){
-        		  	var lat = position.coords.latitude, // 현재 위도
-      				lon = position.coords.longitude; // 현재 경도
-          	 	 	console.log(lat,lon);
-        		  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-        	       mapOption = {
-        	           center: new kakao.maps.LatLng(lat, lon), // 바꿔야 하는 위도 경도
-        	           level: 2 // 지도의 확대 레벨
-        	       };
-        	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-        	   
-        	    // 내 위치 마커 생성
-	        	var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
-	        	    imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
-	        	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-	        	      
-	        	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-	        	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-	        	    markerPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치입니다
-	
-	        	// 마커를 생성합니다
-	        	var marker = new kakao.maps.Marker({
-	        	    position: markerPosition, 
-	        	    image: markerImage // 마커이미지 설정 
-	        	});
-	
-	        	// 마커가 지도 위에 표시되도록 설정합니다
-	        	marker.setMap(map);  
-        	   
-	        	// 공공api 마커 생성
-        	         for (var i = 0; i < toilet.length; i ++) {
-        	             // 마커를 생성합니다
-        	              var marker = new kakao.maps.Marker({
-        	                 map: map, // 마커를 표시할 지도
-        	                 position: toilet[i].latlng // 마커의 위치
-        	             });
-        	      
-        	             // 마커에 표시할 인포윈도우를 생성합니다 
-        	              infowindow = new kakao.maps.InfoWindow({
-        	                 content: toilet[i].content // 인포윈도우에 표시할 내용
-        	             });
-        	             
-        	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-        	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-        	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-        	               kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-        	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
-        	          
-        	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-        	                   marker2.setMap(null);
-        	                      var latlng = mouseEvent.latLng; 
-        	                      
-        	                
-        	                         var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-        	                        message += '경도는 ' + latlng.getLng() + ' 입니다';
-        	                       
-        	                   // 마커가 표시될 위치입니다 
-        	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
+		 navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
+          
+          function showYourLocation(position) {  // 성공했을때 실행
+  		  	var lat = position.coords.latitude, // 현재 위도
+				lon = position.coords.longitude; // 현재 경도
+  	 	 	console.log(lat,lon);
+		  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+	       mapOption = {
+	           center: new kakao.maps.LatLng(lat, lon), // 바꿔야 하는 위도 경도
+	           level: 2 // 지도의 확대 레벨
+	       };
+	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	   
+	    // 내 위치 마커 생성
+    	var imageSrc = 'resources/img/myMaker.png', // 마커이미지의 주소입니다    
+    	    imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
+    	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+    	      
+    	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+    	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    	    markerPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치입니다
 
-        	                   // 마커가 지도 위에 표시되도록 설정합니다
-        	                    marker2.setPosition(latlng);
-        	                    marker2.setMap(map);
-        	                    $('#layer-popup').addClass("show");   
+    	// 마커를 생성합니다
+    	var myMarker = new kakao.maps.Marker({
+    	    position: markerPosition, 
+    	    image: markerImage // 마커이미지 설정 
+    	});
 
-        	                    
-        	 					$('#latlng').val(latlng)
-        	                 }); 
-        	             
-        	         }
-        	        });
-          }else{
-        	  console.log('???');
-        	  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-     	       mapOption = {
-     	           center: new kakao.maps.LatLng(37.5657, 126.9807), // 바꿔야 하는 위도 경도
-     	           level: 3 // 지도의 확대 레벨
-     	       };
-     	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-     	   
-     	         for (var i = 0; i < toilet.length; i ++) {
-     	             // 마커를 생성합니다
-     	              var marker = new kakao.maps.Marker({
-     	                 map: map, // 마커를 표시할 지도
-     	                 position: toilet[i].latlng // 마커의 위치
-     	             });
-     	      
-     	             // 마커에 표시할 인포윈도우를 생성합니다 
-     	              infowindow = new kakao.maps.InfoWindow({
-     	                 content: toilet[i].content // 인포윈도우에 표시할 내용
-     	             });
-     	             
-     	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-     	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-     	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-     	               kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-     	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
-     	          
-     	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-     	                   marker2.setMap(null);
-     	                      var latlng = mouseEvent.latLng; 
-     	                      
-     	                
-     	                         var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-     	                        message += '경도는 ' + latlng.getLng() + ' 입니다';
-     	                       
-     	                   // 마커가 표시될 위치입니다 
-     	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
+    	// 마커가 지도 위에 표시되도록 설정합니다
+    	myMarker.setMap(map);  
+	   
+    	// 공공api 마커 생성
+	         for (var i = 0; i < toilet.length; i ++) {
+	             // 마커를 생성합니다
+	              var marker = new kakao.maps.Marker({
+	                 map: map, // 마커를 표시할 지도
+	                 position: toilet[i].latlng // 마커의 위치
+	             });
+	      
+	             // 마커에 표시할 인포윈도우를 생성합니다 
+	              infowindow = new kakao.maps.InfoWindow({
+	                 content: toilet[i].content // 인포윈도우에 표시할 내용
+	             });
+	             
+	             infowindowDetail = new kakao.maps.InfoWindow({
+	            	 content: toilet[i].content
+	            	 
+	             });
+	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
+	             kakao.maps.event.addListener(marker,'click', function(){
+	            	 	infowindowDetail.open(map, marker);
+	             });    
+	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+	                   marker2.setMap(null);
+	                      var latlng = mouseEvent.latLng; 
+	                   // 마커가 표시될 위치입니다 
+	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
 
-     	                   // 마커가 지도 위에 표시되도록 설정합니다
-     	                    marker2.setPosition(latlng);
-     	                    marker2.setMap(map);
-     	                    $('#layer-popup').addClass("show");   
+	                   // 마커가 지도 위에 표시되도록 설정합니다
+	                    marker2.setPosition(latlng);
+	                    marker2.setMap(map);
+	                    $('#layer-popup').addClass("show");   
+	 					$('#latlng').val(latlng)
+	                 }); 
+	             
+	         }
+              
+              
+          }
+           
+          function showErrorMsg(error) { // 실패했을때 실행
+        		  console.log('???');
+            	  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+         	       mapOption = {
+         	           center: new kakao.maps.LatLng(37.5657, 126.9807), // 기본지정  위도 경도
+         	           level: 3 // 지도의 확대 레벨
+         	       };
+            	  
+         	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+         	   
+         	         for (var i = 0; i < toilet.length; i ++) {
+         	             // 마커를 생성합니다
+         	              var marker = new kakao.maps.Marker({
+         	                 map: map, // 마커를 표시할 지도
+         	                 position: toilet[i].latlng // 마커의 위치
+         	             });
+         	      
+         	             // 마커에 표시할 인포윈도우를 생성합니다 
+         	              infowindow = new kakao.maps.InfoWindow({
+         	                 content: toilet[i].content // 인포윈도우에 표시할 내용
+         	             });
+         	             
+         	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+         	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+         	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+         	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+         	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
+         	          
+         	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+         	                   marker2.setMap(null);
+         	                      var latlng = mouseEvent.latLng; 
+         	                   // 마커가 표시될 위치입니다 
+         	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
 
-     	                    
-     	 					$('#latlng').val(latlng)
-     	                 }); 
-     	             
-     	         }
- 
+         	                   // 마커가 지도 위에 표시되도록 설정합니다
+         	                    marker2.setPosition(latlng);
+         	                    marker2.setMap(map);
+         	                    $('#layer-popup').addClass("show");   
+         	 					$('#latlng').val(latlng)
+         	                 }); 
+         	             
+         	         }
+        	 
+              switch(error.code) {
+                  case error.PERMISSION_DENIED:
+           	   		 alert("GPS 위치 엑세스를 거부하였습니다 - 사용하시려면 위치 엑세스를 허용해 주세요")
+                  break;
+           
+                  case error.POSITION_UNAVAILABLE:
+                	  alert("사용자 정보를 사용할 수 없습니다")
+                  break;
+           
+                  case error.UNKNOWN_ERROR:
+                	  alert("알수 없는 오류가 발생햇습니다.")
+                  break;
+              }
           }
        },error : function () {
            console.log('fail')
@@ -212,7 +223,12 @@ $(function () {
            infowindow.open(map, marker);
        };
    }
- 
+   
+   function makeClickListener(map, marker, infowindow) {
+       return function() {
+           infowindow.open(map, marker);
+       };
+   }
    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
    function makeOutListener(infowindow) {
        return function() {
@@ -275,6 +291,26 @@ $(function () {
 */
 </script>
 <style>
+#GPS {
+	display: block;
+	width: 40px;
+	height: 40px;
+	background-color: white;
+	position: fixed;
+	right: 30px; 
+	top: 15%;
+	z-index: 100;
+	box-shadow: 0.5px 0.5px 1px 0.5px gray;
+	border-radius: 50%;
+}
+#gps-img{
+	position: relative;
+	top: 19%;
+	left: 21%;
+}
+#GPS:hover{
+	
+}
 .layer-popup {
    display: none;
    position: fixed;
@@ -294,24 +330,63 @@ $(function () {
    width: 20%;
    margin: 10% auto;
    background-color: #fff;
+   border-radius: 10%;
 }
 	
 .modal-content {
    padding: 50px 15px;
    text-align: center;
-   height: 450px;
+   height: 300px;
+   border-radius: 10%;
  
 }
- .modal-content #name{
-	display: block; 
-	width: 150px;
-	height: 50px;
-}  
-#GPS {
-	position: fixed;
-	right: 5px;
-	z-index: 100;
+.modal-content #content {
+	padding-top: 15px;
+	/* padding-left:15px; */
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+	text-align : center;
 }
+.modal-content #small, #big {
+	float: left;
+}
+
+#basAddr{
+	width:100%;
+	outline : none;
+}
+span {
+	font-size: 1.2em;
+	color: rgba(0,0,0,0.7);
+}
+#content input[type="text"]{
+	font-size: 1.4em;
+	font-weight: bold;
+	color: rgba(0,0,0,0.8);
+}
+#content input[type="text"]:focus{
+	outline:none;
+}
+
+button {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	background-color: rgba(0,0,0,0.5);
+	border: none;
+	border-radius: 20px;
+}
+button:hover {
+	background-color: rgba(0,0,0,0.7);
+	text-decoration: none;
+	
+}
+#btn-span {
+	color: rgba(230,230,230,0.8);
+	padding : 0px 40%;
+}
+
 </style>
 <body id="page-top">
    <div class="container">
@@ -320,21 +395,33 @@ $(function () {
             <div class="modal-content">
             <!-- <button onclick="bb()">xxxx</button> -->
 	            <form name="frmModal" id="frmModal" name="frmModal">
-	            	<label for="name">이름</label> <input type="text" id="basAddr" name="basAddr" placeholder="이름입력"><br>	   
-	            	<label for="name">소변기</label> <input type="text" id="restTol" name="restTol"><br>	   
-	            	<label for="name">좌변기</label> <input type="text" id="restUri" name="restUri"><br>	   	            	
-	            	<!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->       
-	            	<input type="hidden" id="latlng" name="latlng"><br>                         
-	            	<button onclick="popData()">확인</button>
-	            	<!-- <br>	선택사항
-	            	있음<input type="radio" id="choice1" name="choice" value="Y"> &nbsp;
-	            	없음<input type="radio" id="choice2" name="choice" value="N" checked="checked"> -->
+	            	<input type="text" id="basAddr" name="basAddr" style="border:none;border-bottom:1px solid black" placeholder="이름입력"><br>	   
+	            	<div id = "content">
+		            	<div id='small'>
+		            		<span>소변기</span>&nbsp;<input type="text" id="restTol" name="restTol" size="2" maxlength="2" style="border:none" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+		            	</div>	   
+		            	<div id='big'>
+		            		<span>좌변기</span>&nbsp;<input type="text" id="restUri" name="restUri" size="2" style="border:none" maxlength="2" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+		            	</div>
+	            	</div>	   	            	
+	            	<!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->                             
+	            	<div id="lock" style="width:100%; padding-top:15px;" >
+	            	<label style="width:30%">잠금유무</label>
+	            	
+	            	있음<input type="radio" id="choice1" name="choice" value="Y" style="width:15%" > &nbsp;
+	            	없음<input type="radio" id="choice2" name="choice" value="N"  style="width:15%" checked="checked">
+	            	</div>
+	            	<br>
+	            	
+					<button onclick="popData()"><span id="btn-span">확인</span></button>
+				
+					<input type="hidden" id="latlng" name="latlng"><br>   
 	            </form>
             </div>
          </div>
       </div>
    </div>
-   <div id="GPS"><button type="button" onclick="getCurrentPos()">GPS</button></div>
+   <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
    <!-- Page Wrapper -->
    <div id="clickLatlng"></div>
    <div id="wrapper">
