@@ -11,18 +11,23 @@
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+
 <title>SB Admin 2 - Blank</title>
+
 <!-- Custom fonts for this template-->
 <link href="resources/vendor/fontawesome-free/css/all.min.css"
    rel="stylesheet" type="text/css">
 <link
    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
    rel="stylesheet">
+
 <!-- Custom styles for this template-->
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="resources/css/blank_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
+
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
+
 </head>
 <style type="text/css">
 #map {
@@ -57,7 +62,7 @@ $(function () {
              for(var i = 0 ; i < j[0].row.length; i++){
                  toilet[i] = {
                                content: '<div>'+j[0].row[i].FNAME+'</div>', 
-                               latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도
+                               latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84)
                             }            
              }
          //자신의 위치 가져오는 geolocation api 
@@ -239,10 +244,11 @@ $(function () {
    
    //장소 등록 
    function popData() {
-    var la = $('#latlng').val()
+/*    var la = $('#latlng').val()
        var newStr = la.replace('(', ' ');
        newStr = newStr.replace(')', ' ');
-       $('#latlng').val(newStr.trim()) 
+	  
+       $('#latlng').val(newStr.trim()) */
        var formData = $("#frmModal").serialize(); 
 	   $.ajax({
 	       url:"blank",
@@ -251,9 +257,7 @@ $(function () {
 	       data:formData,
 	       contentType:"application/json",
 	       success:function(responseData){        
-
 	          var j = Object.values(responseData)  
-
 	        },error : function () {
 	           console.log('fail')
 	        } 
@@ -299,6 +303,7 @@ $(function () {
       <ul
          class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
          id="accordionSidebar">
+
          <!-- Sidebar - Brand -->
          <a
             class="sidebar-brand d-flex align-items-center justify-content-center"

@@ -1,8 +1,10 @@
 package com.project.root.basicdata.dto;
 
 public class BasicDataDTO {
-	//기본 데이터
-	private int basNo;
+
+	
+	private String basNo;
+
 	private int catNo;
 	private String basAddr;
 	private String basLat;
@@ -31,10 +33,12 @@ public class BasicDataDTO {
 	public void setRestUri(int restUri) {
 		this.restUri = restUri;
 	}
-	public int getBasNo() {
+
+	public String getBasNo() {
+
 		return basNo;
 	}
-	public void setBasNo(int basNo) {
+	public void setBasNo(String basNo) {
 		this.basNo = basNo;
 	}
 	public int getCatNo() {
@@ -60,6 +64,12 @@ public class BasicDataDTO {
 	}
 	public void setBasLon(String basLon) {
 		this.basLon = basLon;
+	}
+	@Override
+	public String toString() {
+		return "BasicDataDTO [basNo=" + basNo + ", catNo=" + catNo + ", basAddr=" + basAddr + ", basLat=" + basLat
+				+ ", basLon=" + basLon + ", restLock=" + restLock + ", restTol=" + restTol + ", restUri=" + restUri
+				+ "]";
 	}
 	
 
