@@ -2,17 +2,39 @@ package com.project.root.basicdata.dto;
 
 public class BasicDataDTO {
 	
-	private int basNo;
+	private String basNo;
 	private int catNo;
 	private String basAddr;
 	private String basLat;
 	private String basLon;
 	
+	//임시데이터
+	private String restLock;
+	private int restTol;
+	private int restUri;
 	
-	public int getBasNo() {
+	public String getRestLock() {
+		return restLock;
+	}
+	public void setRestLock(String restLock) {
+		this.restLock = restLock;
+	}
+	public int getRestTol() {
+		return restTol;
+	}
+	public void setRestTol(int restTol) {
+		this.restTol = restTol;
+	}
+	public int getRestUri() {
+		return restUri;
+	}
+	public void setRestUri(int restUri) {
+		this.restUri = restUri;
+	}
+	public String getBasNo() {
 		return basNo;
 	}
-	public void setBasNo(int basNo) {
+	public void setBasNo(String basNo) {
 		this.basNo = basNo;
 	}
 	public int getCatNo() {

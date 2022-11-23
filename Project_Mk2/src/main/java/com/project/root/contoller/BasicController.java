@@ -1,5 +1,9 @@
 package com.project.root.contoller;
 
-public class BasicController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class BasicController {
+	
+	
 }

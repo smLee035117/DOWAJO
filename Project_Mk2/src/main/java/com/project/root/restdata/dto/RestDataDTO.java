@@ -2,7 +2,7 @@ package com.project.root.restdata.dto;
 
 public class RestDataDTO {
 	private int restNo;
-	private int basNo;
+	private String basNo;
 	private String restOpenTime;
 	private String restLock;
 	private int restTol;
@@ -20,10 +20,10 @@ public class RestDataDTO {
 	public void setRestNo(int restNo) {
 		this.restNo = restNo;
 	}
-	public int getBasNo() {
+	public String getBasNo() {
 		return basNo;
 	}
-	public void setBasNo(int basNo) {
+	public void setBasNo(String basNo) {
 		this.basNo = basNo;
 	}
 	public String getRestOpenTime() {

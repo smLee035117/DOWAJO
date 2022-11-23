@@ -25,11 +25,6 @@ public class HomeController {
 		
 		return "index";
 	}
-	@RequestMapping(value = "blank", method = RequestMethod.GET)
-	public String blank(Locale locale, Model model) {
-		
-		return "blank";
-	}
 	
 	//개발 blank
 	@RequestMapping(value = "blank2", method = RequestMethod.GET)
