@@ -15,10 +15,11 @@ CREATE TABLE BASIC_DATA (
 );
 
 -- 상세정보 테이블
+
 CREATE TABLE REST_DATA (
 	REST_NO	NUMBER(5)	NOT NULL,
 	BAS_NO	VARCHAR2(10)	NOT NULL,  --11/22 수정사항 NUMBER -> VARCHAR2(10)
-	REST_OPENTIME	VARCHAR2(20) NOT NULL,   --11/22 수정사항 DATE -> VARCHAR2(20)
+	REST_OPENTIME	VARCHAR2(20)  NULL,   --11/22 수정사항 DATE -> VARCHAR2(20) /// 11/23 NULL로 수정 
 	REST_LOCK	VARCHAR2(5)	NOT NULL,
 	REST_TOI	NUMBER(5)	NULL,
 	REST_URI	NUMBER(5)	NULL,
@@ -109,3 +110,11 @@ NOCACHE;
 
 --11/22 어드민 계정 생성완료
 insert into member values(member_seq.nextVal,'admin','admin1','A');
+
+
+--------------------------------------11/23 수정사항 --------------------------------------------------
+ALTER TABLE basic_data RENAME COLUMN BASIC_NAME TO BAS_NAME;
+   
+REST_DATA
+REST_OPENTIME	VARCHAR2(20)  NULL,   -- 11/23 NULL로 수정 
+   

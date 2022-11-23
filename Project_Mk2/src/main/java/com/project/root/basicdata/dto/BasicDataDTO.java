@@ -4,33 +4,11 @@ public class BasicDataDTO {
 	
 	private String basNo;
 	private int catNo;
+	private String basName;
 	private String basAddr;
 	private String basLat;
 	private String basLon;
 	
-	//임시데이터
-	private String restLock;
-	private int restTol;
-	private int restUri;
-	
-	public String getRestLock() {
-		return restLock;
-	}
-	public void setRestLock(String restLock) {
-		this.restLock = restLock;
-	}
-	public int getRestTol() {
-		return restTol;
-	}
-	public void setRestTol(int restTol) {
-		this.restTol = restTol;
-	}
-	public int getRestUri() {
-		return restUri;
-	}
-	public void setRestUri(int restUri) {
-		this.restUri = restUri;
-	}
 	public String getBasNo() {
 		return basNo;
 	}
@@ -42,6 +20,12 @@ public class BasicDataDTO {
 	}
 	public void setCatNo(int catNo) {
 		this.catNo = catNo;
+	}
+	public String getBasName() {
+		return basName;
+	}
+	public void setBasName(String basicName) {
+		this.basName = basicName;
 	}
 	public String getBasAddr() {
 		return basAddr;
@@ -63,10 +47,9 @@ public class BasicDataDTO {
 	}
 	@Override
 	public String toString() {
-		return "BasicDataDTO [basNo=" + basNo + ", catNo=" + catNo + ", basAddr=" + basAddr + ", basLat=" + basLat
-				+ ", basLon=" + basLon + ", restLock=" + restLock + ", restTol=" + restTol + ", restUri=" + restUri
-				+ "]";
+		return "BasicDataDTO [basNo=" + basNo + ", catNo=" + catNo + ", basName=" + basName + ", basAddr=" + basAddr
+				+ ", basLat=" + basLat + ", basLon=" + basLon + "]";
 	}
-	
 
+	
 }
