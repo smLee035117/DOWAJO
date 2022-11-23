@@ -30,5 +30,8 @@
 		<result property="restKey" column="rest_key"/>
 	</resultMap>
 	
+	<select id="getToiletDetail" resultMap="restData">
+		select * from rest_data
+	</select> 
 	
 </mapper>

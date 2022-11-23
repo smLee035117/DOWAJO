@@ -4,7 +4,7 @@ public class BasicDataDTO {
 
 	
 	private String basNo;
-
+	private String basName;
 	private int catNo;
 	private String basAddr;
 	private String basLat;
@@ -15,6 +15,12 @@ public class BasicDataDTO {
 	private int restTol;
 	private int restUri;
 	
+	public String getBasName() {
+		return basName;
+	}
+	public void setBasName(String basName) {
+		this.basName = basName;
+	}
 	public String getRestLock() {
 		return restLock;
 	}
