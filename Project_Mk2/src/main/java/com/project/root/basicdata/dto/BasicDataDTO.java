@@ -1,8 +1,10 @@
 package com.project.root.basicdata.dto;
 
 public class BasicDataDTO {
+
 	
 	private String basNo;
+
 	private int catNo;
 	private String basAddr;
 	private String basLat;
@@ -31,7 +33,9 @@ public class BasicDataDTO {
 	public void setRestUri(int restUri) {
 		this.restUri = restUri;
 	}
+
 	public String getBasNo() {
+
 		return basNo;
 	}
 	public void setBasNo(String basNo) {
