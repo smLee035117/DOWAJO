@@ -80,6 +80,13 @@ public class RestDataDTO {
 	public void setRestKey(String restKey) {
 		this.restKey = restKey;
 	}
+	@Override
+	public String toString() {
+		return "RestDataDTO [restNo=" + restNo + ", basNo=" + basNo + ", restOpenTime=" + restOpenTime + ", restLock="
+				+ restLock + ", restTol=" + restTol + ", restUri=" + restUri + ", restDisTol=" + restDisTol
+				+ ", restDisUri=" + restDisUri + ", restClTime=" + restClTime + ", restStatus=" + restStatus
+				+ ", restKey=" + restKey + "]";
+	}
 	
 	
 	

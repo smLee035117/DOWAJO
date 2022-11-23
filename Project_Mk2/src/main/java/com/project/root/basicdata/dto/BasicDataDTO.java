@@ -61,6 +61,12 @@ public class BasicDataDTO {
 	public void setBasLon(String basLon) {
 		this.basLon = basLon;
 	}
+	@Override
+	public String toString() {
+		return "BasicDataDTO [basNo=" + basNo + ", catNo=" + catNo + ", basAddr=" + basAddr + ", basLat=" + basLat
+				+ ", basLon=" + basLon + ", restLock=" + restLock + ", restTol=" + restTol + ", restUri=" + restUri
+				+ "]";
+	}
 	
 
 }

@@ -30,6 +30,10 @@ public class ReviewDTO {
 	public void setReContent(String reContent) {
 		this.reContent = reContent;
 	}
+	@Override
+	public String toString() {
+		return "ReviewDTO [reNo=" + reNo + ", basNo=" + basNo + ", reSco=" + reSco + ", reContent=" + reContent + "]";
+	}
 	
 	
 }

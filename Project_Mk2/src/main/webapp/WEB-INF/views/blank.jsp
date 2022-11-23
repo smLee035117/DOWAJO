@@ -269,7 +269,7 @@ $(function () {
       <div class="layer-popup" id="layer-popup">
          <div class="modal-dialog">
             <div class="modal-content">
-            <!-- <button onclick="bb()">xxxx</button> -->
+            <!-- <button onclick="bb()">xxx</button> -->
 	            <form name="frmModal" id="frmModal" name="frmModal">
 	            	<input type="text" id="basAddr" name="basAddr" style="border:none;border-bottom:1px solid black" placeholder="이름입력"><br>	   
 	            	<div id = "content">

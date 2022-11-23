@@ -23,9 +23,11 @@
 
 <!-- Custom styles for this template-->
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="resources/css/blank_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
 
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
+
 </head>
 <style type="text/css">
 #map {
@@ -45,15 +47,9 @@
    });
    var infowindowOpened = [];
 $(function () {
-   /* $('#accordionSidebar').hide(); */
      var toilet = [];
      var mapContainer;
      var map;
-     /* selectedMarker = null; */
-
-     navigator.geolocation.getCurrentPosition(function (position){
-    	 	
-     });
     
     //  공공데이터 api 정보가져오기 
    $.ajax({
@@ -69,6 +65,7 @@ $(function () {
                                latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84)
                             }            
              }
+         //자신의 위치 가져오는 geolocation api 
 		 navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
           
           function showYourLocation(position) {  // 성공했을때 실행
@@ -108,25 +105,28 @@ $(function () {
 	                 position: toilet[i].latlng // 마커의 위치
 	             });
 	      
-	             // 마커에 표시할 인포윈도우를 생성합니다 
-	              infowindow = new kakao.maps.InfoWindow({
-	                 content: toilet[i].content // 인포윈도우에 표시할 내용
-	             });
-	             
+  	             // 제목 페이지 info
+ 	              infowindow = new kakao.maps.InfoWindow({
+ 	                 content: toilet[i].content // 인포윈도우에 표시할 내용
+ 	             });
+ 	             
+ 	             //상세 페이지 info
 	             infowindowDetail = new kakao.maps.InfoWindow({
-	            	 content: toilet[i].content	            	 
+	            	 content: toilet[i].content,
+	            	 removable: true
 	             });
-	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-	    /*          kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow)); */
-	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
-	             kakao.maps.event.addListener(marker,'click', function(){
-	            	 	infowindowDetail.open(map, marker);
-	             });    
+				
+	             //마우스 오버 후 제목 내용 나오는 리스너
+	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+	             //마우스 오버후 이동시 끄는 리스너
+	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+	             //마우스 클릭시 디테일 내용 나오는 리스너
+	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
+	             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
 	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
 	                   marker2.setMap(null);
-	                      var latlng = mouseEvent.latLng; 
+	                   var latlng = mouseEvent.latLng; 
+	                      
 	                   // 마커가 표시될 위치입니다 
 	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
 
@@ -138,11 +138,10 @@ $(function () {
 	                 }); 
 	             
 	         }
-              
-              
+                            
           }
-           
-          function showErrorMsg(error) { // 실패했을때 실행
+          //자신의 위치 가져오는 geolocation api이 실패했을때 실행
+          function showErrorMsg(error) {
             	  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
          	       mapOption = {
          	           center: new kakao.maps.LatLng(37.5657, 126.9807), // 기본지정  위도 경도
@@ -158,26 +157,24 @@ $(function () {
          	                 position: toilet[i].latlng // 마커의 위치
          	             });
          	      
-         	             // 마커에 표시할 인포윈도우를 생성합니다 
+         	             // 제목 페이지 info
          	              infowindow = new kakao.maps.InfoWindow({
-         	                 content: toilet[i].content+'222222' // 인포윈도우에 표시할 내용
+         	                 content: toilet[i].content // 인포윈도우에 표시할 내용
          	             });
-         	             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-         	             // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-         	             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-          	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow)); 
          	             
-         	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));    
-         	          
-         	          
+         	             //상세 페이지 info
         	             infowindowDetail = new kakao.maps.InfoWindow({
         	            	 content: toilet[i].content,
         	            	 removable: true
         	             });
-
-
-        	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
         	             
+        	             //마우스 오버 후 제목 내용 나오는 리스너
+        	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        	             //마우스 오버후 이동시 끄는 리스너
+        	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+        	             //마우스 클릭시 디테일 내용 나오는 리스너
+        	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
+        	             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
          	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
          	                   marker2.setMap(null);
          	                      var latlng = mouseEvent.latLng; 
@@ -193,50 +190,38 @@ $(function () {
          	             
          	         }
          	       
-    	             
-             /*  switch(error.code) {
+    	       //geolocation 실패시 띄우는 메세지      
+               switch(error.code) {
                   case error.PERMISSION_DENIED:
            	   		 alert("GPS 위치 엑세스를 거부하였습니다 - 사용하시려면 위치 엑세스를 허용해 주세요")
-                  break;
-           
+                  break;       
                   case error.POSITION_UNAVAILABLE:
                 	  alert("사용자 정보를 사용할 수 없습니다")
-                  break;
-           
+                  break;          
                   case error.UNKNOWN_ERROR:
                 	  alert("알수 없는 오류가 발생햇습니다.")
                   break;
-              } */
+              } 
           }
        },error : function () {
            console.log('fail')
         } 
     });
 
-   // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다.
-
    //객체생성
     var marker2 = new kakao.maps.Marker({ });
 	
-
  })
- function allInfowindowClose() {
-       for(var i=0; i<infowindows.length; i++) {
-           var infowindow = infowindows[i];
-           infowindow.close();
-       }
-   }
-   
-   // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+
+     //마우스 오버 후 제목 내용 나오는 리스너	             
    function makeOverListener(map, marker, infowindow) {
        return function() {
            infowindow.open(map, marker);
            infowindowOpened[0] = infowindow;
        };
    }
-   
-   function makeClickListener(map, marker, infowindow) {
-	  		
+   //마우스 클릭시 디테일 내용 나오는 리스너
+   function makeClickListener(map, marker, infowindow) {  		
 		   return function() {	
 			  //오버된 도중에 클릭시 오버 삭제
 	          if(infowindowOpened != null){
@@ -246,26 +231,18 @@ $(function () {
 	          }
 			   infowindow.open(map, marker);
 	           infowindowOpened[1] = infowindow;
-		   };
-	       /* return function() {
-			if(selectedMarker !=null){
-				console.log(selectedMarker);
-				infowindow.close();
-			}
-	          infowindow.open(map, marker);
-	      		selectedMarker = marker;
-	      		console.log(selectedMarker);
-	      } */
-	   
+		   };	   
    }
    
 
-   // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+   //마우스 오버후 이동시 끄는 리스너
    function makeOutListener(infowindow) {
         return function() {
            infowindow.close(); 
        }; 
    }
+   
+   //장소 등록 
    function popData() {
 /*    var la = $('#latlng').val()
        var newStr = la.replace('(', ' ');
@@ -280,151 +257,19 @@ $(function () {
 	       data:formData,
 	       contentType:"application/json",
 	       success:function(responseData){        
-	          var j = Object.values(responseData)
-	    	   console.log(j)
-	       
+	          var j = Object.values(responseData)  
 	        },error : function () {
 	           console.log('fail')
 	        } 
 	    });
 }
- /*
-	// gps로 위치불러오기
-	function getCurrentPos(){
-			navigator.geolocation.getCurrentPosition(function (position) {
-				var lat = position.coords.latitude, // 위도
-				lon = position.coords.longitude; // 경도
-				var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-				message = '<div style="height: 25px; padding:2px 10px; margin: 3px;">현재 위치입니다.</div>' 	// 인포윈도우에 표시될 내용입니다
-				// 마커와 인포윈도우를 표시합니다
-				displayMarker(locPosition, message);
-		});
-	// 지도에 마커와 인포윈도우를 표시하는 함수입니다
-	function displayMarker(locPosition, message) { // 마커를 생성합니다
-		var imageSrc_loc = "assets/img/marker_loc.png";
-		var imageSize_loc = new kakao.maps.Size(40, 40); // 마커 이미지 생성
-		var markerImage_loc = new kakao.maps.MarkerImage(imageSrc_loc, imageSize_loc);
-		var marker_loc = new kakao.maps.Marker({
-			map: map, 
-			position: locPosition,
-			image: markerImage_loc
-			});
-		var iwContent = message, // 인포윈도우에 표시할 내용
-			iwRemoveable = true;
-		// 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({content: iwContent});
-		// 인포윈도우를 마커위에 표시합니다
-		infowindow.open(map, marker_loc);
-		// 지도 중심좌표를 접속위치로 변경합니다
-		map.setCenter(locPosition);
-	}
-};
-*/
 </script>
-<style>
-#GPS {
-	display: block;
-	width: 40px;
-	height: 40px;
-	background-color: white;
-	position: fixed;
-	right: 30px; 
-	top: 15%;
-	z-index: 100;
-	box-shadow: 0.5px 0.5px 1px 0.5px gray;
-	border-radius: 50%;
-}
-#gps-img{
-	position: relative;
-	top: 19%;
-	left: 21%;
-}
-#GPS:hover{
-	
-}
-.layer-popup {
-   display: none;
-   position: fixed;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   left: 0;
-   background-color: rgba(0, 0, 0, 0.5);
-   z-index: 100;
-}
-
-.layer-popup.show {
-   display: block;
-}
-
-.modal-dialog {
-   width: 20%;
-   margin: 10% auto;
-   background-color: #fff;
-   border-radius: 10%;
-}
-	
-.modal-content {
-   padding: 50px 15px;
-   text-align: center;
-   height: 300px;
-   border-radius: 10%;
- 
-}
-.modal-content #content {
-	padding-top: 15px;
-	/* padding-left:15px; */
-	display: flex;
-    flex-direction: row;
-    justify-content: center;
-	text-align : center;
-}
-.modal-content #small, #big {
-	float: left;
-}
-
-#basAddr{
-	width:100%;
-	outline : none;
-}
-span {
-	font-size: 1.2em;
-	color: rgba(0,0,0,0.7);
-}
-#content input[type="text"]{
-	font-size: 1.4em;
-	font-weight: bold;
-	color: rgba(0,0,0,0.8);
-}
-#content input[type="text"]:focus{
-	outline:none;
-}
-
-button {
-	display: flex;
-	width: 100%;
-	align-items: center;
-	background-color: rgba(0,0,0,0.5);
-	border: none;
-	border-radius: 20px;
-}
-button:hover {
-	background-color: rgba(0,0,0,0.7);
-	text-decoration: none;
-	
-}
-#btn-span {
-	color: rgba(230,230,230,0.8);
-	padding : 0px 40%;
-}
-
-</style>
 <body id="page-top">
    <div class="container">
       <div class="layer-popup" id="layer-popup">
          <div class="modal-dialog">
             <div class="modal-content">
-            <!-- <button onclick="bb()">xxxx</button> -->
+            <!-- <button onclick="bb()">xxx</button> -->
 	            <form name="frmModal" id="frmModal" name="frmModal">
 	            	<input type="text" id="basAddr" name="basAddr" style="border:none;border-bottom:1px solid black" placeholder="이름입력"><br>	   
 	            	<div id = "content">
@@ -437,15 +282,12 @@ button:hover {
 	            	</div>	   	            	
 	            	<!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->                             
 	            	<div id="lock" style="width:100%; padding-top:15px;" >
-	            	<label style="width:30%">잠금유무</label>
-	            	
+	            	<label style="width:30%">잠금유무</label>	            	
 	            	있음<input type="radio" id="choice1" name="choice" value="Y" style="width:15%" > &nbsp;
 	            	없음<input type="radio" id="choice2" name="choice" value="N"  style="width:15%" checked="checked">
 	            	</div>
-	            	<br>
-	            	
-					<button onclick="popData()"><span id="btn-span">확인</span></button>
-				
+	            	<br>	            	
+					<button onclick="popData()"><span id="btn-span">확인</span></button>				
 					<input type="hidden" id="latlng" name="latlng"><br>   
 	            </form>
             </div>
