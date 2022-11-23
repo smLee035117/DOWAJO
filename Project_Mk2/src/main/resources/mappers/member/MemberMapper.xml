@@ -16,5 +16,8 @@
 		<result property="memKey" column="mem_key"/>
 	</resultMap>
 	
+	<select id="user_check" resultMap="member">
+		select * from member where mem_id = #{id}
+	</select>
 	
 </mapper>
