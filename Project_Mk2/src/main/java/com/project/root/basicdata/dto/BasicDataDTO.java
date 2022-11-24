@@ -6,7 +6,6 @@ public class BasicDataDTO {
 	private String basNo;
 	private String basName;
 	private int catNo;
-	private String basName;
 	private String basAddr;
 	private String basLat;
 	private String basLng;
