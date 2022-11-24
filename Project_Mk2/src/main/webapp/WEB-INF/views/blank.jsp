@@ -44,34 +44,47 @@
    });
    var infowindowOpened = [];
    var userCheckToilet = [];
-
-	
+   var detailList= [];	
 $(function () {
      var toilet = [];
      var mapContainer;
      var map;
-/*      var detailList= [];
-
+     
      $.ajax({
     	url:"toiletDetail",
-    	type:"post",
-	       success:function(toiletInfo){        
-			 for(var i = 0; i < toiletInfo.length; i++){
-				 detailList = {
-						OverrayContent : '<div><label id="name">'+ toiletInfo[i].basName +'</label></div>'+
-		          			'<div><span>소변기</span><label>'+ toiletInfo[i].restUri + '</label></div>'+
-		          			'<div><span>대변기</span><label>'+ toiletInfo[i].restTol + '</label></div>'+
-		          			'<div><span>잠금유무</span><label>'+ toiletInfo[i].restRock + '</label></div>',
-		          		number : toiletInfo[i].basNo
-				 }
+    	type:"get",
+    	dataType: "json",
+	       success:function(toiletInfo){
+	    	 var j = Object.values(toiletInfo)
+	    	 console.log(j.length);
+		 	 for(var i = 0; i < j.length; i++){
+		 		 if(j[i].restDisTol!=0){
+		 			detailList[i] = {
+							 number : j[i].basNo,
+							 overrayContent : '<div><label id="name">'+j[i].basName+'</label></div>'+
+			          			'<div><span>소변기</span><label>'+ j[i].restUri + '</label></div>'+
+			          			'<div><span>대변기</span><label>'+ j[i].restTol + '</label></div>'+
+			          			'<div><span>잠금유무</span><label>'+ j[i].restLock + '</label></div>'+
+			          			'<div><span>장애인대변기</span><label>'+j[i].restDisTol+'</label></div>'
+			          		
+					 }
+		 		 }
+				 
+		 			 detailList[i] = {
+						 number : j[i].basNo,
+						 overrayContent : '<div><label id="name">'+j[i].basName+'</label></div>'+
+		          			'<div><span>소변기</span><label>'+ j[i].restUri + '</label></div>'+
+		          			'<div><span>대변기</span><label>'+ j[i].restTol + '</label></div>'+
+		          			'<div><span>잠금유무</span><label>'+ j[i].restLock + '</label></div>'
+		          		
+				 } 
 			}
-	    	   		
-
+	    	 
 	        },error : function () {
 	           console.log('fail')
 	        } 
      });
- */
+     console.log(detailList)
     //  공공데이터 api 정보가져오기 
    $.ajax({
        url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
@@ -90,6 +103,7 @@ $(function () {
                  }            
              }
           /* console.log(toilet[2].number) */
+          
          //자신의 위치 가져오는 geolocation api 
 		 navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
           
@@ -168,14 +182,13 @@ $(function () {
     	<c:forEach var="toiletList" items="${toiletList}" varStatus="status">
     	userCheckToilet.push({
     		content: '<div>${toiletList.basName}</div>',
-			 latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLon}),
-			 number: ${toiletList.basNo}
+			 latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
+			 number: '${toiletList.basNo}'
     	})
-			console.log('${toiletList.basName}')
 		</c:forEach>
     		// baic_data 정보 불러와서 뿌리는 마
 	         for (var i = 0; i < userCheckToilet.length; i ++) {
-	        	 console.log('@@@@'+userCheckToilet.length)
+	        	console.log(userCheckToilet[i].latlng)
 	             // 마커를 생성합니다
 	              var marker = new kakao.maps.Marker({
 	                 map: map, // 마커를 표시할 지도
@@ -186,27 +199,16 @@ $(function () {
  	              infowindow = new kakao.maps.InfoWindow({
  	                 content: userCheckToilet[i].content // 인포윈도우에 표시할 내용
  	             });
-  	             
+  	   
  	            //상세 페이지 info
- 	             infowindowDetail = new kakao.maps.InfoWindow({
- 	            	 content: toilet[i].content,
- 	            	 removable: true
- 	             });
-  	             
- 	          /*    //상세 페이지 info
  	             for(var v = 0; v < detailList.length; v++){
  	            	 if(detailList[v].number == userCheckToilet[i].number){
  	            		infowindowDetail = new kakao.maps.InfoWindow({
- 	            			content: detailList.content,
- 	            			removable: true
+ 	            		    content: detailList[v].overrayContent, 
  	            		});
- 	            	 }else {
- 	            		  infowindowDetail = new kakao.maps.InfoWindow({
- 	    	            	 content: userCheckToilet[i].content,
- 	    	            	 removable: true
- 	    	             }); 
+
  	            	 }
- 	             } */
+ 	             } 
 	           
 				console.log(infowindowDetail.length)
 	             //마우스 오버 후 제목 내용 나오는 리스너
@@ -214,7 +216,6 @@ $(function () {
 	             //마우스 오버후 이동시 끄는 리스너
 	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	             //마우스 클릭시 디테일 내용 나오는 리스너
-	      
 	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
 	             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
 	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
@@ -243,7 +244,7 @@ $(function () {
             	  
          	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
          	   
-         	         for (var i = 0; i < toilet.length; i ++) {
+         	         for (var i = 0; i < toilet.length; i++) {
          	             // 마커를 생성합니다
          	              var marker = new kakao.maps.Marker({
          	                 map: map, // 마커를 표시할 지도
@@ -335,7 +336,10 @@ $(function () {
            infowindow.close(); 
        }; 
    }
-   
+   // 오버레이 끄는 함수
+   function closeOverlay() {
+	    overlay.setMap(null);     
+	}
    //장소 등록 
    function popData() {
     var la = $('#latlng').val()

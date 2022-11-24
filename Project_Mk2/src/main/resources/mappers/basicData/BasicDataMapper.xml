@@ -17,7 +17,7 @@
 		<result property="basAddr" column="bas_addr"/>
 		<result property="basName" column="bas_name"/>
 		<result property="basLat" column="bas_lat"/>
-		<result property="basLon" column="bas_lon"/>
+		<result property="basLng" column="bas_lng"/>
 	</resultMap>
 	
 	<select id="getToiletList" resultMap="basicData">
