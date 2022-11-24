@@ -11,15 +11,6 @@ public class BasicDataDTO {
 	private String basLng;
 	
 
-	
-	public String getBasName() {
-		return basName;
-	}
-	public void setBasName(String basName) {
-		this.basName = basName;
-	}
-
-
 	public String getBasNo() {
 
 		return basNo;
