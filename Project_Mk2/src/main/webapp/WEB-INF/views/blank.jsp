@@ -284,6 +284,36 @@ $(function () {
          	                 }); 
          	             
          	         }
+         	    
+				<c:forEach var="toiletList" items="${toiletList}" varStatus="status">
+         	    	userCheckToilet.push({
+         	    		content: '<div>${toiletList.basName}</div>',
+         				 latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
+         				 number: '${toiletList.basNo}'
+         	    	})
+         		</c:forEach>
+         	    		// baic_data 정보 불러와서 뿌리는 마
+				for (var i = 0; i < userCheckToilet.length; i ++) {
+						// 마커를 생성합니다
+         		       	var marker = new kakao.maps.Marker({
+         		            map: map, // 마커를 표시할 지도
+         		            position: userCheckToilet[i].latlng // 마커의 위치
+         		        });
+         		      
+         	  	       // 제목 페이지 info
+         	 	         infowindow = new kakao.maps.InfoWindow({
+         	 	         content: userCheckToilet[i].content // 인포윈도우에 표시할 내용
+         	 	         });
+         	  	   
+         	 	        //상세 페이지 info
+         	 	          for(var v = 0; v < detailList.length; v++){
+         	 	          	if(detailList[v].number == userCheckToilet[i].number){
+         	 	            	infowindowDetail = new kakao.maps.InfoWindow({
+         	 	            		content: detailList[v].overrayContent, 
+         	 	            	});
+
+         	 	           	}
+         	 	          } 
          	       
     	       //geolocation 실패시 띄우는 메세지      
                switch(error.code) {
@@ -336,10 +366,7 @@ $(function () {
            infowindow.close(); 
        }; 
    }
-   // 오버레이 끄는 함수
-   function closeOverlay() {
-	    overlay.setMap(null);     
-	}
+
    //장소 등록 
    function popData() {
     var la = $('#latlng').val()
