@@ -23,6 +23,8 @@ import com.project.root.basicdata.service.BasicDataService;
 public class BasicController {
 	
 	@Autowired RestDataService restdataService;
+	@Autowired BasicDataService basicDataService;
+	
 	
 	@RequestMapping(value = "blank", method = RequestMethod.GET)
 	public String blank(Model model) {		

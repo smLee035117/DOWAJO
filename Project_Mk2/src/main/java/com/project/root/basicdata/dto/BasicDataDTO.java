@@ -52,5 +52,5 @@ public class BasicDataDTO {
 	public String toString() {
 		return "BasicDataDTO [basNo=" + basNo + ", catNo=" + catNo + ", basAddr=" + basAddr + ", basLat=" + basLat
 				+ ", basLng=" + basLng + "]";
-	
+	}
 }
