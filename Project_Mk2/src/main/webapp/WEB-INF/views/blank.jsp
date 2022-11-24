@@ -245,76 +245,99 @@ $(function () {
          	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
          	   
          	         for (var i = 0; i < toilet.length; i++) {
-         	             // 마커를 생성합니다
-         	              var marker = new kakao.maps.Marker({
-         	                 map: map, // 마커를 표시할 지도
-         	                 position: toilet[i].latlng // 마커의 위치
-         	             });
-         	      
-         	             // 제목 페이지 info
-         	              infowindow = new kakao.maps.InfoWindow({
-         	                 content: toilet[i].content // 인포윈도우에 표시할 내용
-         	             });
-         	             
-         	             //상세 페이지 info
-         	          
-        	             infowindowDetail = new kakao.maps.InfoWindow({
-        	            	 content: toilet[i].content,
-        	            	 removable: true
-        	             });
-        	             
-        	             //마우스 오버 후 제목 내용 나오는 리스너
-        	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-        	             //마우스 오버후 이동시 끄는 리스너
-        	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-        	             //마우스 클릭시 디테일 내용 나오는 리스너
-        	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
-        	             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
-         	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-         	                   marker2.setMap(null);
-         	                      var latlng = mouseEvent.latLng; 
-         	                   // 마커가 표시될 위치입니다 
-         	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
-
-         	                   // 마커가 지도 위에 표시되도록 설정합니다
-         	                    marker2.setPosition(latlng);
-         	                    marker2.setMap(map);
-         	                    $('#layer-popup').addClass("show");   
-         	 					$('#latlng').val(latlng)
-         	                 }); 
+	         	             // 마커를 생성합니다
+	         	              var marker = new kakao.maps.Marker({
+	         	                 map: map, // 마커를 표시할 지도
+	         	                 position: toilet[i].latlng // 마커의 위치
+	         	             });
+	         	      
+	         	             // 제목 페이지 info
+	         	              infowindow = new kakao.maps.InfoWindow({
+	         	                 content: toilet[i].content // 인포윈도우에 표시할 내용
+	         	             });
+	         	             
+	         	             //상세 페이지 info
+	         	          
+	        	             infowindowDetail = new kakao.maps.InfoWindow({
+	        	            	 content: toilet[i].content,
+	        	            	 removable: true
+	        	             });
+	        	             
+	        	             //마우스 오버 후 제목 내용 나오는 리스너
+	        	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+	        	             //마우스 오버후 이동시 끄는 리스너
+	        	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+	        	             //마우스 클릭시 디테일 내용 나오는 리스너
+	        	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
+	        	             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
+	         	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+	         	                   marker2.setMap(null);
+	         	                      var latlng = mouseEvent.latLng; 
+	         	                   // 마커가 표시될 위치입니다 
+	         	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
+	
+	         	                   // 마커가 지도 위에 표시되도록 설정합니다
+	         	                    marker2.setPosition(latlng);
+	         	                    marker2.setMap(map);
+	         	                    $('#layer-popup').addClass("show");   
+	         	 					$('#latlng').val(latlng)
+	         	                 }); 
          	             
          	         }
-         	    
-				<c:forEach var="toiletList" items="${toiletList}" varStatus="status">
+         	    	<c:forEach var="toiletList" items="${toiletList}" varStatus="status">
          	    	userCheckToilet.push({
          	    		content: '<div>${toiletList.basName}</div>',
          				 latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
          				 number: '${toiletList.basNo}'
          	    	})
-         		</c:forEach>
+         			</c:forEach>
          	    		// baic_data 정보 불러와서 뿌리는 마
-				for (var i = 0; i < userCheckToilet.length; i ++) {
-						// 마커를 생성합니다
-         		       	var marker = new kakao.maps.Marker({
-         		            map: map, // 마커를 표시할 지도
-         		            position: userCheckToilet[i].latlng // 마커의 위치
-         		        });
+         		         for (var i = 0; i < userCheckToilet.length; i ++) {
+         		        	console.log(userCheckToilet[i].latlng)
+         		             // 마커를 생성합니다
+         		              var marker = new kakao.maps.Marker({
+         		                 map: map, // 마커를 표시할 지도
+         		                 position: userCheckToilet[i].latlng // 마커의 위치
+         		             });
          		      
-         	  	       // 제목 페이지 info
-         	 	         infowindow = new kakao.maps.InfoWindow({
-         	 	         content: userCheckToilet[i].content // 인포윈도우에 표시할 내용
-         	 	         });
+         	  	             // 제목 페이지 info
+         	 	              infowindow = new kakao.maps.InfoWindow({
+         	 	                 content: userCheckToilet[i].content // 인포윈도우에 표시할 내용
+         	 	             });
          	  	   
-         	 	        //상세 페이지 info
-         	 	          for(var v = 0; v < detailList.length; v++){
-         	 	          	if(detailList[v].number == userCheckToilet[i].number){
-         	 	            	infowindowDetail = new kakao.maps.InfoWindow({
-         	 	            		content: detailList[v].overrayContent, 
-         	 	            	});
+         	 	            //상세 페이지 info
+         	 	             for(var v = 0; v < detailList.length; v++){
+         	 	            	 if(detailList[v].number == userCheckToilet[i].number){
+         	 	            		infowindowDetail = new kakao.maps.InfoWindow({
+         	 	            		    content: detailList[v].overrayContent, 
+         	 	            		});
 
-         	 	           	}
-         	 	          } 
-         	       
+         	 	            	 }
+         	 	             } 
+         		           
+         					console.log(infowindowDetail.length)
+         		             //마우스 오버 후 제목 내용 나오는 리스너
+         		             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+         		             //마우스 오버후 이동시 끄는 리스너
+         		             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+         		             //마우스 클릭시 디테일 내용 나오는 리스너
+         		             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
+         		             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
+         		             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+         		                   marker2.setMap(null);
+         		                   var latlng = mouseEvent.latLng; 
+         		                      
+         		                   // 마커가 표시될 위치입니다 
+         		                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
+
+         		                   // 마커가 지도 위에 표시되도록 설정합니다
+         		                    marker2.setPosition(latlng);
+         		                    marker2.setMap(map);
+         		                    $('#layer-popup').addClass("show");   
+         		 					$('#latlng').val(latlng)
+         		                 }); 
+         		             
+         		         }     
     	       //geolocation 실패시 띄우는 메세지      
                switch(error.code) {
                   case error.PERMISSION_DENIED:
@@ -326,7 +349,7 @@ $(function () {
                   case error.UNKNOWN_ERROR:
                 	  alert("알수 없는 오류가 발생햇습니다.")
                   break;
-              } 
+              }
           }
        },error : function () {
            console.log('fail')
