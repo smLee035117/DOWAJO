@@ -25,4 +25,9 @@ public class BasicDataServiceImpl implements BasicDataService {
 		return basicDataMapper.WriteDetailRest(restDataDTO);
 	}
 
+	@Override
+	public int seqCntSelect() {
+		return basicDataMapper.seqCntSelect();
+	}
+
 }

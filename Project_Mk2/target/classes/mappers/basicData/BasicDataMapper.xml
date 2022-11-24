@@ -20,9 +20,9 @@
 		<result property="basName" column="bas_name"/>
 		<result property="basAddr" column="bas_addr"/>
 		<result property="basLat" column="bas_lat"/>
-		<result property="basLon" column="bas_lon"/>
+		<result property="basLng" column="bas_lng"/>
 		<result property="restLock" column="rest_lock"/>
-		<result property="restTol" column="rest_tol"/>
+		<result property="restToi" column="rest_toi"/>
 		<result property="restUri" column="rest_uri"/>
 	</resultMap>
 	
@@ -31,21 +31,25 @@
 		<result property="basNo" column="bas_no"/>
 		<result property="restOpenTime" column="rest_opentime"/>
 		<result property="restLock" column="rest_lock"/>
-		<result property="restTol" column="rest_tol"/>
+		<result property="restToi" column="rest_toi"/>
 		<result property="restUri" column="rest_uri"/>
-		<result property="restDisTol" column="rest_dis_tol"/>
+		<result property="restDisToi" column="rest_dis_toi"/>
 		<result property="restDisUri" column="rest_dis_uri"/>
 		<result property="restClTime" column="rest_cl_time"/>
 		<result property="restStatus" column="rest_status"/>
 		<result property="restKey" column="rest_key"/>
 	</resultMap>
-	
+	<!-- INSERT INTO BASIC_DATA VALUES('BAS' || TO_CHAR(BASIC_DATA_SEQ.NEXTVAL),1,'과천','과천 어딘가' ,37.50001,127.03555); -->
 	<insert id="WriteBasicRest">
-		INSERT INTO BASIC_DATA VALUES ( 'BAS' || TO_CHAR(BASIC_DATA_SEQ.NEXTVAL) ,1,#{basName},#{basAddr} ,#{bas_lat},#{bas_lon});
+		INSERT INTO BASIC_DATA VALUES('BAS' || TO_CHAR(BASIC_DATA_SEQ.NEXTVAL), 1,#{basName},#{basAddr} ,#{basLat},#{basLng} )		
 	</insert>
-	<!-- 화장실 개방시간 09:00 고정 -->
-	<insert id="WriteRest">
-		INSERT INTO REST_DATA VALUES 
-		(REST_DATA_SEQ.NEXTVAL ,#{basNo},#{restOpentime},#{restLock} ,#{restTol},#restUri},#{restDisTol},#{restDisUri}#{restClTime},#{restStatus},#{restKey});
+	<!-- 화장실 개방시간 09:00 고정 / 청소 시간 13:00 고정 -->
+	<insert id="WriteDetailRest">
+		INSERT INTO REST_DATA VALUES(REST_DATA_SEQ.NEXTVAL ,#{basNo},'09:00',#{restLock} ,#{restToi},#{restUri},#{restDisToi},#{restDisUri},'13:00',#{restStatus},#{restKey})
 	</insert>
+	
+	<!-- 마지막 시퀀스 가져오는 방법 -->
+	<select id="seqCntSelect" resultType="int">	
+		SELECT  LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'BASIC_DATA_SEQ'
+	</select>
 </mapper>

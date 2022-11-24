@@ -8,4 +8,6 @@ public interface BasicDataMapper {
 	public int WriteBasicRest(BasicDataDTO basicDataDTO);
 	//화장실 상세 정보등록
 	public int WriteDetailRest(RestDataDTO restDataDTO);
+	
+	public int seqCntSelect();
 }

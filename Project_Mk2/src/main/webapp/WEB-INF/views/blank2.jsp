@@ -48,6 +48,7 @@
    var infowindowOpened = [];
    var geocoder = null;
 $(function () {
+    history.replaceState({}, null, location.pathname);
      var toilet = [];
      var mapContainer;
      var map;
@@ -79,7 +80,7 @@ $(function () {
 	           level: 2 // 지도의 확대 레벨
 	       };
 	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	   
+	    geocoder = new kakao.maps.services.Geocoder();
 	    // 내 위치 마커 생성
     	var imageSrc = 'resources/img/myMaker.png', // 마커이미지의 주소입니다    
     	    imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
@@ -123,23 +124,45 @@ $(function () {
 	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	             //마우스 클릭시 디테일 내용 나오는 리스너
 	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
-	             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
-	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-	                   marker2.setMap(null);
-	                   var latlng = mouseEvent.latLng; 
-	                      
-	                   // 마커가 표시될 위치입니다 
-	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
-
-	                   // 마커가 지도 위에 표시되도록 설정합니다
-	                    marker2.setPosition(latlng);
-	                    marker2.setMap(map);
-	                    $('#layer-popup').addClass("show");   
-	 					$('#latlng').val(latlng)
-	                 }); 
+	            
 	             
 	         }
-                            
+	         //마우스 클릭시 생성될 marker
+  	        var marker3 =new kakao.maps.Marker({
+	   	                 map: map, // 마커를 표시할 지도
+		                 position: null // 마커의 위치
+      		    });
+  	        //마우스 클릭시 주소를 보여주는 info
+  	       var infowindow23 = new kakao.maps.InfoWindow({zindex:1});
+
+                //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
+ 	        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+ 	        	 searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {     
+	                    if (status === kakao.maps.services.Status.OK  && result[0].road_address != null) {
+	                    	
+	                    	 var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
+   	                        detailAddr += result[0].address.address_name ;			
+								
+   	                        var content = '<div class="bAddr">' +
+   	                                        '<span class="title"> 주소정보 : </span>' + 
+   	                                        detailAddr + 
+   	                                    '</div>';
+   	                        // 마커를 클릭한 위치에 표시합니다 
+    	                        marker3.setPosition(mouseEvent.latLng);
+   	                        marker3.setMap(map);
+
+   	                        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+   	                        infowindow23.setContent(content);
+   	                        infowindow23.open(map, marker3); 
+   	                      	$('#basAddr').val(detailAddr)  
+   	 	 					$('#latlng').val(mouseEvent.latLng)
+   		                    $('#layer-popup').addClass("show");   
+	                      
+	                    }else{
+	                    	alert("해당지역은 건물이 아니라 등록이 불가능합니다. 다른 지역을 선택해주세요.")
+	                    }
+	                });
+ 	        });  	            
           }
           
           //자신의 위치 가져오는 geolocation api이 실패했을때 실행
@@ -203,28 +226,31 @@ $(function () {
  
    	                //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
         	        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+        	        	console.log('@@')
         	        	 searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {     
-      	                    if (status === kakao.maps.services.Status.OK) {
+        	        		  if (status === kakao.maps.services.Status.OK  && result[0].road_address != null) {
       	                    	
-      	                        var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-      	                        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';									
-      	                        
-      	                        var content = '<div class="bAddr">' +
-      	                                        '<span class="title">법정동 주소정보</span>' + 
-      	                                        detailAddr + 
-      	                                    '</div>';
-      	                        // 마커를 클릭한 위치에 표시합니다 
-       	                        marker3.setPosition(mouseEvent.latLng);
-      	                        marker3.setMap(map);
-									
-      	                        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-      	                        infowindow23.setContent(content);
-      	                        infowindow23.open(map, marker3); 
-      	                      	$('#basAddr').val(result[0].road_address.address_name)  
-      		                    $('#layer-popup').addClass("show");   
-      	 	 					$('#latlng').val(latlng)
-      	                      
-      	                    }   
+     	                    	 var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
+        	                        detailAddr += result[0].address.address_name ;			
+     								
+        	                        var content = '<div class="bAddr">' +
+        	                                        '<span class="title"> 주소정보 : </span>' + 
+        	                                        detailAddr + 
+        	                                    '</div>';
+        	                        // 마커를 클릭한 위치에 표시합니다 
+         	                        marker3.setPosition(mouseEvent.latLng);
+        	                        marker3.setMap(map);
+
+        	                        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+        	                        infowindow23.setContent(content);
+        	                        infowindow23.open(map, marker3); 
+        	                      	$('#basAddr').val(detailAddr)  
+        	 	 					$('#latlng').val(mouseEvent.latLng)
+        		                    $('#layer-popup').addClass("show");   
+     	                      
+     	                    }else{
+     	                    	alert("해당지역은 건물이 아니라 등록이 불가능합니다. 다른 지역을 선택해주세요.")
+     	                    }
       	                });
         	        });  	            
  	         }          
@@ -277,20 +303,28 @@ $(function () {
        var la = $('#latlng').val()
        var newStr = la.replace('(', ' ');
        newStr = newStr.replace(')', ' ');
-	  
-       $('#latlng').val(newStr.trim()) 
        
-       console.log($('#latlng').val())
-       var formData = $("#frmModal").serialize(); 
-	   $.ajax({
+  	   $.ajax({
 	       url:"blank2",
 	       type:"post",   
 	       dataType : "json",
-	       data:formData,
-	       contentType:"application/json",
+	       data:{
+	    	   "basName" : $('#basName').val(),
+	    	   "restTol" : $('#restTol').val(),
+	    	   "restUri" : $('#restUri').val(),
+	    	   "restLock" :   $('input[name="restLock"]:checked').val(),
+	    	   "latlng" : newStr,
+	    	   "basAddr" : $('#basAddr').val()	       
+	       },
 	       success:function(responseData){        
 	          var j = JSON.pars(responseData)
-	          console.log(j)
+
+	       		if(j==1){	       	
+	       			alert("성공")
+	       			location.href="${pageContext.request.contextPath}/blank2"
+	       		}else{	       			
+	       			alert("알수없는 오류입니다")
+	       		}
 	        },error : function () {
 	           console.log('fail')
 	        } 
@@ -316,13 +350,13 @@ $(function () {
 	            	<!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->                             
 	            	<div id="lock" style="width:100%; padding-top:15px;" >
 	            	<label style="width:30%">잠금유무</label>	            	
-	            	있음<input type="radio" id="choice1" name="choice" value="Y" style="width:15%" > &nbsp;
-	            	없음<input type="radio" id="choice2" name="choice" value="N"  style="width:15%" checked="checked">
+	            	있음<input type="radio" id="choice1" name="restLock" value="Y" style="width:15%" > &nbsp;
+	            	없음<input type="radio" id="choice2" name="restLock" value="N"  style="width:15%" checked="checked">
 	            	</div>
 	            	<br>	            	
-					<button onclick="popData()"><span id="btn-span">확인</span></button>				
 					<input type="hidden" id="latlng" name="latlng"><br>   
 					<input type="hidden" id="basAddr" name="basAddr"><br>   					
+					<button onclick="popData()"><span id="btn-span">확인</span></button>				
 	            </form>
             </div>
          </div>

@@ -114,7 +114,9 @@ insert into member values(member_seq.nextVal,'admin','admin1','A');
 
 --------------------------------------11/23 수정사항 --------------------------------------------------
 ALTER TABLE basic_data RENAME COLUMN BASIC_NAME TO BAS_NAME;
+ALTER TABLE basic_data RENAME COLUMN BAS_LON TO BAS_LNG;
    
 REST_DATA
 REST_OPENTIME	VARCHAR2(20)  NULL,   -- 11/23 NULL로 수정 
+ 
    
