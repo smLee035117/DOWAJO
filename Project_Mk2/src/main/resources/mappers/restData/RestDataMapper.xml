@@ -21,7 +21,7 @@
 		<result property="basNo" column="bas_no"/>
 		<result property="restOpenTime" column="rest_opentime"/>
 		<result property="restLock" column="rest_lock"/>
-		<result property="restTol" column="rest_tol"/>
+		<result property="restTol" column="rest_toi"/>
 		<result property="restUri" column="rest_uri"/>
 		<result property="restDisTol" column="rest_dis_tol"/>
 		<result property="restDisUri" column="rest_dis_uri"/>
@@ -29,6 +29,7 @@
 		<result property="restStatus" column="rest_status"/>
 		<result property="restKey" column="rest_key"/>
 	</resultMap>
+	
 	<resultMap type="com.project.root.restdata.dto.BasicRestDataDTO" id="basicRestData">
       <id property="basNo" column="bas_no"/>
       <result property="catNo" column="cat_no"/>      
@@ -36,13 +37,10 @@
       <result property="basAddr" column="bas_addr"/>
       <result property="basLat" column="bas_lat"/>
       <result property="basLng" column="bas_lng"/>
-      <result property="restLock" column="rest_lock"/>
-      <result property="restTol" column="rest_tol"/>
-      <result property="restUri" column="rest_uri"/>
       <result property="restNo" column="rest_no"/>
       <result property="restOpenTime" column="rest_opentime"/>
       <result property="restLock" column="rest_lock"/>
-      <result property="restTol" column="rest_tol"/>
+      <result property="restTol" column="rest_toi"/>
       <result property="restUri" column="rest_uri"/>
       <result property="restDisTol" column="rest_dis_tol"/>
       <result property="restDisUri" column="rest_dis_uri"/>
