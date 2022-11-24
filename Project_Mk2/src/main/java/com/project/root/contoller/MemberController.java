@@ -18,7 +18,8 @@ public class MemberController {
 	public String loginCheck(HttpServletRequest request, RedirectAttributes rs) {
 		int result = ms.loginCheck(request);
 		if(result == 1) {
-			rs.addAttribute("id", request.getParameter("id"));
+			rs.addFlashAttribute("id", request.getParameter("id"));
+			rs.addFlashAttribute("mem_key", "A");
 			return "loginSuccess";
 		}
 		return "redirect:login";
