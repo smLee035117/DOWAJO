@@ -59,7 +59,6 @@ public class BasicController {
 		restDataDTO.setBasNo("BAS"+seqCntSelect);
 		restDataDTO.setRestStatus("Clean");
 		restDataDTO.setRestKey("Y");
-			
 		int result =   basicDataService.WriteBasicRest(basicDataDTO);
 		int result2 =  basicDataService.WriteDetailRest(restDataDTO);
 

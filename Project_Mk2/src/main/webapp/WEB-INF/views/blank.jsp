@@ -47,6 +47,7 @@
    var detailList= [];	
 $(function () {
      var toilet = [];
+     var toiletDetail = [];
      var mapContainer;
      var map;
      
@@ -75,7 +76,8 @@ $(function () {
 						 overrayContent : '<div><label id="name">'+j[i].basName+'</label></div>'+
 		          			'<div><span>소변기</span><label>'+ j[i].restUri + '</label></div>'+
 		          			'<div><span>대변기</span><label>'+ j[i].restTol + '</label></div>'+
-		          			'<div><span>잠금유무</span><label>'+ j[i].restLock + '</label></div>'
+		          			'<div><span>잠금유무</span><label>'+ j[i].restLock + '</label></div>'+
+		          			'<div><button onclick="replyShow()">댓글열기</button></div>'
 		          		
 				 } 
 			}
@@ -96,11 +98,19 @@ $(function () {
              for(var i = 0 ; i < j[0].row.length; i++){
                  toilet[i] = {
                 		 		
-                               content: '<div>'+j[0].row[i].FNAME+'</div>', 
+                               content: '<div>'+j[0].row[i].FNAME+'</div>',
                                latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도
                                /* number: j[0].row[i].POI_ID */
         
-                 }            
+                 }
+                 toiletDetail[i] ={
+                		 content: '<div style="width:180px"><div>'+j[0].row[i].FNAME+'</div>'+
+                         '<div><span style="font-size:0.8em">화장실구분&nbsp;</span>'+j[0].row[i].ANAME+'</div>'+
+                         '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>'+
+                         '<div><button onclick="replyShow()">댓글열기</button></div></div>',
+                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도               		 
+                 }
+                 
              }
           /* console.log(toilet[2].number) */
           
@@ -151,7 +161,7 @@ $(function () {
  	             
  	             //상세 페이지 info
 	             infowindowDetail = new kakao.maps.InfoWindow({
-	            	 content: toilet[i].content,
+	            	 content: toiletDetail[i].content,
 	            	 removable: true
 	             });
 				
@@ -186,7 +196,7 @@ $(function () {
 			 number: '${toiletList.basNo}'
     	})
 		</c:forEach>
-    		// baic_data 정보 불러와서 뿌리는 마
+    		// baic_data 정보 불러와서 뿌리는 마커
 	         for (var i = 0; i < userCheckToilet.length; i ++) {
 	        	console.log(userCheckToilet[i].latlng)
 	             // 마커를 생성합니다
@@ -205,6 +215,7 @@ $(function () {
  	            	 if(detailList[v].number == userCheckToilet[i].number){
  	            		infowindowDetail = new kakao.maps.InfoWindow({
  	            		    content: detailList[v].overrayContent, 
+ 	            		    removable: true
  	            		});
 
  	            	 }
@@ -389,7 +400,10 @@ $(function () {
            infowindow.close(); 
        }; 
    }
-
+  function replyShow(){
+	  $('#layer-popup').addClass("show");  
+  }
+   
    //장소 등록 
    function popData() {
     var la = $('#latlng').val()
