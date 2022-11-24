@@ -8,19 +8,51 @@
 	private String basAddr;
 	private String basLat;
 	private String basLon;
-
+	//임시 REST 데이터 가져옴
+	private String restLock;
+	private int restTol;
+	private int restUri;
  -->
 <mapper namespace="com.project.root.mybatis.basicdata.BasicDataMapper">
 	<resultMap type="com.project.root.basicdata.dto.BasicDataDTO" id="basicData">
 		<id property="basNo" column="bas_no"/>
-		<result property="catNo" column="cat_no"/>
-		<result property="basAddr" column="bas_addr"/>
+		<result property="catNo" column="cat_no"/>		
 		<result property="basName" column="bas_name"/>
+		<result property="basAddr" column="bas_addr"/>
 		<result property="basLat" column="bas_lat"/>
 		<result property="basLng" column="bas_lng"/>
+	</resultMap>
+	
+	<resultMap type="com.project.root.restdata.dto.RestDataDTO" id="restData">
+		<id property="restNo" column="rest_no"/>
+		<result property="basNo" column="bas_no"/>
+		<result property="restOpenTime" column="rest_opentime"/>
+		<result property="restLock" column="rest_lock"/>
+		<result property="restToi" column="rest_toi"/>
+		<result property="restUri" column="rest_uri"/>
+		<result property="restDisToi" column="rest_dis_toi"/>
+		<result property="restDisUri" column="rest_dis_uri"/>
+		<result property="restClTime" column="rest_cl_time"/>
+		<result property="restStatus" column="rest_status"/>
+		<result property="restKey" column="rest_key"/>
 	</resultMap>
 	
 	<select id="getToiletList" resultMap="basicData">
 		select * from basic_data
 	</select> 
+		
+	
+	<insert id="WriteBasicRest">
+		INSERT INTO BASIC_DATA VALUES('BAS' || TO_CHAR(BASIC_DATA_SEQ.NEXTVAL), 1,#{basName},#{basAddr} ,#{basLat},#{basLng} )		
+	</insert>
+
+	<!-- 화장실 개방시간 09:00 고정 / 청소 시간 13:00 고정 -->
+	<insert id="WriteDetailRest">
+		INSERT INTO REST_DATA VALUES(REST_DATA_SEQ.NEXTVAL ,#{basNo},'09:00',#{restLock} ,#{restToi},#{restUri},#{restDisToi},#{restDisUri},'13:00',#{restStatus},#{restKey})
+	</insert>
+	
+	<!-- 마지막 시퀀스 가져오는 방법 -->
+	<select id="seqCntSelect" resultType="int">	
+		SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'BASIC_DATA_SEQ'
+	</select>
 </mapper>

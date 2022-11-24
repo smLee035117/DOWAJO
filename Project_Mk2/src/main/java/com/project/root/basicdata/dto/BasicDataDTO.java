@@ -6,6 +6,7 @@ public class BasicDataDTO {
 	private String basNo;
 	private String basName;
 	private int catNo;
+	private String basName;
 	private String basAddr;
 	private String basLat;
 	private String basLng;
@@ -33,6 +34,12 @@ public class BasicDataDTO {
 	public void setCatNo(int catNo) {
 		this.catNo = catNo;
 	}
+	public String getBasName() {
+		return basName;
+	}
+	public void setBasName(String basicName) {
+		this.basName = basicName;
+	}
 	public String getBasAddr() {
 		return basAddr;
 	}
@@ -55,7 +62,5 @@ public class BasicDataDTO {
 	public String toString() {
 		return "BasicDataDTO [basNo=" + basNo + ", catNo=" + catNo + ", basAddr=" + basAddr + ", basLat=" + basLat
 				+ ", basLng=" + basLng + "]";
-	}
 	
-
 }
