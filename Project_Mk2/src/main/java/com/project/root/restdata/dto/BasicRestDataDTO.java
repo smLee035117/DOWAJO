@@ -10,9 +10,9 @@ public class BasicRestDataDTO {
 	   private int restNo;
 	   private String restOpenTime;
 	   private String restLock;
-	   private int restTol;
+	   private int restToi;
 	   private int restUri;
-	   private int restDisTol;
+	   private int restDisToi;
 	   private int restDisUri;
 	   private String restClTime;
 	   private String restStatus;
@@ -37,11 +37,11 @@ public class BasicRestDataDTO {
 	   public void setRestLock(String restLock) {
 	      this.restLock = restLock;
 	   }
-	   public int getRestTol() {
-	      return restTol;
+	   public int getRestToi() {
+	      return restToi;
 	   }
-	   public void setRestTol(int restTol) {
-	      this.restTol = restTol;
+	   public void setRestToi(int restToi) {
+	      this.restToi = restToi;
 	   }
 	   public int getRestUri() {
 	      return restUri;
@@ -49,11 +49,11 @@ public class BasicRestDataDTO {
 	   public void setRestUri(int restUri) {
 	      this.restUri = restUri;
 	   }
-	   public int getRestDisTol() {
-	      return restDisTol;
+	   public int getRestDisToi() {
+	      return restDisToi;
 	   }
-	   public void setRestDisTol(int restDisTol) {
-	      this.restDisTol = restDisTol;
+	   public void setRestDisToi(int restDisToi) {
+	      this.restDisToi = restDisToi;
 	   }
 	   public int getRestDisUri() {
 	      return restDisUri;
@@ -119,8 +119,8 @@ public class BasicRestDataDTO {
 	   public String toString() {
 	      return "BasicRestDataDTO [basNo=" + basNo + ", catNo=" + catNo + ", basName=" + basName + ", basAddr=" + basAddr
 	            + ", basLat=" + basLat + ", basLng=" + basLng + ", restNo=" + restNo + ", restOpenTime=" + restOpenTime
-	            + ", restLock=" + restLock + ", restTol=" + restTol + ", restUri=" + restUri + ", restDisTol="
-	            + restDisTol + ", restDisUri=" + restDisUri + ", restClTime=" + restClTime + ", restStatus="
+	            + ", restLock=" + restLock + ", restToi=" + restToi + ", restUri=" + restUri + ", restDisToi="
+	            + restDisToi + ", restDisUri=" + restDisUri + ", restClTime=" + restClTime + ", restStatus="
 	            + restStatus + ", restKey=" + restKey + "]";
 	   }
 

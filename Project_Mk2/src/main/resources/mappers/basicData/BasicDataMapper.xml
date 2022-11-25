@@ -40,7 +40,6 @@
 	<select id="getToiletList" resultMap="basicData">
 		select * from basic_data
 	</select> 
-		
 	
 	<insert id="WriteBasicRest">
 		INSERT INTO BASIC_DATA VALUES('BAS' || TO_CHAR(BASIC_DATA_SEQ.NEXTVAL), 1,#{basName},#{basAddr} ,#{basLat},#{basLng} )		

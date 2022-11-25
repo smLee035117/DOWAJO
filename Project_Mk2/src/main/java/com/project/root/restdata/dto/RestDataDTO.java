@@ -5,9 +5,9 @@ public class RestDataDTO {
 	private String basNo;
 	private String restOpenTime;
 	private String restLock;
-	private int restTol;
+	private int restToi;
 	private int restUri;
-	private int restDisTol;
+	private int restDisToi;
 	private int restDisUri;
 	private String restClTime;
 	private String restStatus;
@@ -38,11 +38,11 @@ public class RestDataDTO {
 	public void setRestLock(String restLock) {
 		this.restLock = restLock;
 	}
-	public int getRestTol() {
-		return restTol;
+	public int getRestToi() {
+		return restToi;
 	}
-	public void setRestTol(int restTol) {
-		this.restTol = restTol;
+	public void setRestToi(int restToi) {
+		this.restToi = restToi;
 	}
 	public int getRestUri() {
 		return restUri;
@@ -50,11 +50,11 @@ public class RestDataDTO {
 	public void setRestUri(int restUri) {
 		this.restUri = restUri;
 	}
-	public int getRestDisTol() {
-		return restDisTol;
+	public int getRestDisToi() {
+		return restDisToi;
 	}
-	public void setRestDisTol(int restDisTol) {
-		this.restDisTol = restDisTol;
+	public void setRestDisToi(int restDisToi) {
+		this.restDisToi = restDisToi;
 	}
 	public int getRestDisUri() {
 		return restDisUri;
@@ -83,7 +83,7 @@ public class RestDataDTO {
 	@Override
 	public String toString() {
 		return "RestDataDTO [restNo=" + restNo + ", basNo=" + basNo + ", restOpenTime=" + restOpenTime + ", restLock="
-				+ restLock + ", restTol=" + restTol + ", restUri=" + restUri + ", restDisTol=" + restDisTol
+				+ restLock + ", restToi=" + restToi + ", restUri=" + restUri + ", restDisToi=" + restDisToi
 				+ ", restDisUri=" + restDisUri + ", restClTime=" + restClTime + ", restStatus=" + restStatus
 				+ ", restKey=" + restKey + "]";
 	}

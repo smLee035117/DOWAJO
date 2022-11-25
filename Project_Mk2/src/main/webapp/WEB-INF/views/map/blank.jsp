@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,17 +24,9 @@
 <script src="resources/vendor/jquery/jquery.min.js"></script>
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
 </head>
-<style type="text/css">
-#map {
-   width: 100%;
-   height: 100%;
-}
-</style>
 <script type="text/javascript"
-   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495"></script>
+   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
 <script type="text/javascript">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
    // 외부영역 클릭 시 팝업 닫기
    $(document).mouseup(function (e){
      var LayerPopup = $(".layer-popup");
@@ -45,49 +37,52 @@
    var infowindowOpened = [];
    var userCheckToilet = [];
    var detailList= [];	
+   var geocoder = null;
 $(function () {
+	 history.replaceState({}, null, location.pathname); 
      var toilet = [];
      var toiletDetail = [];
      var mapContainer;
      var map;
      
      $.ajax({
-    	url:"toiletDetail",
-    	type:"get",
-    	dataType: "json",
-	       success:function(toiletInfo){
-	    	 var j = Object.values(toiletInfo)
-	    	 console.log(j.length);
-		 	 for(var i = 0; i < j.length; i++){
-		 		 if(j[i].restDisTol!=0){
-		 			detailList[i] = {
-							 number : j[i].basNo,
-							 overrayContent : '<div><label id="name">'+j[i].basName+'</label></div>'+
-			          			'<div><span>소변기</span><label>'+ j[i].restUri + '</label></div>'+
-			          			'<div><span>대변기</span><label>'+ j[i].restTol + '</label></div>'+
-			          			'<div><span>잠금유무</span><label>'+ j[i].restLock + '</label></div>'+
-			          			'<div><span>장애인대변기</span><label>'+j[i].restDisTol+'</label></div>'
-			          		
-					 }
-		 		 }
-				 
-		 			 detailList[i] = {
-						 number : j[i].basNo,
-						 overrayContent : '<div><label id="name">'+j[i].basName+'</label></div>'+
-		          			'<div><span>소변기</span><label>'+ j[i].restUri + '</label></div>'+
-		          			'<div><span>대변기</span><label>'+ j[i].restTol + '</label></div>'+
-		          			'<div><span>잠금유무</span><label>'+ j[i].restLock + '</label></div>'+
-		          			'<div><button onclick="replyShow()">댓글열기</button></div>'
-		          		
-				 } 
-			}
-	    	 
-	        },error : function () {
-	           console.log('fail')
-	        } 
-     });
-     console.log(detailList)
+     	url:"toiletDetail",
+     	type:"get",
+     	dataType: "json",
+ 	       success:function(toiletInfo){
+ 	    	 var j = Object.values(toiletInfo)
+ 	    	 console.log(j.length);
+ 		 	 for(var i = 0; i < j.length; i++){
+ 		 		 if(j[i].restDisTol!=0){
+ 		 			 console.log('왔다1')
+ 		 			detailList[i] = {
+ 							 number : j[i].basNo,
+ 							 overrayContent : '<div><label id="name">'+j[i].basName+'</label></div>'+
+ 			          			'<div><span>소변기</span><label>&nbsp;'+ j[i].restUri + '</label></div>'+
+ 			          			'<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
+ 			          			'<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
+ 			          			'<div><span>장애인대변기</span><label>&nbsp;'+j[i].restDisToi+'</label></div>'
+ 			          		
+ 					 }
+ 		 		 }
+ 				 
+ 		 			 detailList[i] = {
+ 						 number : j[i].basNo,
+ 						 overrayContent : '<div><label id="name">&nbsp;'+j[i].basName+'</label></div>'+
+ 		          			'<div><span>소변기</span><label>&nbsp;'+ j[i].restUri + '</label></div>'+
+ 		          			'<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
+ 		          			'<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
+ 		          			'<div><button onclick="replyShow()">댓글열기</button></div>'
+ 		          		
+ 				 } 
+ 			}
+ 	    	 
+ 	        },error : function () {
+ 	           console.log('fail')
+ 	        } 
+      });
     //  공공데이터 api 정보가져오기 
+     console.log('왔다2')
    $.ajax({
        url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
        type:"get",   
@@ -97,11 +92,9 @@ $(function () {
           var j = Object.values(responseData)
              for(var i = 0 ; i < j[0].row.length; i++){
                  toilet[i] = {
-                		 		
-                               content: '<div>'+j[0].row[i].FNAME+'</div>',
-                               latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도
-                               /* number: j[0].row[i].POI_ID */
-        
+                         content: '<div>'+j[0].row[i].FNAME+'</div>',
+                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도
+                         /* number: j[0].row[i].POI_ID */
                  }
                  toiletDetail[i] ={
                 		 content: '<div style="width:180px"><div>'+j[0].row[i].FNAME+'</div>'+
@@ -110,10 +103,7 @@ $(function () {
                          '<div><button onclick="replyShow()">댓글열기</button></div></div>',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도               		 
                  }
-                 
              }
-          /* console.log(toilet[2].number) */
-          
          //자신의 위치 가져오는 geolocation api 
 		 navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
           
@@ -127,7 +117,7 @@ $(function () {
 	           level: 2 // 지도의 확대 레벨
 	       };
 	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	   
+	    geocoder = new kakao.maps.services.Geocoder();
 	    // 내 위치 마커 생성
     	var imageSrc = 'resources/img/myMaker.png', // 마커이미지의 주소입니다    
     	    imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
@@ -171,34 +161,56 @@ $(function () {
 	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	             //마우스 클릭시 디테일 내용 나오는 리스너
 	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
-	             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
-	             
-	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-	                   marker2.setMap(null);
-	                   var latlng = mouseEvent.latLng; 
-	                      
-	                   // 마커가 표시될 위치입니다 
-	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
-
-	                   // 마커가 지도 위에 표시되도록 설정합니다
-	                    marker2.setPosition(latlng);
-	                    marker2.setMap(map);
-	                    $('#layer-popup').addClass("show");   
-	 					$('#latlng').val(latlng)
-	                 }); 
 	             
 	         }
-    	
-    	<c:forEach var="toiletList" items="${toiletList}" varStatus="status">
-    	userCheckToilet.push({
-    		content: '<div>${toiletList.basName}</div>',
-			 latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
-			 number: '${toiletList.basNo}'
-    	})
-		</c:forEach>
+	         //마우스 클릭시 생성될 marker
+	  	        var marker3 =new kakao.maps.Marker({
+		   	                 map: map, // 마커를 표시할 지도
+			                 position: null // 마커의 위치
+	      		    });
+	  	      //마우스 클릭시 주소를 보여주는 info
+	         var infowindow23 = new kakao.maps.InfoWindow({zindex:1});
+
+             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
+	        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {  
+	        	 searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {     
+	                    if (status === kakao.maps.services.Status.OK && result[0].road_address != null) {
+	                    	
+	                    	 var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
+	                        detailAddr += result[0].address.address_name ;			
+								
+	                        var content = '<div class="bAddr">' +
+	                                        '<span class="title"> 주소정보 : </span>' + 
+	                                        detailAddr + 
+	                                    '</div>';
+	                        // 마커를 클릭한 위치에 표시합니다 
+ 	                        marker3.setPosition(mouseEvent.latLng);
+	                        marker3.setMap(map);
+
+	                        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+	                        infowindow23.setContent(content);
+	                        infowindow23.open(map, marker3); 
+	                      	$('#basAddr').val(detailAddr)  
+	 	 					$('#latlng').val(mouseEvent.latLng)
+		                    $('#layer-popup').addClass("show");   
+	                      
+	                    }else{
+	                    	alert("해당지역은 건물이 아니라 등록이 불가능합니다. 다른 지역을 선택해주세요.")
+	                    }
+	                });
+	        }); 
+             
+		    	<c:forEach var="toiletList" items="${toiletList}" varStatus="status">
+			    	userCheckToilet.push({
+			    		content: '<div>${toiletList.basName}</div>',
+						 latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
+						 number: '${toiletList.basNo}'
+			    	})
+				</c:forEach>
+    		
     		// baic_data 정보 불러와서 뿌리는 마커
 	         for (var i = 0; i < userCheckToilet.length; i ++) {
-	        	console.log(userCheckToilet[i].latlng)
+	        	console.log('gps 성공')
 	             // 마커를 생성합니다
 	              var marker = new kakao.maps.Marker({
 	                 map: map, // 마커를 표시할 지도
@@ -227,24 +239,10 @@ $(function () {
 	             //마우스 오버후 이동시 끄는 리스너
 	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	             //마우스 클릭시 디테일 내용 나오는 리스너
-	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
-	             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
-	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-	                   marker2.setMap(null);
-	                   var latlng = mouseEvent.latLng; 
-	                      
-	                   // 마커가 표시될 위치입니다 
-	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
-
-	                   // 마커가 지도 위에 표시되도록 설정합니다
-	                    marker2.setPosition(latlng);
-	                    marker2.setMap(map);
-	                    $('#layer-popup').addClass("show");   
-	 					$('#latlng').val(latlng)
-	                 }); 
-	             
+	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));              
 	         }               
           }
+          
           //자신의 위치 가져오는 geolocation api이 실패했을때 실행
           function showErrorMsg(error) {
             	  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
@@ -254,7 +252,7 @@ $(function () {
          	       };
             	  
          	    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-         	   
+         	   geocoder = new kakao.maps.services.Geocoder();
          	         for (var i = 0; i < toilet.length; i++) {
 	         	             // 마커를 생성합니다
 	         	              var marker = new kakao.maps.Marker({
@@ -280,31 +278,20 @@ $(function () {
 	        	             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	        	             //마우스 클릭시 디테일 내용 나오는 리스너
 	        	             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
-	        	             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
-	         	             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-	         	                   marker2.setMap(null);
-	         	                      var latlng = mouseEvent.latLng; 
-	         	                   // 마커가 표시될 위치입니다 
-	         	                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
-	
-	         	                   // 마커가 지도 위에 표시되도록 설정합니다
-	         	                    marker2.setPosition(latlng);
-	         	                    marker2.setMap(map);
-	         	                    $('#layer-popup').addClass("show");   
-	         	 					$('#latlng').val(latlng)
-	         	                 }); 
+
          	             
          	         }
          	    	<c:forEach var="toiletList" items="${toiletList}" varStatus="status">
-         	    	userCheckToilet.push({
-         	    		content: '<div>${toiletList.basName}</div>',
-         				 latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
-         				 number: '${toiletList.basNo}'
+	         	    	userCheckToilet.push({
+	         	    		content: '<div>${toiletList.basName}</div>',
+	         				 latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
+	         				 number: '${toiletList.basNo}'
          	    	})
          			</c:forEach>
          	    		// baic_data 정보 불러와서 뿌리는 마
          		         for (var i = 0; i < userCheckToilet.length; i ++) {
-         		        	console.log(userCheckToilet[i].latlng)
+         		        	
+         		        	console.log('gps실패')
          		             // 마커를 생성합니다
          		              var marker = new kakao.maps.Marker({
          		                 map: map, // 마커를 표시할 지도
@@ -333,20 +320,7 @@ $(function () {
          		             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
          		             //마우스 클릭시 디테일 내용 나오는 리스너
          		             kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
-         		             //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
-         		             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-         		                   marker2.setMap(null);
-         		                   var latlng = mouseEvent.latLng; 
-         		                      
-         		                   // 마커가 표시될 위치입니다 
-         		                   var markerPosition  = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()) ; 
 
-         		                   // 마커가 지도 위에 표시되도록 설정합니다
-         		                    marker2.setPosition(latlng);
-         		                    marker2.setMap(map);
-         		                    $('#layer-popup').addClass("show");   
-         		 					$('#latlng').val(latlng)
-         		                 }); 
          		             
          		         }     
     	       //geolocation 실패시 띄우는 메세지      
@@ -361,12 +335,44 @@ $(function () {
                 	  alert("알수 없는 오류가 발생햇습니다.")
                   break;
               }
+               var infowindow23 = new kakao.maps.InfoWindow({zindex:1});
+               
+	                //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
+   	        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
+   	        	console.log('여기3')
+   	        	 searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {     
+   	        		  if (status === kakao.maps.services.Status.OK  && result[0].road_address != null) {
+ 	                    	
+	                    	 var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
+   	                        detailAddr += result[0].address.address_name ;			
+								
+   	                        var content = '<div class="bAddr">' +
+   	                                        '<span class="title"> 주소정보 : </span>' + 
+   	                                        detailAddr + 
+   	                                    '</div>';
+   	                        // 마커를 클릭한 위치에 표시합니다 
+    	                        marker3.setPosition(mouseEvent.latLng);
+   	                        marker3.setMap(map);
+
+   	                        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+   	                        infowindow23.setContent(content);
+   	                        infowindow23.open(map, marker3); 
+   	                      	$('#basAddr').val(detailAddr)  
+   	 	 					$('#latlng').val(mouseEvent.latLng)
+   		                    $('#layer-popup').addClass("show");   
+	                      
+	                    }else{
+	                    	alert("해당지역은 건물이 아니라 등록이 불가능합니다. 다른 지역을 선택해주세요.")
+	                    }
+ 	                });
+   	        });  	 
           }
        },error : function () {
            console.log('fail')
         } 
     });
 
+     console.log('왔다4')
    //객체생성
     var marker2 = new kakao.maps.Marker({ });
 	
@@ -400,27 +406,43 @@ $(function () {
            infowindow.close(); 
        }; 
    }
+   
+	function searchDetailAddrFromCoords(coords, callback) {
+	    // 좌표로 법정동 상세 주소 정보를 요청합니다
+	    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+	}
+	
+	
   function replyShow(){
 	  $('#layer-popup').addClass("show");  
   }
    
    //장소 등록 
    function popData() {
-    var la = $('#latlng').val()
+       var la = $('#latlng').val()
        var newStr = la.replace('(', ' ');
        newStr = newStr.replace(')', ' ');
-       $('#latlng').val(newStr.trim()) 
-       var formData = $("#frmModal").serialize(); 
-	   $.ajax({
+       
+  	   $.ajax({
 	       url:"blank",
 	       type:"post",   
 	       dataType : "json",
-	       data:formData,
-	       contentType:"application/json",
-	       success:function(responseData){        
-
-	          var j = Object.values(responseData)  
-
+	       data:{
+	    	   "basName" : $('#basName').val(),
+	    	   "restToi" : $('#restToi').val(),
+	    	   "restUri" : $('#restUri').val(),
+	    	   "restLock" :   $('input[name="restLock"]:checked').val(),
+	    	   "latlng" : newStr,
+	    	   "basAddr" : $('#basAddr').val()	       
+	       },
+	       success:function(responseData){      
+	          var j = JSON.parse(responseData)
+	       		if(j==1){	       	
+	       			alert("등록이 완료되었습니다")
+	       			location.href="${pageContext.request.contextPath}/blank"
+	       		}else{	       			
+	       			alert("알수없는 오류입니다")
+	       		}
 	        },error : function () {
 	           console.log('fail')
 	        } 
@@ -433,11 +455,11 @@ $(function () {
          <div class="modal-dialog">
             <div class="modal-content">
             <!-- <button onclick="bb()">xxx</button> -->
-	            <form name="frmModal" id="frmModal" name="frmModal">
-	            	<input type="text" id="basAddr" name="basAddr" style="border:none;border-bottom:1px solid black" placeholder="이름입력"><br>	   
+	            <form name="frmModal" id="frmModal">
+	            	<input type="text" id="basName" name="basName" style="border:none;border-bottom:1px solid black" placeholder="이름입력"><br>	   
 	            	<div id = "content">
 		            	<div id='small'>
-		            		<span>소변기</span>&nbsp;<input type="text" id="restTol" name="restTol" size="2" maxlength="2" style="border:none" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+		            		<span>소변기</span>&nbsp;<input type="text" id="restToi" name="restToi" size="2" maxlength="2" style="border:none" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 		            	</div>	   
 		            	<div id='big'>
 		            		<span>좌변기</span>&nbsp;<input type="text" id="restUri" name="restUri" size="2" style="border:none" maxlength="2" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
@@ -446,12 +468,13 @@ $(function () {
 	            	<!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->                             
 	            	<div id="lock" style="width:100%; padding-top:15px;" >
 	            	<label style="width:30%">잠금유무</label>	            	
-	            	있음<input type="radio" id="choice1" name="choice" value="Y" style="width:15%" > &nbsp;
-	            	없음<input type="radio" id="choice2" name="choice" value="N"  style="width:15%" checked="checked">
+            		있음<input type="radio" id="choice1" name="restLock" value="Y" style="width:15%" > &nbsp;
+	            	없음<input type="radio" id="choice2" name="restLock" value="N"  style="width:15%" checked="checked">
 	            	</div>
 	            	<br>	            	
-					<button onclick="popData()"><span id="btn-span">확인</span></button>				
 					<input type="hidden" id="latlng" name="latlng"><br>   
+					<input type="hidden" id="basAddr" name="basAddr"><br>   					
+					<button class="popBtn" onclick="popData()"><span id="btn-span">확인</span></button>				
 	            </form>
             </div>
          </div>
@@ -462,112 +485,9 @@ $(function () {
    <div id="clickLatlng"></div>
    <div id="wrapper">
 
-      <!-- Sidebar -->
-      <ul
-         class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-         id="accordionSidebar">
-         <!-- Sidebar - Brand -->
-         <a
-            class="sidebar-brand d-flex align-items-center justify-content-center"
-            href="${pageContext.request.contextPath }/">
-            <div class="sidebar-brand-icon rotate-n-15">
-               <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">
-               SB Admin <sup>2</sup>
-            </div>
-         </a>
-
-         <!-- Divider -->
-         <hr class="sidebar-divider my-0">
-
-         <!-- Nav Item - Dashboard -->
-         <li class="nav-item"><a class="nav-link"
-            href="${pageContext.request.contextPath }/"> <i
-               class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-
-         <!-- Divider -->
-         <hr class="sidebar-divider">
-
-         <!-- Heading -->
-         <div class="sidebar-heading">Interface</div>
-
-         <!-- Nav Item - Pages Collapse Menu -->
-         <li class="nav-item"><a class="nav-link collapsed" href="#"
-            data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo"> <i
-               class="fas fa-fw fa-cog"></i> <span>Components</span>
-         </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-               data-parent="#accordionSidebar">
-               <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Custom Components:</h6>
-                  <a class="collapse-item" href="buttons">Buttons</a> <a
-                     class="collapse-item" href="cards">Cards</a>
-               </div>
-            </div></li>
-
-         <!-- Nav Item - Utilities Collapse Menu -->
-         <li class="nav-item"><a class="nav-link collapsed" href="#"
-            data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities"> <i
-               class="fas fa-fw fa-wrench"></i> <span>Utilities</span>
-         </a>
-            <div id="collapseUtilities" class="collapse"
-               aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-               <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Custom Utilities:</h6>
-                  <a class="collapse-item" href="utilitiesColor">Colors</a> <a
-                     class="collapse-item" href="utilitiesBorder">Borders</a> <a
-                     class="collapse-item" href="utilitiesAnimation">Animations</a> <a
-                     class="collapse-item" href="utilitiesOther">Other</a>
-               </div>
-            </div></li>
-
-         <!-- Divider -->
-         <hr class="sidebar-divider">
-
-         <!-- Heading -->
-         <div class="sidebar-heading">Addons</div>
-
-         <!-- Nav Item - Pages Collapse Menu -->
-         <li class="nav-item active"><a class="nav-link" href="#"
-            data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages"> <i
-               class="fas fa-fw fa-folder"></i> <span>Pages</span>
-         </a>
-            <div id="collapsePages" class="collapse show"
-               aria-labelledby="headingPages" data-parent="#accordionSidebar">
-               <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Login Screens:</h6>
-                  <a class="collapse-item" href="login">Login</a> <a
-                     class="collapse-item" href="register">Register</a> <a
-                     class="collapse-item" href="forgotPassword">Forgot Password</a>
-                  <div class="collapse-divider"></div>
-                  <h6 class="collapse-header">Other Pages:</h6>
-                  <a class="collapse-item" href="404">404 Page</a> <a
-                     class="collapse-item active" href="blank">Blank Page</a>
-               </div>
-            </div></li>
-
-         <!-- Nav Item - Charts -->
-         <li class="nav-item"><a class="nav-link" href="charts"> <i
-               class="fas fa-fw fa-chart-area"></i> <span>Charts</span></a></li>
-
-         <!-- Nav Item - Tables -->
-         <li class="nav-item"><a class="nav-link" href="tables"> <i
-               class="fas fa-fw fa-table"></i> <span>Tables</span></a></li>
-
-         <!-- Divider -->
-         <hr class="sidebar-divider d-none d-md-block">
-
-         <!-- Sidebar Toggler (Sidebar) -->
-         <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-         </div>
-
-      </ul>
-      <!-- End of Sidebar -->
+	  <!-- Sidebar -->
+	  <c:import url="../default/navigator.jsp"/>
+	   <!-- End of Sidebar -->
 
       <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
@@ -582,7 +502,6 @@ $(function () {
 
          </div>
          <!-- End of Main Content -->
-
 
       <!-- End of Content Wrapper -->
    </div>

@@ -4,11 +4,10 @@ import java.util.List;
 
 import com.project.root.basicdata.dto.BasicDataDTO;
 import com.project.root.restdata.dto.BasicRestDataDTO;
-import com.project.root.restdata.dto.RestDataDTO;
 
 public interface RestDataMapper {
 
-	List<BasicRestDataDTO> getToiletDetail();
+	public List<BasicRestDataDTO> getToiletDetail();
 
-	
+	public List<BasicDataDTO> getToiletList();
 }

@@ -9,9 +9,9 @@ import com.project.root.restdata.dto.RestDataDTO;
 
 public interface RestDataService {
 
-	void getToiletList(Model model);
+	public void getToiletList(Model model);
 
-	List<BasicRestDataDTO> getToiletDetail();
+	public List<BasicRestDataDTO> getToiletDetail();
 	
 
 }
