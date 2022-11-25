@@ -22,7 +22,13 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.project.root" />
-	
+	<beans:bean id="adminInterceptor" class="com.project.root.interceptor.AdminInterceptor"/>
+	<interceptors>
+		<interceptor>
+			<mapping path="/tables"/>
+				<beans:ref bean="adminInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>
