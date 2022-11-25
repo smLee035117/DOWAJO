@@ -1,11 +1,11 @@
 package com.project.root.contoller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.root.member.service.MemberService;
 
@@ -15,11 +15,11 @@ public class MemberController {
 	private MemberService ms;
 	
 	@PostMapping("loginCheck")
-	public String loginCheck(HttpServletRequest request, RedirectAttributes rs) {
+	public String loginCheck(HttpServletRequest request, HttpSession session) {
 		int result = ms.loginCheck(request);
 		if(result == 1) {
-			rs.addFlashAttribute("id", request.getParameter("id"));
-			rs.addFlashAttribute("mem_key", "A");
+			session.setAttribute("id", request.getParameter("id"));
+			session.setAttribute("mem_key", "A");
 			return "loginSuccess";
 		}
 		return "redirect:login";
