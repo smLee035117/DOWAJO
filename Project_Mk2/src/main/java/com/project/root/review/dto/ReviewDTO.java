@@ -2,7 +2,7 @@ package com.project.root.review.dto;
 
 public class ReviewDTO {
 	private int reNo;
-	private int basNo;
+	private String basNo;
 	private int reSco;
 	private String reContent;
 	
@@ -12,10 +12,10 @@ public class ReviewDTO {
 	public void setReNo(int reNo) {
 		this.reNo = reNo;
 	}
-	public int getBasNo() {
+	public String getBasNo() {
 		return basNo;
 	}
-	public void setBasNo(int basNo) {
+	public void setBasNo(String basNo) {
 		this.basNo = basNo;
 	}
 	public int getReSco() {
@@ -29,6 +29,10 @@ public class ReviewDTO {
 	}
 	public void setReContent(String reContent) {
 		this.reContent = reContent;
+	}
+	@Override
+	public String toString() {
+		return "ReviewDTO [reNo=" + reNo + ", basNo=" + basNo + ", reSco=" + reSco + ", reContent=" + reContent + "]";
 	}
 	
 	

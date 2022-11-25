@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+#map {
+   width: 100%;
+   height: 100%;
+}
+
+#GPS {
+	display: block;
+	width: 40px;
+	height: 40px;
+	background-color: white;
+	position: fixed;
+	right: 30px; 
+	top: 15%;
+	z-index: 100;
+	box-shadow: 0.5px 0.5px 1px 0.5px gray;
+	border-radius: 50%;
+}
+#gps-img{
+	position: relative;
+	top: 19%;
+	left: 21%;
+}
+.layer-popup {
+   display: none;
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: 100;
+}
+
+.layer-popup.show {
+   display: block;
+}
+
+.modal-dialog {
+   width: 20%;
+   margin: 10% auto;
+   background-color: #fff;
+   border-radius: 10%;
+}
+	
+.modal-content {
+   padding: 50px 15px;
+   text-align: center;
+   height: 300px;
+   border-radius: 10%;
+ 
+}
+.modal-content #content {
+	padding-top: 15px;
+	/* padding-left:15px; */
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+	text-align : center;
+}
+.modal-content #small, #big {
+	float: left;
+}
+
+#basAddr{
+	width:100%;
+	outline : none;
+}
+span {
+	font-size: 1.2em;
+	color: rgba(0,0,0,0.7);
+}
+#content input[type="text"]{
+	font-size: 1.4em;
+	font-weight: bold;
+	color: rgba(0,0,0,0.8);
+}
+#content input[type="text"]:focus{
+	outline:none;
+}
+
+.popBtn {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	background-color: rgba(0,0,0,0.5);
+	border: none;
+	border-radius: 20px;
+}
+.popBtn:hover {
+	background-color: rgba(0,0,0,0.7);
+	text-decoration: none;
+	
+}
+#btn-span {
+	color: rgba(230,230,230,0.8);
+	padding : 0px 40%;
+}
