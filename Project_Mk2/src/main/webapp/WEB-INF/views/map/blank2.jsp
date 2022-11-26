@@ -44,6 +44,35 @@ $(function () {
      var toiletDetail = [];
      var mapContainer;
      var map;
+     var reviewList = []
+     
+     $.ajax({
+      	url:"reviewSelect",
+      	type:"get",
+      	dataType: "json",
+  	       success:function(toiletInfo){
+  	    	 var j = Object.values(toiletInfo)
+  	    	 console.log(j[0].basNo);
+  		 	 for(var i = 0; i < j.length; i++){  		
+  		 			 console.log('왔다1')
+  		 		
+  		 			reviewList[i] = {
+  							 number : j[i].basNo,  							
+  							 overrayContent : '<div><label id="name">'+j[i].reNo+'</label></div>'+
+  			          			'<div><span>소변기</span><label>&nbsp;'+ j[i].basNo + '</label></div>'+
+  			          			'<div><span>대변기</span><label>&nbsp;'+ j[i].reSco + '</label></div>'+
+  			          			'<div><span>잠금유무</span><label>&nbsp;'+ j[i].reContent+ '</label></div>'+
+  			          			'<div><span>장애인대변기</span><label>&nbsp;'+j[i].reRegDate+'</label></div>'
+  			          		
+  					 }
+  		 		 
+  			}
+  	    	 
+  	        },error : function () {
+  	           console.log('fail')
+  	        } 
+       });
+     
      
      $.ajax({
      	url:"toiletDetail",
@@ -53,10 +82,9 @@ $(function () {
  	    	 var j = Object.values(toiletInfo)
  	    	 console.log(j.length);
  		 	 for(var i = 0; i < j.length; i++){
- 		 		 if(j[i].restDisTol!=0){
  		 			 console.log('왔다1')
  		 			detailList[i] = {
- 							 number : j[i].basNo,
+ 							 number : j[i].basNo, 							 
  							 overrayContent : '<div><label id="name">'+j[i].basName+'</label></div>'+
  			          			'<div><span>소변기</span><label>&nbsp;'+ j[i].restUri + '</label></div>'+
  			          			'<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
@@ -64,9 +92,17 @@ $(function () {
  			          			'<div><span>장애인대변기</span><label>&nbsp;'+j[i].restDisToi+'</label></div>'
  			          		
  					 }
- 		 		 }
- 				 
- 		 			 detailList[i] = {
+ 			 	 	 
+	 				 	for(var a =0; 0<reviewList.length;a++){
+	 				 		
+	 				 		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@1' + detailList[i].number)
+	 				 		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@o='+a)
+	 				 	if( detailList[i].number == reviewList[a].number){
+	 				 		console.log('옴')
+	 						 	detailList[i].overrayContent += reviewList[a].overrayContent 	 				 			
+	 				 		}
+	 				 	}
+ 		 			/*  detailList[i] = {
  						 number : j[i].basNo,
  						 overrayContent : '<div><label id="name">&nbsp;'+j[i].basName+'</label></div>'+
  		          			'<div><span>소변기</span><label>&nbsp;'+ j[i].restUri + '</label></div>'+
@@ -74,7 +110,7 @@ $(function () {
  		          			'<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
  		          			'<div><button onclick="replyShow()">댓글열기</button></div>'
  		          		
- 				 } 
+ 				 }  */
  			}
  	    	 
  	        },error : function () {
@@ -84,7 +120,7 @@ $(function () {
     //  공공데이터 api 정보가져오기 
      console.log('왔다2')
    $.ajax({
-       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
+       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/10",
        type:"get",   
        dataType : "json",
        contentType:"application/json",
@@ -210,7 +246,6 @@ $(function () {
     		
     		// baic_data 정보 불러와서 뿌리는 마커
 	         for (var i = 0; i < userCheckToilet.length; i ++) {
-	        	console.log('gps 성공')
 	             // 마커를 생성합니다
 	              var marker = new kakao.maps.Marker({
 	                 map: map, // 마커를 표시할 지도
