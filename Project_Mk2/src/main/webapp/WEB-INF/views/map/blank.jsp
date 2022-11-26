@@ -37,6 +37,7 @@
    var infowindowOpened = [];
    var userCheckToilet = [];
    var detailList= [];	
+   var reviewList= [];
    var geocoder = null;
 $(function () {
 	 history.replaceState({}, null, location.pathname); 
@@ -44,6 +45,20 @@ $(function () {
      var toiletDetail = [];
      var mapContainer;
      var map;
+     $.ajax({
+    	url:"toiletReview",
+    	type:"get",
+    	dataType:"json",
+    		success:function(toiletReview){
+    			var j = Object.values(toiletReivew)
+    			for(var i = 0; i < j.length; i++){
+    				reviewList[i] = {
+    						number :j[i]
+    				}
+    			}
+    		}
+     });
+     
      
      $.ajax({
      	url:"toiletDetail",
@@ -53,28 +68,15 @@ $(function () {
  	    	 var j = Object.values(toiletInfo)
  	    	 console.log(j.length);
  		 	 for(var i = 0; i < j.length; i++){
- 		 		 if(j[i].restDisTol!=0){
- 		 			 console.log('왔다1')
- 		 			detailList[i] = {
- 							 number : j[i].basNo,
- 							 overrayContent : '<div><label id="name">'+j[i].basName+'</label></div>'+
- 			          			'<div><span>소변기</span><label>&nbsp;'+ j[i].restUri + '</label></div>'+
- 			          			'<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
- 			          			'<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
- 			          			'<div><span>장애인대변기</span><label>&nbsp;'+j[i].restDisToi+'</label></div>'
- 			          		
- 					 }
- 		 		 }
- 				 
  		 			 detailList[i] = {
  						 number : j[i].basNo,
- 						 overrayContent : '<div><label id="name">&nbsp;'+j[i].basName+'</label></div>'+
+ 						 overlayContent : '<div><label id="name">&nbsp;'+j[i].basName+'</label></div>'+
  		          			'<div><span>소변기</span><label>&nbsp;'+ j[i].restUri + '</label></div>'+
  		          			'<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
  		          			'<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
  		          			'<div><button onclick="replyShow()">댓글열기</button></div>'
- 		          		
- 				 } 
+ 				 }
+ 		 			 
  			}
  	    	 
  	        },error : function () {
@@ -111,7 +113,7 @@ $(function () {
   		  	var lat = position.coords.latitude, // 현재 위도
 				lon = position.coords.longitude; // 현재 경도
   	 	 	console.log(lat,lon);
-		  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+		  mapContainer ㅇ= document.getElementById('map'), // 지도를 표시할 div  
 	       mapOption = {
 	           center: new kakao.maps.LatLng(lat, lon), // 바꿔야 하는 위도 경도
 	           level: 2 // 지도의 확대 레벨
@@ -226,7 +228,7 @@ $(function () {
  	             for(var v = 0; v < detailList.length; v++){
  	            	 if(detailList[v].number == userCheckToilet[i].number){
  	            		infowindowDetail = new kakao.maps.InfoWindow({
- 	            		    content: detailList[v].overrayContent, 
+ 	            		    content: detailList[v].overlayContent, 
  	            		    removable: true
  	            		});
 
@@ -307,7 +309,7 @@ $(function () {
          	 	             for(var v = 0; v < detailList.length; v++){
          	 	            	 if(detailList[v].number == userCheckToilet[i].number){
          	 	            		infowindowDetail = new kakao.maps.InfoWindow({
-         	 	            		    content: detailList[v].overrayContent, 
+         	 	            		    content: detailList[v].overlayContent, 
          	 	            		});
 
          	 	            	 }
