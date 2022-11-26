@@ -15,7 +15,10 @@ public class AdminInterceptor implements HandlerInterceptor  {
 		
 		HttpSession session = request.getSession();
 		String checkKey = (String)session.getAttribute("mem_key");
-		if(!checkKey.equals("A")) {
+		if(checkKey == null) {
+			checkKey = "U";
+		}
+		if(!checkKey.equals("A") || checkKey == null) {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>"+
