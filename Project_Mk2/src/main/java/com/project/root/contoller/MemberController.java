@@ -17,9 +17,10 @@ public class MemberController {
 	@PostMapping("loginCheck")
 	public String loginCheck(HttpServletRequest request, HttpSession session) {
 		int result = ms.loginCheck(request);
+		String memKey = ms.getMemKey(request.getParameter("id"));
 		if(result == 1) {
 			session.setAttribute("id", request.getParameter("id"));
-			session.setAttribute("mem_key", "A");
+			session.setAttribute("mem_key", memKey);
 			return "loginSuccess";
 		}
 		return "redirect:login";

@@ -20,4 +20,8 @@
 		select * from member where mem_id = #{id}
 	</select>
 	
+	<select id="getMemKey" resultType="String">
+		select mem_key from member where mem_id = #{id}
+	</select>
+	
 </mapper>
