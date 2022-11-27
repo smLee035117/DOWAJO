@@ -5,6 +5,45 @@
    height: 100%;
 }
 
+#detailInfo{
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-top: 12px;
+}
+
+#basName {
+	font-size: 20px;
+	font-weight: bold;
+	color:  rgba(0,0,0,0.8);
+}
+#basAddr {
+	font-size: 17px;
+	color:  rgba(0,0,0,0.8);
+}
+#bas_addr {
+	font-size: 13px;
+	color: gray;
+}
+
+
+#send-icon:hover {
+	transform: rotate( -90deg );
+}
+#restUri, #restToi, #restLock, #restStatus{
+	
+	font-size: 1.2em;
+	color:  rgba(0,0,0,0.6);
+}
+
+#replyForm input[type="text"] {
+	border:none;
+	font-size: 0.9em;
+	color: rgba(0,0,0,0.6);
+	border-bottom: 1px solid black;
+}
+#replyForm input[type="text"]:focus{
+	outline:none;
+}
 #GPS {
 	display: block;
 	width: 40px;
@@ -62,15 +101,30 @@
 .modal-content #small, #big {
 	float: left;
 }
-
+.restContent1 {
+	float: left;
+	width: 45%;	
+}
+.restContent2 {
+	float: left;
+	width: 45%;	
+}
+#bas_content {
+	text-align: center;
+	font-size: 1.3em;
+	font-weight: bold;
+	color:  rgba(0,0,0,0.7);
+	
+}
 #basAddr{
 	width:100%;
 	outline : none;
 }
+
 #content input[type="text"]{
-	font-size: 1.4em;
+	font-size: 1.2em;
 	font-weight: bold;
-	color: rgba(0,0,0,0.8);
+	color: rgba(0,0,0,0.7);
 }
 #content input[type="text"]:focus{
 	outline:none;

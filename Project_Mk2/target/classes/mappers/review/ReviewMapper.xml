@@ -16,5 +16,8 @@
 		<result property="reContent" column="re_content"/>
 	</resultMap>
 	
+	<select id="getReviewList" resultMap="review">
+		select * from review
+	</select>
 	
 </mapper>
