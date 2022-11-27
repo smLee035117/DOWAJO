@@ -54,8 +54,6 @@ $(function () {
   	    	 var j = Object.values(toiletInfo)
   	    	 console.log(j[0].basNo);
   		 	 for(var i = 0; i < j.length; i++){  		
-  		 			 console.log('왔다1')
-  		 		
   		 			reviewList[i] = {
   							 number : j[i].basNo,  							
   							 overrayContent : '<div><label id="name">'+j[i].reNo+'</label></div>'+
@@ -65,6 +63,7 @@ $(function () {
   			          			'<div><span>장애인대변기</span><label>&nbsp;'+j[i].reRegDate+'</label></div>'
   			          		
   					 }
+  		 			 console.log('최초 reviewList[i].number=' + reviewList[i].reviewList)
   		 		 
   			}
   	    	 
@@ -95,8 +94,8 @@ $(function () {
  			 	 	 
 	 				 	for(var a =0; 0<reviewList.length;a++){
 	 				 		
-	 				 		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@1' + detailList[i].number)
-	 				 		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@o='+a)
+	 				 	/* 	console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@1' + detailList[i].number)
+	 				 		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@o='+a) */
 	 				 	if( detailList[i].number == reviewList[a].number){
 	 				 		console.log('옴')
 	 						 	detailList[i].overrayContent += reviewList[a].overrayContent 	 				 			
