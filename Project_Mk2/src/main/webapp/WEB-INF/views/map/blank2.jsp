@@ -45,71 +45,51 @@ $(function () {
      var mapContainer;
      var map;
      var reviewList = []
-     
      $.ajax({
       	url:"reviewSelect",
       	type:"get",
+      	async:false,
       	dataType: "json",
   	       success:function(toiletInfo){
   	    	 var j = Object.values(toiletInfo)
-  	    	 console.log(j[0].basNo);
   		 	 for(var i = 0; i < j.length; i++){  		
   		 			reviewList[i] = {
   							 number : j[i].basNo,  							
-  							 overrayContent : '<div><label id="name">'+j[i].reNo+'</label></div>'+
-  			          			'<div><span>소변기</span><label>&nbsp;'+ j[i].basNo + '</label></div>'+
-  			          			'<div><span>대변기</span><label>&nbsp;'+ j[i].reSco + '</label></div>'+
-  			          			'<div><span>잠금유무</span><label>&nbsp;'+ j[i].reContent+ '</label></div>'+
-  			          			'<div><span>장애인대변기</span><label>&nbsp;'+j[i].reRegDate+'</label></div>'
-  			          		
+  							 overrayContent : '<div>'+ j[i].reContent+ '</div>'+
+  							'<div>&nbsp;'+j[i].reSco+'</div>'+
+  							'<div>&nbsp;'+j[i].reRegDate+'</div>'
   					 }
-  		 			 console.log('최초 reviewList[i].number=' + reviewList[i].reviewList)
-  		 		 
   			}
   	    	 
   	        },error : function () {
   	           console.log('fail')
   	        } 
        });
-     
-     
+
      $.ajax({
      	url:"toiletDetail",
      	type:"get",
      	dataType: "json",
+     	async:false,
  	       success:function(toiletInfo){
  	    	 var j = Object.values(toiletInfo)
- 	    	 console.log(j.length);
  		 	 for(var i = 0; i < j.length; i++){
- 		 			 console.log('왔다1')
  		 			detailList[i] = {
  							 number : j[i].basNo, 							 
- 							 overrayContent : '<div><label id="name">'+j[i].basName+'</label></div>'+
+ 							 overrayContent : '<div style="width:500px;"><div><label id="name">'+j[i].basName+'</label></div>'+
  			          			'<div><span>소변기</span><label>&nbsp;'+ j[i].restUri + '</label></div>'+
  			          			'<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
  			          			'<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
  			          			'<div><span>장애인대변기</span><label>&nbsp;'+j[i].restDisToi+'</label></div>'
- 			          		
  					 }
  			 	 	 
-	 				 	for(var a =0; 0<reviewList.length;a++){
-	 				 		
-	 				 	/* 	console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@1' + detailList[i].number)
-	 				 		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@o='+a) */
-	 				 	if( detailList[i].number == reviewList[a].number){
-	 				 		console.log('옴')
-	 						 	detailList[i].overrayContent += reviewList[a].overrayContent 	 				 			
-	 				 		}
+	 				 	for(var a =0; a<reviewList.length;a++){	 				 		
+		 				 	 if(detailList[i].number == reviewList[a].number){
+		 						 	detailList[i].overrayContent += reviewList[a].overrayContent 	
+		 				 	}
 	 				 	}
- 		 			/*  detailList[i] = {
- 						 number : j[i].basNo,
- 						 overrayContent : '<div><label id="name">&nbsp;'+j[i].basName+'</label></div>'+
- 		          			'<div><span>소변기</span><label>&nbsp;'+ j[i].restUri + '</label></div>'+
- 		          			'<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
- 		          			'<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
- 		          			'<div><button onclick="replyShow()">댓글열기</button></div>'
- 		          		
- 				 }  */
+ 		 			detailList[i].overrayContent +='</div>'
+ 		 			detailList[i].overrayContent += '페이징'
  			}
  	    	 
  	        },error : function () {
@@ -117,7 +97,6 @@ $(function () {
  	        } 
       });
     //  공공데이터 api 정보가져오기 
-     console.log('왔다2')
    $.ajax({
        url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/10",
        type:"get",   
@@ -145,7 +124,7 @@ $(function () {
           function showYourLocation(position) {  // 성공했을때 실행
   		  	var lat = position.coords.latitude, // 현재 위도
 				lon = position.coords.longitude; // 현재 경도
-  	 	 	console.log(lat,lon);
+  	 	 	
 		  mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	       mapOption = {
 	           center: new kakao.maps.LatLng(lat, lon), // 바꿔야 하는 위도 경도
@@ -267,7 +246,7 @@ $(function () {
  	            	 }
  	             } 
 	           
-				console.log(infowindowDetail.length)
+				
 	             //마우스 오버 후 제목 내용 나오는 리스너
 	             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 	             //마우스 오버후 이동시 끄는 리스너
@@ -325,7 +304,7 @@ $(function () {
          	    		// baic_data 정보 불러와서 뿌리는 마
          		         for (var i = 0; i < userCheckToilet.length; i ++) {
          		        	
-         		        	console.log('gps실패')
+         		        	
          		             // 마커를 생성합니다
          		              var marker = new kakao.maps.Marker({
          		                 map: map, // 마커를 표시할 지도
@@ -347,7 +326,7 @@ $(function () {
          	 	            	 }
          	 	             } 
          		           
-         					console.log(infowindowDetail.length)
+         					
          		             //마우스 오버 후 제목 내용 나오는 리스너
          		             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
          		             //마우스 오버후 이동시 끄는 리스너
@@ -373,7 +352,7 @@ $(function () {
                
 	                //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
    	        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {   
-   	        	console.log('여기3')
+   	        	
    	        	 searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {     
    	        		  if (status === kakao.maps.services.Status.OK  && result[0].road_address != null) {
  	                    	
@@ -406,7 +385,7 @@ $(function () {
         } 
     });
 
-     console.log('왔다4')
+     
    //객체생성
     var marker2 = new kakao.maps.Marker({ });
 	
