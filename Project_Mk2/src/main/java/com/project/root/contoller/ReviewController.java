@@ -20,6 +20,13 @@ public class ReviewController {
 	@RequestMapping(value = "reviewSelect", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ReviewDTO> getRevicwList(){
+		System.out.println(reviewService.getReviewList());
 		return reviewService.getReviewList();
+	}
+	@RequestMapping(value = "replyWritePost", method = RequestMethod.POST)
+	@ResponseBody
+	public int replyWriePost(ReviewDTO reviewDTO){
+		System.out.println("re="+reviewDTO);
+		return reviewService.replyWritePost(reviewDTO);
 	}
 }
