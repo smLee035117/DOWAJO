@@ -7,4 +7,5 @@ import com.project.root.review.dto.ReviewDTO;
 public interface ReviewMapper {
 
 	public List<ReviewDTO> getReviewList();
+	public int replyWritePost(ReviewDTO reviewDTO);
 }

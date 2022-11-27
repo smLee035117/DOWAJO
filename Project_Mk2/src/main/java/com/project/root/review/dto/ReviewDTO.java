@@ -1,11 +1,21 @@
 package com.project.root.review.dto;
 
+import java.sql.Timestamp;
+
 public class ReviewDTO {
 	private int reNo;
 	private String basNo;
 	private int reSco;
 	private String reContent;
+	private Timestamp reRegDate;
 	
+	
+	public Timestamp getReRegDate() {
+		return reRegDate;
+	}
+	public void setReRegDate(Timestamp reRegDate) {
+		this.reRegDate = reRegDate;
+	}
 	public int getReNo() {
 		return reNo;
 	}
@@ -32,8 +42,10 @@ public class ReviewDTO {
 	}
 	@Override
 	public String toString() {
-		return "ReviewDTO [reNo=" + reNo + ", basNo=" + basNo + ", reSco=" + reSco + ", reContent=" + reContent + "]";
+		return "ReviewDTO [reNo=" + reNo + ", basNo=" + basNo + ", reSco=" + reSco + ", reContent=" + reContent
+				+ ", reRegDate=" + reRegDate + "]";
 	}
+
 	
 	
 }
