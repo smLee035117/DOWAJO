@@ -39,13 +39,17 @@
    var userCheckToilet = [];
    var detailList= [];   
    var geocoder = null;
+   var toilet = [];
+   var toiletDetail = [];
+   var mapContainer;
+   var map;
+   var reviewList = [];
+
 $(function () {
     history.replaceState({}, null, location.pathname); 
-     var toilet = [];
-     var toiletDetail = [];
-     var mapContainer;
-     var map;
-     var reviewList = [];
+
+     
+     //화장실 리뷰 데이터
      $.ajax({
          url:"reviewSelect",
          type:"get",
@@ -66,15 +70,14 @@ $(function () {
                 console.log('fail')
              } 
        });
-
+     
+	//화장실 상세데이터
      $.ajax({
         url:"toiletDetail",
         type:"get",
         dataType: "json",
         async:false,
-           success:function(toiletInfo){
-        	   var ats = []
-        	   
+           success:function(toiletInfo){        	 
             var j = Object.values(toiletInfo)
             for(var i = 0; i < j.length; i++){
             	//matchNum -> 댓글수
@@ -89,85 +92,25 @@ $(function () {
                              '<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
                              '<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
                              '<div><span>장애인대변기</span><label>&nbsp;'+j[i].restDisToi+'</label></div>'+
-                             '<div style="overflow: auto;height:150px;line-height:30px;">'
+                             '<div style="overflow: auto;height:150px;line-height:30px;">'+
+                             '<c:import url="replyList?basNo='+j.[i].basNo+'"/>'
                           }
-		                 for(var a =0; a<reviewList.length;a++){                       
-		                     if(detailList[i].number == reviewList[a].number){
-		                    	 	matchNum ++;
+		              /*    for(var a =0; a<reviewList.length;a++){                       
+		                     if(detailList[i].number == reviewList[a].number){		                    	
 		                          detailList[i].overrayContent += reviewList[a].overrayContent;
-		                     	 
+		                          //리뷰가 있는지 없는지 확인하는 변수
+		                    	  matchNum ++;
 		                     }
 		                 } 
 		              	  if(matchNum==0){
 			            	  detailList[i].overrayContent += '리뷰가 없습니다. 리뷰를 작성해주세요'	              		  
-		              	  }
-		              detailList[i].overrayContent +='<input type="text" name="reContent" id="reContent"></textarea><button onclick="popReply()" value="갑니다~"></button></div></div>'
-              
-                 }
-                   
-/*     function pagingInfo(1) {
-		
- 
-	}             
-                 
-                 
-           	   <c:if test="${startPage > block}">
-                 <button onclick="location.href='joinAllListNum?num=${startPage-1}'">이전</button>
-              </c:if>
-              <c:forEach var="num1" begin="${startPage}" end="${endPage}">
-                    <c:if test="${num1 == currentPage }">
-                       <button id="currrentPage" onclick="location.href='joinAllListNum?num=${num1}'">${num1}</button>
-                    </c:if>
-                 <c:if test="${num1 != currentPage }">
-                    <button id="page" onclick="location.href='joinAllListNum?num=${num1}'">${num1}</button>
-                 </c:if>
-              </c:forEach>
-              <c:if test="${endPage<totalPage}">
-                 <button onclick="location.href='joinAllListNum?num=${endPage+1}'">다음</button>
-              </c:if> 
-              
-              
-                 
-                 int currentPage = num;   // 현재 페이지 번호
-                 
-                 detailList[i].rePageNum += 1;
-                 
-                 
-                 
-               초기 페이지 번호를 설정할 변수가 필요.
-               해당 변수는 클릭등의 동작에 의해서 계속 변해야 함.
-                 
-                 
-                 
-                 int pageLetter = 3;// 한 페이지 당 글 목록수
-               
-                 
-                 int allCount = mapper.selectJoinSearchCount(title);// 전체 글수 
-               -> detailList 랑 reviewList 의 number가 일치한 횟수를 저장할 변수 필요
-               
-               int allCount = detailList[i].matchNum;
-               
-               
-               
-               int repeat = allCount/pageLetter;
-               if(allCount % pageLetter != 0)
-                  repeat += 1;
-                  int start = (currentPage-1) * pageLetter + 1;
-                  int end = start + pageLetter - 1;
-                  
-                  //페이징 블록 내용 추가
-                  int block = 3;
-                  int totalPage = (allCount-1)/pageLetter+1;
-                  int startPage = (currentPage-1)/block * block + 1;
-                  int endPage = startPage + block -1;
-                  if(endPage>totalPage) {
-                     endPage = totalPage;
-                  }
-                 
-                 
-                 */
-          
-            
+		              	  } */
+		              detailList[i].overrayContent +='<input type="text" name="reContent" id="reContent"></textarea>'+
+		              '<select id="reSco" name="reSco"><option value="5">5</option><option value="4">4</option>'+
+					  '<option value="3">3</option><option value="2">2</option><option value="1">1</option>'+
+					  '</select><button onclick="popReply()">이미지</button>'+
+		              '<input type="hidden" id="basNo" name="basNo" value="'+j[i].basNo+'"></div></div>'              
+                 }                   
             },error : function () {
                console.log('fail')
             } 
@@ -181,18 +124,38 @@ $(function () {
        success:function(responseData){         
           var j = Object.values(responseData)
              for(var i = 0 ; i < j[0].row.length; i++){
+                 matchNum = 0 
                  toilet[i] = {
                          content: '<div>'+j[0].row[i].FNAME+'</div>',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도
                          /* number: j[0].row[i].POI_ID */
                  }
+                 
                  toiletDetail[i] ={
-                       content: '<div style="width:180px"><div>'+j[0].row[i].FNAME+'</div>'+
+                       content: '<div style="width:500px;"><div>'+j[0].row[i].FNAME+'</div>'+
                          '<div><span style="font-size:0.8em">화장실구분&nbsp;</span>'+j[0].row[i].ANAME+'</div>'+
-                         '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>'+
-                         '<div><button onclick="replyShow()">댓글열기</button></div></div>',
+                         '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도                      
                  }
+                 
+                 for(var a =0; a<reviewList.length;a++){                       
+                     if(j[0].row[i].POI_ID == reviewList[a].number){		                    	
+                    	 toiletDetail[i].content += reviewList[a].overrayContent;
+                          //리뷰가 있는지 없는지 확인하는 변수
+                    	  matchNum ++;
+                     }
+                 } 
+                 
+              	  if(matchNum==0){
+              			toiletDetail[i].content += '리뷰가 없습니다. 리뷰를 작성해주세요'	              		  
+              	  }
+              	  
+                  toiletDetail[i].content +='<input type="text" name="reContent" id="reContent"></textarea>'+
+	              '<select id="reSco" name="reSco"><option value="5">5</option><option value="4">4</option>'+
+				  '<option value="3">3</option><option value="2">2</option><option value="1">1</option>'+
+				  '</select><button onclick="popReply()">이미지</button>'+
+	              '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].POI_ID +'"></div></div>' 
+              
              }
          //자신의 위치 가져오는 geolocation api 
        navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
@@ -370,17 +333,16 @@ $(function () {
 
                          
                      }
+                     //basic_data 정보 가져오는 for문
                    <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
-                      userCheckToilet.push({
-                         content: '<div>${toiletList.basName}</div>',
-                         latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
-                         number: '${toiletList.basNo}'
-                   })
-                  </c:forEach>
-                      // baic_data 정보 불러와서 뿌리는 마
+                      	userCheckToilet.push({
+	                         content: '<div>${toiletList.basName}</div>',
+	                         latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
+	                         number: '${toiletList.basNo}'
+                   		})
+               	   </c:forEach>
+                      // baic_data 정보 불러와서 뿌리는 마커
                         for (var i = 0; i < userCheckToilet.length; i ++) {
-                          
-                          
                             // 마커를 생성합니다
                              var marker = new kakao.maps.Marker({
                                 map: map, // 마커를 표시할 지도
@@ -512,7 +474,9 @@ $(function () {
          type:"post",   
          dataType : "json",
          data:{
-            "reContent" : $('#reContent').val()
+            "reContent" : $('#reContent').val(),
+            "basNo" : $('#basNo').val(),
+            "reSco" : $('#reSco').val()
          },
          success:function(responseData){      
             var j = JSON.parse(responseData)
@@ -561,6 +525,27 @@ $(function () {
            } 
        });
 }
+function emailSend() {
+	 $.ajax({
+         url:"mailSend",
+         type:"post",   
+         dataType : "json",
+         data:{
+            "mailSubject" : $('#mailSubject').val(),
+            "mailContent" : $('#mailContent').val()
+         },
+         success:function(responseData){      
+            var j = JSON.parse(responseData)
+               if(j==1){             
+                  alert("메일 전송이 성공하였습니다.")
+               }else{                   
+                  alert("메일 전송이 실패하였습니다.")
+               }
+          },error : function () {
+             console.log('fail')
+          } 
+      });
+}
 </script>
 <body id="page-top">
    <div class="container">
@@ -593,7 +578,8 @@ $(function () {
          </div>
       </div>
    </div>
-   <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
+   <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a><br><br>
+   <div id="MAIL"><a onclick="emailSend()"><img id="gps-img" src="resources/img/email_image.jpg" width="60%" height="60%"></a></div></div>
    <!-- Page Wrapper -->
    <div id="clickLatlng"></div>
    <div id="wrapper">
