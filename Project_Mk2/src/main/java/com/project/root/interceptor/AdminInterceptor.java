@@ -22,7 +22,7 @@ public class AdminInterceptor implements HandlerInterceptor  {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>"+
-			"alert('Á¢±Ù±ÇÇÑÀÌ ¾ø½À´Ï´Ù.');"
+			"alert('ì ‘ê·¼ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤');"
 			+"location.href='"+ request.getContextPath()+"/'</script>");
 			return false;
 		}
