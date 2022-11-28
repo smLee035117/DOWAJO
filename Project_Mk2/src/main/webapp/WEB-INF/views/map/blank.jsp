@@ -26,6 +26,7 @@
 </head>
 <script type="text/javascript"
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
+   <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
 <script type="text/javascript">
    // 외부영역 클릭 시 팝업 닫기
    $(document).mouseup(function (e){
@@ -34,17 +35,18 @@
        LayerPopup.removeClass("show");
      }
    });
+   var matchNum;
    var infowindowOpened = [];
    var userCheckToilet = [];
    var detailList= [];   
    var geocoder = null;
+   var toilet = [];
+   var toiletDetail = [];
+   var mapContainer;
+   var map;
+   var reviewList = [];
 $(function () {
     history.replaceState({}, null, location.pathname); 
-     var toilet = [];
-     var toiletDetail = [];
-     var mapContainer;
-     var map;
-     var reviewList = [];
      $.ajax({
          url:"reviewSelect",
          type:"get",
@@ -52,12 +54,32 @@ $(function () {
          dataType: "json",
             success:function(toiletInfo){
              var j = Object.values(toiletInfo)
-             for(var i = 0; i < j.length; i++){        
+             for(var i = 0; i < j.length; i++){
+            	var score;
+            	 
+            	 switch(j[i].reSco){
+            	 case 1:
+            		 score = '★';
+            		 break;
+				case 2:
+					score = '★★';
+            		 break;
+				case 3:
+					score = '★★★';
+           		 break;
+				case 4:
+					score = '★★★★';
+           		 break;
+				case 5:
+					score = '★★★★★';
+           		 break;
+           	  
+            	 } 
                   reviewList[i] = {
                         number : j[i].basNo,                       
-                        overrayContent : '<div>'+ j[i].reContent+ '</div>'+
-                       '<div>&nbsp;'+j[i].reSco+'</div>'+
-                       '<div>&nbsp;'+j[i].reRegDate+'</div>'
+                        overrayContent : '<div id="review"><span id="contentView">'+ j[i].reContent+'</span>'+
+                        '<span id="dateView">'+moment(j[i].reRegDate).format("YY-MM-DD")+'</span>'+
+                        '<span id="scoreView">'+score+'</span></div>'
                   }
            }
              
@@ -74,6 +96,7 @@ $(function () {
            success:function(toiletInfo){
             var j = Object.values(toiletInfo)
             for(var i = 0; i < j.length; i++){
+            	matchNum=0;
                //matchNum -> 댓글수
                //rePageNum ->  현재댓글 페이지
 /*                                          matchNum : 0,
@@ -96,87 +119,36 @@ $(function () {
                     for(var a =0; a<reviewList.length;a++){                       
                         if(detailList[i].number == reviewList[a].number){
                              detailList[i].overrayContent += reviewList[a].overrayContent    
-                             //detailList[i].matchNum +=1;
+                             //리뷰가 있는지 없는지 확인하는 변수
+                             matchNum ++;
                         }
                     }
+                 if(matchNum==0){
+                     detailList[i].overrayContent += '<div id="review">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
+                    } 
                  detailList[i].overrayContent += 
-                	 
                	'<div id="reply-Form">'+
-	               	'<form name="replyForm" id="replyForm">'+
+	               	'<form name="	   var formData = $("#join_form").serialize(); " id="replyForm">'+
 		                '<div id="reviewSend">'+
 			                 '<span id="form_title">리뷰작성</span>'+
 				             '<div id="selectStart">'+
 				                 	'<fieldset>'+
-					         		 	'<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>'+
-					         			'<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>'+
-					         		 	'<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label>'+
-					         		 	'<input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label>'+
-					         		 	'<input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>&nbsp;'+
+					         		 	'<input type="radio" name="reSco" value="5" id="rate1"><label for="rate1">★</label>'+
+					         			'<input type="radio" name="reSco" value="4" id="rate2"><label for="rate2">★</label>'+
+					         		 	'<input type="radio" name="reSco" value="3" id="rate3"><label for="rate3">★</label>'+
+					         		 	'<input type="radio" name="reSco" value="2" id="rate4"><label for="rate4">★</label>'+
+					         		 	'<input type="radio" name="reSco" value="1" id="rate5"><label for="rate5">★</label>&nbsp;'+
 					         		 	'<span class="selectText">별점을 선택해주세요</span>'+
 				         		 	'</fieldset>'+
 					         '</div><br>'+
-			                 '<input type="text" id="reply" name="repContent" size="35" maxlength="22">&nbsp;'+
-			                 '<a id="replySend" onclick="replySend()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
+			                 '<input type="text" id="reply" name="reContent" size="35" maxlength="22">&nbsp;'+
+			                 '<input type="hidden" id="basNo" name="basNo" value="'+j[i].basNo+'">'+
+			                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
 	                 	'</div>'+
 	                 '</form>'+
                  '</div>'+
                  '</div>'
-/*                  detailList[i].overrayContent += '페이징' */
-                 
-                 
-/*                  <c:if test="${startPage > block}">
-                 <button onclick="location.href='joinAllListNum?num=${startPage-1}'">이전</button>
-              </c:if>
-              <c:forEach var="num1" begin="${startPage}" end="${endPage}">
-                    <c:if test="${num1 == currentPage }">
-                       <button id="currrentPage" onclick="location.href='joinAllListNum?num=${num1}'">${num1}</button>
-                    </c:if>
-                 <c:if test="${num1 != currentPage }">
-                    <button id="page" onclick="location.href='joinAllListNum?num=${num1}'">${num1}</button>
-                 </c:if>
-              </c:forEach>
-              <c:if test="${endPage<totalPage}">
-                 <button onclick="location.href='joinAllListNum?num=${endPage+1}'">다음</button>
-              </c:if> */
-                 /*
-                 int currentPage = num;   // 현재 페이지 번호
-                 
-                 detailList[i].rePageNum += 1;
-                 
-                 
-                 
-               초기 페이지 번호를 설정할 변수가 필요.
-               해당 변수는 클릭등의 동작에 의해서 계속 변해야 함.
-                 
-                 
-                 
-                 int pageLetter = 3;// 한 페이지 당 글 목록수
-               
-                 
-                 int allCount = mapper.selectJoinSearchCount(title);// 전체 글수 
-               -> detailList 랑 reviewList 의 number가 일치한 횟수를 저장할 변수 필요
-               
-               int allCount = detailList[i].matchNum;
-               
-               
-               
-               int repeat = allCount/pageLetter;
-               if(allCount % pageLetter != 0)
-                  repeat += 1;
-                  int start = (currentPage-1) * pageLetter + 1;
-                  int end = start + pageLetter - 1;
-                  
-                  //페이징 블록 내용 추가
-                  int block = 3;
-                  int totalPage = (allCount-1)/pageLetter+1;
-                  int startPage = (currentPage-1)/block * block + 1;
-                  int endPage = startPage + block -1;
-                  if(endPage>totalPage) {
-                     endPage = totalPage;
-                  }
-                 
-                 
-                 */
+
           }
             
             },error : function () {
@@ -192,35 +164,28 @@ $(function () {
        success:function(responseData){         
           var j = Object.values(responseData)
              for(var i = 0 ; i < j[0].row.length; i++){
+            	 matchNum = 0 
                  toilet[i] = {
                          content: '<div>'+j[0].row[i].FNAME+'</div>',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84), //위도 , 경도
                          number: j[0].row[i].POI_ID
                  }
                  toiletDetail[i] ={
-                		 /*
-                		  overrayContent : '<div id="ditailInfoWindow">'+
-                       		'<div id ="detailInfo">'+
-                       			'<div id="basName">'+j[i].basName+'</div>'+
-		                     	'<div><span id="basAddr">주소</span><label id="bas_addr">&nbsp;'+ j[i].basAddr + '</label></div>'+
-	                            '<div id="restContent">'+
-	                            	'<div class="restContent1"><span id="rest-Uri">소변기</span><label id="bas_content">&nbsp;'+ j[i].restUri + '</label></div>'+
-	                            	'<div class="restContent1"><span id="rest-Toi">대변기</span><label id="bas_content">&nbsp;'+ j[i].restToi + '</label></div>'+
-	                            	'<div class="restContent2"><span id="rest-Lock">잠금유무</span><label id="bas_content">&nbsp;'+ j[i].restLock + '</label></div>'+
-	                            	'<div class="restContent2"><span id="rest-Status">청결상태</span><label id="bas_content">&nbsp;'+ j[i].restStatus + '</label></div>'+
-	                            '</div>'+
-                             '</div>'
-                		 */
+
                        content: '<div id="ditailInfoWindow"><div id="detailInfo"><div id="basName">'+j[0].row[i].FNAME+'</div>'+
                          '<div><span style="font-size:0.8em">화장실구분&nbsp;</span>'+j[0].row[i].ANAME+'</div>'+
                          '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도                      
                  }
                  for(var a =0; a<reviewList.length;a++){                       
-                     if(toiletDetail[i].number == reviewList[a].number){
-                    	 toiletDetail[i].content += reviewList[a].overrayContent    
-                          //detailList[i].matchNum +=1;
+                	 if(j[0].row[i].POI_ID == reviewList[a].number){                             
+                         toiletDetail[i].content += reviewList[a].overrayContent;
+                           //리뷰가 있는지 없는지 확인하는 변수
+                          matchNum ++;
                      }
+                 }
+            	 if(matchNum==0){
+                     toiletDetail[i].content += '<div id="reviewNone">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
                  }
                  toiletDetail[i].content += 
 	            	'<div id="reply-Form">'+
@@ -229,21 +194,21 @@ $(function () {
 				                 '<span id="form_title">리뷰작성</span>'+
 					             '<div id="selectStart">'+
 					                 	'<fieldset>'+
-						         		 	'<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>'+
-						         			'<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>'+
-						         		 	'<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label>'+
-						         		 	'<input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label>'+
-						         		 	'<input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>&nbsp;'+
+						         		 	'<input type="radio" name="reSco" value="5" id="rate1"><label for="rate1">★</label>'+
+						         			'<input type="radio" name="reSco" value="4" id="rate2"><label for="rate2">★</label>'+
+						         		 	'<input type="radio" name="reSco" value="3" id="rate3"><label for="rate3">★</label>'+
+						         		 	'<input type="radio" name="reSco" value="2" id="rate4"><label for="rate4">★</label>'+
+						         		 	'<input type="radio" name="reSco" value="1" id="rate5"><label for="rate5">★</label>&nbsp;'+
 						         		 	'<span class="selectText">별점을 선택해주세요</span>'+
 					         		 	'</fieldset>'+
 						         '</div><br>'+
-				                 '<input type="text" id="reply" name="repContent" size="35" maxlength="22">&nbsp;'+
-				                 '<a id="replySend" onclick="replySend()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
+						         '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].POI_ID +'">'+
+				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="22">&nbsp;'+
+				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
 		                 	'</div>'+
 		                 '</form>'+
 	              '</div>'+
 	              '</div>'
-                 
                  
              }
          //자신의 위치 가져오는 geolocation api 
@@ -558,7 +523,27 @@ $(function () {
   function replyShow(){
      $('#layer-popup').addClass("show");  
   }
-   
+ 
+  function popReply() {
+	   var formData = $("#replyForm").serialize(); 
+      $.ajax({
+        url:"replyWritePost",
+        type:"post",   
+        dataType : "json",
+        data:formData,
+        success:function(responseData){      
+           var j = JSON.parse(responseData)
+              if(j==1){             
+                 alert("등록이 완료되었습니다")
+                   location.href="blank"  
+              }else{                   
+                 alert("알수없는 오류입니다")
+              }
+         },error : function () {
+            console.log('fail')
+         } 
+     });
+}
    //장소 등록 
    function popData() {
        var la = $('#latlng').val()
@@ -590,6 +575,31 @@ $(function () {
            } 
        });
 }
+   function emailPop() {
+	      $('#layer-popup-email').addClass("show");   
+	   }
+	function sendMail() {
+	    $('#layer-popup-email').addClass("show");   
+	    $.ajax({
+	         url:"mailSend",
+	         type:"post",   
+	         dataType : "json",
+	         data:{
+	            "mailSubject" : $('#mailSubject').val(),
+	            "mailContent" : $('#mailContent').val()
+	         },
+	         success:function(responseData){      
+	            var j = JSON.parse(responseData)
+	               if(j==1){             
+	                  alert("메일 전송이 성공하였습니다.")
+	               }else{                   
+	                  alert("메일 전송이 실패하였습니다.")
+	               }
+	          },error : function () {
+	             console.log('fail')
+	          } 
+	      });
+	}   
 </script>
 <body id="page-top">
    <div class="container">
@@ -621,6 +631,18 @@ $(function () {
             </div>
          </div>
       </div>
+      <!--email 팝  -->
+      <div class="layer-popup" id="layer-popup-email">
+         <div class="modal-dialog">
+            <div class="modal-content">
+            <!-- <button onclick="bb()">xxx</button> -->
+               <input type="text" id="mailSubject" name="mailSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
+               <textarea id="mailContent" name="mailContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
+               <button class="popBtn" onclick="sendMail()"><span id="btn-span">확인</span></button>
+            </div>
+         </div>
+      </div>
+      
    </div>
    <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
    <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
