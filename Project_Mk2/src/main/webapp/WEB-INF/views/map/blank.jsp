@@ -80,12 +80,17 @@ $(function () {
                           rePageNum : 0 */
                  detailList[i] = {
                        number : j[i].basNo,                       
-                       overrayContent : '<div id ="detailInfo"><div id="basName">'+j[i].basName+'</div>'+
-		                     '<div><span id="basAddr">주소</span><label id="bas_addr">&nbsp;'+ j[i].basAddr + '</label></div>'+
-                             '<div class="restContent1"><span id="restUri">소변기</span><label id="bas_content">&nbsp;'+ j[i].restUri + '</label></div>'+
-                             '<div class="restContent1"><span id="restToi">대변기</span><label id="bas_content">&nbsp;'+ j[i].restToi + '</label></div>'+
-                             '<div class="restContent2"><span id="restLock">잠금유무</span><label id="bas_content">&nbsp;'+ j[i].restLock + '</label></div>'+
-                             '<div class="restContent2"><span id="restStatus">청결상태</span><label id="bas_content">&nbsp;'+ j[i].restStatus + '</label></div>'
+                       overrayContent : '<div id="ditailInfoWindow">'+
+                       		'<div id ="detailInfo">'+
+                       			'<div id="basName">'+j[i].basName+'</div>'+
+		                     	'<div><span id="basAddr">주소</span><label id="bas_addr">&nbsp;'+ j[i].basAddr + '</label></div>'+
+	                            '<div id="restContent">'+
+	                            	'<div class="restContent1"><span id="rest-Uri">소변기</span><label id="bas_content">&nbsp;'+ j[i].restUri + '</label></div>'+
+	                            	'<div class="restContent1"><span id="rest-Toi">대변기</span><label id="bas_content">&nbsp;'+ j[i].restToi + '</label></div>'+
+	                            	'<div class="restContent2"><span id="rest-Lock">잠금유무</span><label id="bas_content">&nbsp;'+ j[i].restLock + '</label></div>'+
+	                            	'<div class="restContent2"><span id="rest-Status">청결상태</span><label id="bas_content">&nbsp;'+ j[i].restStatus + '</label></div>'+
+	                            '</div>'+
+                             '</div>'
                  }
                    
                     for(var a =0; a<reviewList.length;a++){                       
@@ -94,10 +99,28 @@ $(function () {
                              //detailList[i].matchNum +=1;
                         }
                     }
-                 detailList[i].overrayContent += '<form name="replyForm" id="replyForm">'+
-                 '<input type="text" id="reply" name="repContent" size="30">&nbsp;&nbsp;'+
-                 '<a id="replySend" onclick="replySend()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
-                 '</form></div>'
+                 detailList[i].overrayContent += 
+                	 
+               	'<div id="reply-Form">'+
+	               	'<form name="replyForm" id="replyForm">'+
+		                '<div id="reviewSend">'+
+			                 '<span id="form_title">리뷰작성</span>'+
+				             '<div id="selectStart">'+
+				                 	'<fieldset>'+
+					         		 	'<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>'+
+					         			'<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>'+
+					         		 	'<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label>'+
+					         		 	'<input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label>'+
+					         		 	'<input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>&nbsp;'+
+					         		 	'<span class="selectText">별점을 선택해주세요</span>'+
+				         		 	'</fieldset>'+
+					         '</div><br>'+
+			                 '<input type="text" id="reply" name="repContent" size="35" maxlength="22">&nbsp;'+
+			                 '<a id="replySend" onclick="replySend()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
+	                 	'</div>'+
+	                 '</form>'+
+                 '</div>'+
+                 '</div>'
 /*                  detailList[i].overrayContent += '페이징' */
                  
                  
@@ -171,16 +194,57 @@ $(function () {
              for(var i = 0 ; i < j[0].row.length; i++){
                  toilet[i] = {
                          content: '<div>'+j[0].row[i].FNAME+'</div>',
-                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도
-                         /* number: j[0].row[i].POI_ID */
+                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84), //위도 , 경도
+                         number: j[0].row[i].POI_ID
                  }
                  toiletDetail[i] ={
-                       content: '<div id="detailInfo"><div id="basName">'+j[0].row[i].FNAME+'</div>'+
+                		 /*
+                		  overrayContent : '<div id="ditailInfoWindow">'+
+                       		'<div id ="detailInfo">'+
+                       			'<div id="basName">'+j[i].basName+'</div>'+
+		                     	'<div><span id="basAddr">주소</span><label id="bas_addr">&nbsp;'+ j[i].basAddr + '</label></div>'+
+	                            '<div id="restContent">'+
+	                            	'<div class="restContent1"><span id="rest-Uri">소변기</span><label id="bas_content">&nbsp;'+ j[i].restUri + '</label></div>'+
+	                            	'<div class="restContent1"><span id="rest-Toi">대변기</span><label id="bas_content">&nbsp;'+ j[i].restToi + '</label></div>'+
+	                            	'<div class="restContent2"><span id="rest-Lock">잠금유무</span><label id="bas_content">&nbsp;'+ j[i].restLock + '</label></div>'+
+	                            	'<div class="restContent2"><span id="rest-Status">청결상태</span><label id="bas_content">&nbsp;'+ j[i].restStatus + '</label></div>'+
+	                            '</div>'+
+                             '</div>'
+                		 */
+                       content: '<div id="ditailInfoWindow"><div id="detailInfo"><div id="basName">'+j[0].row[i].FNAME+'</div>'+
                          '<div><span style="font-size:0.8em">화장실구분&nbsp;</span>'+j[0].row[i].ANAME+'</div>'+
-                         '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>'+
-                         '<div><tex><button onclick="replyShow()"></button></div></div>',
+                         '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도                      
                  }
+                 for(var a =0; a<reviewList.length;a++){                       
+                     if(toiletDetail[i].number == reviewList[a].number){
+                    	 toiletDetail[i].content += reviewList[a].overrayContent    
+                          //detailList[i].matchNum +=1;
+                     }
+                 }
+                 toiletDetail[i].content += 
+	            	'<div id="reply-Form">'+
+		               	'<form name="replyForm" id="replyForm">'+
+			                '<div id="reviewSend">'+
+				                 '<span id="form_title">리뷰작성</span>'+
+					             '<div id="selectStart">'+
+					                 	'<fieldset>'+
+						         		 	'<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>'+
+						         			'<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>'+
+						         		 	'<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label>'+
+						         		 	'<input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label>'+
+						         		 	'<input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>&nbsp;'+
+						         		 	'<span class="selectText">별점을 선택해주세요</span>'+
+					         		 	'</fieldset>'+
+						         '</div><br>'+
+				                 '<input type="text" id="reply" name="repContent" size="35" maxlength="22">&nbsp;'+
+				                 '<a id="replySend" onclick="replySend()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
+		                 	'</div>'+
+		                 '</form>'+
+	              '</div>'+
+	              '</div>'
+                 
+                 
              }
          //자신의 위치 가져오는 geolocation api 
        navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
@@ -365,7 +429,7 @@ $(function () {
                          number: '${toiletList.basNo}'
                    })
                   </c:forEach>
-                      // baic_data 정보 불러와서 뿌리는 마
+                      // baic_data 정보 불러와서 뿌리는 마커
                         for (var i = 0; i < userCheckToilet.length; i ++) {
                           
                           
@@ -473,6 +537,7 @@ $(function () {
              }
             infowindow.open(map, marker);
               infowindowOpened[1] = infowindow;
+              
          };      
    }
    
@@ -558,6 +623,8 @@ $(function () {
       </div>
    </div>
    <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
+   <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
+   
    <!-- Page Wrapper -->
    <div id="clickLatlng"></div>
    <div id="wrapper">
