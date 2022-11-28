@@ -47,8 +47,6 @@
 
 $(function () {
     history.replaceState({}, null, location.pathname); 
-
-     
      //화장실 리뷰 데이터
      $.ajax({
          url:"reviewSelect",
@@ -64,25 +62,25 @@ $(function () {
                        '&nbsp;'+j[i].reSco+
                        '&nbsp;'+moment(j[i].reRegDate).format("YY-MM-DD")+'</div>'
                   }
-           }
+             }
              
-             },error : function () {
+            },error : function () {
                 console.log('fail')
              } 
        });
      
-	//화장실 상세데이터
+   //화장실 상세데이터
      $.ajax({
         url:"toiletDetail",
         type:"get",
         dataType: "json",
         async:false,
-           success:function(toiletInfo){        	 
+           success:function(toiletInfo){            
             var j = Object.values(toiletInfo)
             for(var i = 0; i < j.length; i++){
-            	//matchNum -> 댓글수
-            	//rePageNum ->  현재댓글 페이지
-     	          /*      matchNum : 0,
+               //matchNum -> 댓글수
+               //rePageNum ->  현재댓글 페이지
+                  /*      matchNum : 0,
                           rePageNum : 0, */
                  matchNum = 0 
                  detailList[i] = {
@@ -92,25 +90,23 @@ $(function () {
                              '<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
                              '<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
                              '<div><span>장애인대변기</span><label>&nbsp;'+j[i].restDisToi+'</label></div>'+
-                             '<div id="pop" style="overflow: auto;height:150px;line-height:30px;">'
+                             '<div style="overflow: auto;height:150px;line-height:30px;">'
                           }
-		                 for(var a =0; a<reviewList.length;a++){                       
-		                     if(detailList[i].number == reviewList[a].number){		                    	
-		                          detailList[i].overrayContent += reviewList[a].overrayContent;
-		                          //리뷰가 있는지 없는지 확인하는 변수
-		                    	  matchNum ++;
-		                     }
-		                 } 
-		              	  if(matchNum==0){
-			            	  detailList[i].overrayContent += '리뷰가 없습니다. 리뷰를 작성해주세요'	              		  
-		              	  }
-		              	  
-		              	  
-		              detailList[i].overrayContent +='<input type="text" name="reContent" id="reContent"></textarea>'+
-		              '<select id="reSco" name="reSco"><option value="5">5</option><option value="4">4</option>'+
-					  '<option value="3">3</option><option value="2">2</option><option value="1">1</option>'+
-					  '</select><button onclick="popReply()">이미지</button>'+
-		              '<input type="hidden" id="basNo" name="basNo" value="'+j[i].basNo+'"></div></div>'              
+                        for(var a =0; a<reviewList.length;a++){                       
+                           if(detailList[i].number == reviewList[a].number){                             
+                                detailList[i].overrayContent += reviewList[a].overrayContent;
+                                //리뷰가 있는지 없는지 확인하는 변수
+                               matchNum ++;
+                           }
+                       } 
+                         if(matchNum==0){
+                          detailList[i].overrayContent += '리뷰가 없습니다. 리뷰를 작성해주세요'                         
+                         } 
+                    detailList[i].overrayContent +='<input type="text" name="reContent" id="reContent"></textarea>'+
+                    '<select id="reSco" name="reSco"><option value="5">5</option><option value="4">4</option>'+
+                 '<option value="3">3</option><option value="2">2</option><option value="1">1</option>'+
+                 '</select><button onclick="popReply()">이미지</button>'+
+                    '<input type="hidden" id="basNo" name="basNo" value="'+j[i].basNo+'"></div></div>'              
                  }                   
             },error : function () {
                console.log('fail')
@@ -140,22 +136,22 @@ $(function () {
                  }
                  
                  for(var a =0; a<reviewList.length;a++){                       
-                     if(j[0].row[i].POI_ID == reviewList[a].number){		                    	
-                    	 toiletDetail[i].content += reviewList[a].overrayContent;
+                     if(j[0].row[i].POI_ID == reviewList[a].number){                             
+                        toiletDetail[i].content += reviewList[a].overrayContent;
                           //리뷰가 있는지 없는지 확인하는 변수
-                    	  matchNum ++;
+                         matchNum ++;
                      }
                  } 
                  
-              	  if(matchNum==0){
-              			toiletDetail[i].content += '리뷰가 없습니다. 리뷰를 작성해주세요'	              		  
-              	  }
-              	  
+                   if(matchNum==0){
+                       toiletDetail[i].content += '리뷰가 없습니다. 리뷰를 작성해주세요'                         
+                   }
+                   
                   toiletDetail[i].content +='<input type="text" name="reContent" id="reContent"></textarea>'+
-	              '<select id="reSco" name="reSco"><option value="5">5</option><option value="4">4</option>'+
-				  '<option value="3">3</option><option value="2">2</option><option value="1">1</option>'+
-				  '</select><button type="button" onclick="popReply()">이미지</button>'+
-	              '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].POI_ID +'"></div></div>' 
+                 '<select id="reSco" name="reSco"><option value="5">5</option><option value="4">4</option>'+
+              '<option value="3">3</option><option value="2">2</option><option value="1">1</option>'+
+              '</select><button onclick="popReply()">이미지</button>'+
+                 '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].POI_ID +'"></div></div>' 
               
              }
          //자신의 위치 가져오는 geolocation api 
@@ -172,6 +168,7 @@ $(function () {
           };
        map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
        geocoder = new kakao.maps.services.Geocoder();
+       
        // 내 위치 마커 생성
        var imageSrc = 'resources/img/myMaker.png', // 마커이미지의 주소입니다    
            imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
@@ -336,12 +333,12 @@ $(function () {
                      }
                      //basic_data 정보 가져오는 for문
                    <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
-                      	userCheckToilet.push({
-	                         content: '<div>${toiletList.basName}</div>',
-	                         latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
-	                         number: '${toiletList.basNo}'
-                   		})
-               	   </c:forEach>
+                         userCheckToilet.push({
+                            content: '<div>${toiletList.basName}</div>',
+                            latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
+                            number: '${toiletList.basNo}'
+                         })
+                     </c:forEach>
                       // baic_data 정보 불러와서 뿌리는 마커
                         for (var i = 0; i < userCheckToilet.length; i ++) {
                             // 마커를 생성합니다
@@ -482,10 +479,9 @@ $(function () {
          success:function(responseData){      
             var j = JSON.parse(responseData)
                if(j==1){             
-                  alert("등록이 완료되었습니다");
-/*                   		  location.reload();
+                  alert("등록이 완료되었습니다")
+/*                           location.reload();
                   $("#pop").load(location.href + $('#pop')); */
-                  $("#pop").load(location.href + ' #pop');
 /*                   location.href="${pageContext.request.contextPath}/blank"  */
                }else{                   
                   alert("알수없는 오류입니다")
@@ -527,8 +523,12 @@ $(function () {
            } 
        });
 }
-function emailSend() {
-	 $.ajax({
+   function emailPop() {
+      $('#layer-popup-email').addClass("show");   
+   }
+function sendMail() {
+    $('#layer-popup-email').addClass("show");   
+    $.ajax({
          url:"mailSend",
          type:"post",   
          dataType : "json",
@@ -579,9 +579,21 @@ function emailSend() {
             </div>
          </div>
       </div>
+      
+       <div class="layer-popup" id="layer-popup-email">
+         <div class="modal-dialog">
+            <div class="modal-content">
+            <!-- <button onclick="bb()">xxx</button> -->
+               <input type="text" id="mailSubject" name="mailSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
+               <textarea id="mailContent" name="mailContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
+               <button class="popBtn" onclick="sendMail()"><span id="btn-span">확인</span></button>
+            </div>
+         </div>
+      </div>
+      
    </div>
    <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a><br><br>
-   <div id="MAIL"><a onclick="emailSend()"><img id="gps-img" src="resources/img/email_image.jpg" width="60%" height="60%"></a></div></div>
+   <div id="MAIL"><a onclick="emailPop()"><img id="gps-img" src="resources/img/email_image.jpg" width="60%" height="60%"></a></div></div>
    <!-- Page Wrapper -->
    <div id="clickLatlng"></div>
    <div id="wrapper">
