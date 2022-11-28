@@ -18,7 +18,7 @@
 }
 #selectStart {
 	float: right;
-	padding-right: 60px;
+	padding-right: 10px;
 	vertical-align: -20%;
 }
 #reply-Form {
@@ -33,6 +33,27 @@
 	position: relative;
 	top: 50%;
 	
+}
+#contentView{
+	font-size: 1.2em;
+	
+}
+#scoreView{
+	float:right;
+	padding-top: 3px;
+	padding-right: 20px;
+	color :rgba(250, 208, 0, 0.99);
+}
+#dateView{
+	padding-top: 5px;
+	font-size: 0.8em;
+	float: right;
+}
+#review{
+	clear: both;
+	display: block;
+	
+	border-top: 1px dashed black;
 }
 #replyForm fieldset{
     display: inline-block;
