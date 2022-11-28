@@ -92,10 +92,9 @@ $(function () {
                              '<div><span>대변기</span><label>&nbsp;'+ j[i].restToi + '</label></div>'+
                              '<div><span>잠금유무</span><label>&nbsp;'+ j[i].restLock + '</label></div>'+
                              '<div><span>장애인대변기</span><label>&nbsp;'+j[i].restDisToi+'</label></div>'+
-                             '<div style="overflow: auto;height:150px;line-height:30px;">'+
-                             '<c:import url="replyList?basNo='+j.[i].basNo+'"/>'
+                             '<div id="pop" style="overflow: auto;height:150px;line-height:30px;">'
                           }
-		              /*    for(var a =0; a<reviewList.length;a++){                       
+		                 for(var a =0; a<reviewList.length;a++){                       
 		                     if(detailList[i].number == reviewList[a].number){		                    	
 		                          detailList[i].overrayContent += reviewList[a].overrayContent;
 		                          //리뷰가 있는지 없는지 확인하는 변수
@@ -104,7 +103,9 @@ $(function () {
 		                 } 
 		              	  if(matchNum==0){
 			            	  detailList[i].overrayContent += '리뷰가 없습니다. 리뷰를 작성해주세요'	              		  
-		              	  } */
+		              	  }
+		              	  
+		              	  
 		              detailList[i].overrayContent +='<input type="text" name="reContent" id="reContent"></textarea>'+
 		              '<select id="reSco" name="reSco"><option value="5">5</option><option value="4">4</option>'+
 					  '<option value="3">3</option><option value="2">2</option><option value="1">1</option>'+
@@ -153,7 +154,7 @@ $(function () {
                   toiletDetail[i].content +='<input type="text" name="reContent" id="reContent"></textarea>'+
 	              '<select id="reSco" name="reSco"><option value="5">5</option><option value="4">4</option>'+
 				  '<option value="3">3</option><option value="2">2</option><option value="1">1</option>'+
-				  '</select><button onclick="popReply()">이미지</button>'+
+				  '</select><button type="button" onclick="popReply()">이미지</button>'+
 	              '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].POI_ID +'"></div></div>' 
               
              }
@@ -481,9 +482,10 @@ $(function () {
          success:function(responseData){      
             var j = JSON.parse(responseData)
                if(j==1){             
-                  alert("등록이 완료되었습니다")
+                  alert("등록이 완료되었습니다");
 /*                   		  location.reload();
                   $("#pop").load(location.href + $('#pop')); */
+                  $("#pop").load(location.href + ' #pop');
 /*                   location.href="${pageContext.request.contextPath}/blank"  */
                }else{                   
                   alert("알수없는 오류입니다")

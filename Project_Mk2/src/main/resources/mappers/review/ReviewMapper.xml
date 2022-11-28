@@ -21,10 +21,6 @@
 		select * from review
 	</select>
 	
-	<select id="replyList" resultMap="review">
-		select * from review where bas_no = #{basNo }
-	</select>
-	
 	<insert id="replyWritePost">
 		insert into review values(review_seq.nextval,#{basNo},#{reSco},#{reContent},sysdate)
 	</insert>

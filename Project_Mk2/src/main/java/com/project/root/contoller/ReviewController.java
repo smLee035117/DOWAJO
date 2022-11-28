@@ -26,21 +26,7 @@ public class ReviewController {
 	public List<ReviewDTO> getReviewList(){
 		System.out.println(reviewService.getReviewList());
 		return reviewService.getReviewList();
-	}
-	
-	@RequestMapping(value = "replyList", method = RequestMethod.GET)
-	public ModelAndView replyList(ReviewDTO reviewDTO){
-		ModelAndView modelAndView = new ModelAndView();
-		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		reviewDTO.setBasNo("BAS22");
-		list = reviewService.replyList(reviewDTO);
-		
-		modelAndView.setViewName("replyList");
-		modelAndView.addObject("list", list);
-		
-		System.out.println(list);
-		return modelAndView;
-	}
+	}	
 	
 	@RequestMapping(value = "replyWritePost", method = RequestMethod.POST)
 	@ResponseBody
