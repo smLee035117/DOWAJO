@@ -25,9 +25,5 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewMapper.replyWritePost(reviewDTO);
 	}
 
-	@Override
-	public List<ReviewDTO> replyList(ReviewDTO reviewDTO) {
-		return reviewMapper.replyList(reviewDTO);
-	}
 	
 }
