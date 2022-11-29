@@ -5,14 +5,148 @@
    height: 100%;
 }
 
+#ditailInfoWindow{
+	display: inline-block;
+	position: relative;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-top: 12px;
+	padding-right: 10px;
+}
+#detailInfo{
+	display: block;
+}
+#selectStart {
+	float: right;
+	padding-right: 10px;
+	vertical-align: -20%;
+}
+#reply-Form {
+	display: inline-block;
+	position: relative;
+}
+#reviewSend{
+	padding-top: 10px;
+	border-top : 1px solid black;
+}
+#replyForm{
+	position: relative;
+	top: 50%;
+	
+}
+#contentView{
+	font-size: 1.2em;
+	
+}
+#scoreView{
+	float:right;
+	padding-top: 3px;
+	padding-right: 20px;
+	color :rgba(250, 208, 0, 0.99);
+}
+#dateView{
+	padding-top: 5px;
+	font-size: 0.8em;
+	float: right;
+}
+#review {
+	clear: both;
+	display: block;
+	border-top: 1px dashed black;
+}
+#replyForm fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+    padding-top: 3%;
+}
+#replyForm input[type=radio]{
+    display: none;
+}
+#replySend{
+	padding-left: 15px;
+}
+#replyForm label{
+    font-size: 0.9em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+.selectText{
+	font-size: 0.8em;
+	color: rgba(0,0,0,0.6);
+}
+#replyForm label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#replyForm label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#replyForm input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+input:focus {
+	outline: none;
+}
+
+#basName {
+	font-size: 20px;
+	font-weight: bold;
+	color:  rgba(0,0,0,0.8);
+}
+#basAddr {
+	font-size: 17px;
+	color:  rgba(0,0,0,0.8);
+}
+#bas_addr {
+	font-size: 13px;
+	color: gray;
+}
+
+
+#send-icon:hover {
+	transform: rotate( -90deg );
+}
+#restUri, #restToi, #restLock, #restStatus{	
+	font-size: 1.4em;
+	color:  rgba(0,0,0,0.7);
+}
+
+
+
+#reply{
+	width:300px;
+	border:none;
+	font-size: 0.9em;
+	color: rgba(0,0,0,0.6);
+	border-bottom: 1px solid black;
+}
+#form_title {
+	clear: both;
+	display:inline-block;
+	font-size: 1.2em;
+	font-weight: bold;
+	color: rgba(0,0,0,0.7);
+}
 #GPS {
 	display: block;
 	width: 40px;
 	height: 40px;
-	background-color: white;
+	background-color:#f5f5f5;
 	position: fixed;
 	right: 30px; 
 	top: 15%;
+	z-index: 100;
+	box-shadow: 0.5px 0.5px 1px 0.5px gray;
+	border-radius: 50%;
+}
+#MAIL {
+	display: block;
+	width: 40px;
+	height: 40px;
+	background-color:#f5f5f5;
+	position: fixed;
+	right: 30px; 
+	top: 20%;
 	z-index: 100;
 	box-shadow: 0.5px 0.5px 1px 0.5px gray;
 	border-radius: 50%;
@@ -62,21 +196,32 @@
 .modal-content #small, #big {
 	float: left;
 }
-
+.restContent1 {
+	float: left;
+	width: 45%;	
+}
+.restContent2 {
+	float: left;
+	width: 45%;	
+}
+#bas_content {
+	text-align: center;
+	font-size: 1.3em;
+	font-weight: bold;
+	color:  rgba(0,0,0,0.7);
+	
+}
 #basAddr{
 	width:100%;
 	outline : none;
 }
-span {
+
+#rest-Toi, #rest-Uri,#rest-Lock, #rest-Status{
 	font-size: 1.2em;
-	color: rgba(0,0,0,0.7);
-}
-#content input[type="text"]{
-	font-size: 1.4em;
 	font-weight: bold;
-	color: rgba(0,0,0,0.8);
+	color: rgba(0,0,0,0.5);
 }
-#content input[type="text"]:focus{
+#rest-Toi:focus, #rest-Uri:focus{
 	outline:none;
 }
 

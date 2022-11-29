@@ -1,5 +1,11 @@
 package com.project.root.review.service;
 
-public interface ReviewService {
+import java.util.List;
 
+import com.project.root.review.dto.ReviewDTO;
+
+public interface ReviewService {
+	
+	public List<ReviewDTO> getReviewList();
+	public int replyWritePost(ReviewDTO reviewDTO);
 }

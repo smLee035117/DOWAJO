@@ -23,5 +23,12 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return 0;
 	}
+
+	@Override
+	public String getMemKey(String id) {
+		String MemKey = mapper.getMemKey(id);
+		return MemKey;
+	}
+	
 	
 }

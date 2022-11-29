@@ -6,4 +6,6 @@ public interface MemberService {
 
 	int loginCheck(HttpServletRequest request);
 
+	String getMemKey(String id);
+
 }

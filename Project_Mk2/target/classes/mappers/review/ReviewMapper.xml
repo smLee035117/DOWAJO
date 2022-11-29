@@ -14,7 +14,14 @@
 		<result property="basNo" column="bas_no"/>
 		<result property="reSco" column="re_sco"/>
 		<result property="reContent" column="re_content"/>
+		<result property="reRegDate" column="re_reg_date"/>
 	</resultMap>
 	
+	<select id="getReviewList" resultMap="review">
+		select * from review
+	</select>
 	
+	<insert id="replyWritePost">
+		insert into review values(review_seq.nextval,#{basNo},#{reSco},#{reContent},sysdate)
+	</insert>
 </mapper>

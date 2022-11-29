@@ -5,5 +5,7 @@ import com.project.root.member.dto.MemberDTO;
 public interface MemberMapper {
 
 	public MemberDTO user_check(String id);
+	
+	public String getMemKey(String id);
 
 }
