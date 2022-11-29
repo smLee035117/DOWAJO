@@ -28,7 +28,7 @@ public class BasicController {
 	}
 
 	// 개발 blank
-	@RequestMapping(value = "blank", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String blank(Model model) {		
 		restdataService.getToiletList(model);
 		return "map/blank";
@@ -46,7 +46,7 @@ public class BasicController {
 		
 		//BASIC_DATA 시퀀스 불러오는 것
 		int seqCntSelect = basicDataService.seqCntSelect();
-		restDataDTO.setBasNo("BAS"+seqCntSelect);
+		restDataDTO.setBasNo("BAS"+String.format("%05d", seqCntSelect));
 		restDataDTO.setRestStatus("Clean");
 		restDataDTO.setRestKey("Y");
 		int result =   basicDataService.WriteBasicRest(basicDataDTO);

@@ -1,5 +1,7 @@
 package com.project.root.basicdata.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,12 @@ public class BasicDataServiceImpl implements BasicDataService {
 	public int seqCntSelect() {
 		return basicDataMapper.seqCntSelect();
 	}
+
+	@Override
+	public List<BasicDataDTO> basicList() {
+		List<BasicDataDTO> list =basicDataMapper.getToiletList();
+		return list;
+	}
+	
 
 }
