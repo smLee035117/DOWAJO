@@ -41,7 +41,7 @@ $(function () {
     
     //  공공데이터 api 정보가져오기 
    $.ajax({
-       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/10",
+       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
        type:"get",   
        dataType : "json",
        contentType:"application/json",
@@ -54,11 +54,28 @@ $(function () {
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84), //위도 , 경도
                          number: j[0].row[i].POI_ID
                  }
+                 var sum = 0;
+            	 var avg = 0;
+                 for(var a =0; a<reviewList.length;a++){
+                      if(j[0].row[i].POI_ID == reviewList[a].number){
+                           sum += reviewList[a].reSco 
+                           matchNum ++;
+                      } 
+                 }
+                if(sum!=0){
+                	avg = (sum/matchNum).toFixed(2);
+                }else {
+                	avg = 0.00;
+                }
                  toiletDetail[i] ={
-
-                       content: '<div id="ditailInfoWindow"><div id="detailInfo"><div id="basName">'+j[0].row[i].FNAME+'</div>'+
-                         '<div><span style="font-size:0.8em">화장실구분&nbsp;</span>'+j[0].row[i].ANAME+'</div>'+
-                         '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>',
+                       content: '<div id="ditailInfoWindow"><div id="detailInfo">'+
+                       '<div id="basName">'+
+	                       '<div id="bas_Name">'+j[0].row[i].FNAME+'</div>'+
+		              		'<div id="avg"><span id="star">★</span><span>'+ avg +'</span></div>'+
+	              		'</div>'+
+                         '<div id="clear"></div><div><span style="font-size:0.8em">화장실구분&nbsp;</span>'+j[0].row[i].ANAME+'</div>'+
+                         '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>'+
+                         '<div id="overFlow"style="overflow: auto;">',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도                      
                  }
                  for(var a =0; a<reviewList.length;a++){                       
@@ -72,13 +89,13 @@ $(function () {
                      toiletDetail[i].content += '<div id="review">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
                  }
                  toiletDetail[i].content += 
-	            	'<div id="reply-Form">'+
+	            	'</div><div id="reply-Form">'+
 		               	'<form name="replyForm" id="replyForm">'+
 			                '<div id="reviewSend">'+
 				                 '<span id="form_title">리뷰작성</span>'+
 					             '<div id="selectStart">'+
 					                 	'<fieldset>'+
-						         		 	'<input type="radio" name="reSco" value="5" id="rate1"><label for="rate1">★</label>'+
+						         		 	'<input type="radio" name="reSco" value="5" id="rate1" checked><label for="rate1">★</label>'+
 						         			'<input type="radio" name="reSco" value="4" id="rate2"><label for="rate2">★</label>'+
 						         		 	'<input type="radio" name="reSco" value="3" id="rate3"><label for="rate3">★</label>'+
 						         		 	'<input type="radio" name="reSco" value="2" id="rate4"><label for="rate4">★</label>'+
@@ -87,7 +104,7 @@ $(function () {
 					         		 	'</fieldset>'+
 						         '</div><br>'+
 						         '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].POI_ID +'">'+
-				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="22">&nbsp;'+
+				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
 				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
 		                 	'</div>'+
 		                 '</form>'+
@@ -243,7 +260,7 @@ $(function () {
       
    </div>
    <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
-   <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
+   <div id="MAIL"><a onclick="location.reload()"><img id="gps-img" src="resources/img/email_image.jpg" width="60%" height="60%"></a></div>
    
    <!-- Page Wrapper -->
    <div id="clickLatlng"></div>

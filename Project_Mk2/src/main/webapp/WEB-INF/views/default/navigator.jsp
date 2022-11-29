@@ -16,11 +16,11 @@
          <a
             class="sidebar-brand d-flex align-items-center justify-content-center"
             href="${pageContext.request.contextPath }/">
-            <div class="sidebar-brand-icon rotate-n-15">
-               <img src="resources/img/dowajoLogo.png" width="30%" height="30%">
+            <div class="sidebar-brand-icon">
+               <img src="resources/img/dowajoLogo.png" width="50%" height="50%">
             </div>
             <div class="sidebar-brand-text mx-3">
-               SB Admin <sup>2</sup>
+               Dowajo
             </div>
          </a>
 
