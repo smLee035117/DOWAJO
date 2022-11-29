@@ -283,7 +283,7 @@ function WriteMarker(){
            var j = JSON.parse(responseData)
               if(j==1){             
                  alert("등록이 완료되었습니다")
-                   location.href="blank"  
+                   location.href='/root/'
               }else{                   
                  alert("알수없는 오류입니다")
               }
@@ -315,7 +315,7 @@ function WriteMarker(){
              var j = JSON.parse(responseData)
                 if(j==1){             
                    alert("등록이 완료되었습니다")
-                   location.href="${pageContext.request.contextPath}/blank"
+                   location.href='/root/'
                 }else{                   
                    alert("알수없는 오류입니다")
                 }
