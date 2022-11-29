@@ -185,7 +185,7 @@ $(function () {
                      }
                  }
             	 if(matchNum==0){
-                     toiletDetail[i].content += '<div id="reviewNone">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
+                     toiletDetail[i].content += '<div id="review">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
                  }
                  toiletDetail[i].content += 
 	            	'<div id="reply-Form">'+
@@ -374,7 +374,7 @@ $(function () {
                             //상세 페이지 info
                          
                            infowindowDetail = new kakao.maps.InfoWindow({
-                              content: toilet[i].content,
+                              content: toiletDetail[i].content,
                               removable: true
                            });
                            
@@ -387,6 +387,42 @@ $(function () {
 
                          
                      }
+                     //마우스 클릭시 생성될 marker
+                     var marker3 =new kakao.maps.Marker({
+                                  map: map, // 마커를 표시할 지도
+                               position: null // 마커의 위치
+                        });
+                   //마우스 클릭시 주소를 보여주는 info
+
+                  //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
+                kakao.maps.event.addListener(map, 'click', function(mouseEvent) {  
+                    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {     
+                            if (status === kakao.maps.services.Status.OK && result[0].road_address != null) {
+                               
+                                var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
+                                detailAddr += result[0].address.address_name ;         
+                             
+                                var content = '<div class="bAddr">' +
+                                                '<span class="title"> 주소정보 : </span>' + 
+                                                detailAddr + 
+                                            '</div>';
+                                // 마커를 클릭한 위치에 표시합니다 
+                                 marker3.setPosition(mouseEvent.latLng);
+                                marker3.setMap(map);
+
+                                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                                infowindow23.setContent(content);
+                                infowindow23.open(map, marker3); 
+                                 $('#basAddr').val(detailAddr)  
+                            $('#latlng').val(mouseEvent.latLng)
+                               $('#layer-popup').addClass("show");   
+                              
+                            }else{
+                               alert("해당지역은 건물이 아니라 등록이 불가능합니다. 다른 지역을 선택해주세요.")
+                            }
+                        });
+                }); 
+                     
                    <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
                       userCheckToilet.push({
                          content: '<div>${toiletList.basName}</div>',
@@ -407,13 +443,15 @@ $(function () {
                               // 제목 페이지 info
                               infowindow = new kakao.maps.InfoWindow({
                                  content: userCheckToilet[i].content // 인포윈도우에 표시할 내용
+                             
                              });
                     
                             //상세 페이지 info
                              for(var v = 0; v < detailList.length; v++){
                                 if(detailList[v].number == userCheckToilet[i].number){
                                   infowindowDetail = new kakao.maps.InfoWindow({
-                                      content: detailList[v].overrayContent, 
+                                      content: detailList[v].overrayContent,
+                                      removable: true
                                   });
 
                                 }

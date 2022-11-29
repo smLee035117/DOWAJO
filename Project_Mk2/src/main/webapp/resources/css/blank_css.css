@@ -49,10 +49,9 @@
 	font-size: 0.8em;
 	float: right;
 }
-#review{
+#review {
 	clear: both;
 	display: block;
-	
 	border-top: 1px dashed black;
 }
 #replyForm fieldset{
