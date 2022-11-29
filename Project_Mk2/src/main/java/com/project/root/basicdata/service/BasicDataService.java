@@ -1,5 +1,8 @@
 package com.project.root.basicdata.service;
 
+
+import java.util.List;
+
 import com.project.root.basicdata.dto.BasicDataDTO;
 import com.project.root.restdata.dto.RestDataDTO;
 
@@ -11,4 +14,5 @@ public interface BasicDataService {
 	public int WriteDetailRest(RestDataDTO restDataDTO);
 	
 	public int seqCntSelect();
+	public List<BasicDataDTO> basicList();
 }
