@@ -141,6 +141,7 @@ function WriteMarker(){
            	  
             	 } 
                   reviewList[i] = {
+						reSco : j[i].reSco,
                         number : j[i].basNo,                       
                         overrayContent : '<div id="review"><span id="contentView">'+ j[i].reContent+'</span>'+
                         '<span id="dateView">'+moment(j[i].reRegDate).format("YY-MM-DD")+'</span>'+
@@ -163,25 +164,38 @@ function WriteMarker(){
             var j = Object.values(toiletInfo)
             for(var i = 0; i < j.length; i++){
             	matchNum=0;
-               //matchNum -> 댓글수
-               //rePageNum ->  현재댓글 페이지
-/*                                          matchNum : 0,
-                          rePageNum : 0 */
+                   var sum = 0;
+                   var avg = 0;
+                   for(var a =0; a<reviewList.length;a++){
+                        if(j[i].basNo == reviewList[a].number){
+                             sum += reviewList[a].reSco 
+                             matchNum ++;
+                        }
+                    }
+                    if(sum!=0){
+                		avg = (sum/matchNum).toFixed(2);
+                	}else {
+                		avg = 0.00;
+                	}         
                  detailList[i] = {
                        number : j[i].basNo,                       
                        overrayContent : '<div id="ditailInfoWindow">'+
                        		'<div id ="detailInfo">'+
-                       			'<div id="basName">'+j[i].basName+'</div>'+
-		                     	'<div><span id="basAddr">주소</span><label id="bas_addr">&nbsp;'+ j[i].basAddr + '</label></div>'+
+                       		'<div id="basName">'+
+                       			'<div id="bas_Name">'+j[i].basName+'</div>'+
+                       		'<div id="avg"><span id="star">★</span><span>'+ avg +'</span></div>'+
+                       		'</div>'+
+		                     	'<div id="clear"></div><div><span id="basAddr">주소</span><label id="bas_addr">&nbsp;'+ j[i].basAddr + '</label></div>'+
 	                            '<div id="restContent">'+
 	                            	'<div class="restContent1"><span id="rest-Uri">소변기</span><label id="bas_content">&nbsp;'+ j[i].restUri + '</label></div>'+
 	                            	'<div class="restContent1"><span id="rest-Toi">대변기</span><label id="bas_content">&nbsp;'+ j[i].restToi + '</label></div>'+
 	                            	'<div class="restContent2"><span id="rest-Lock">잠금유무</span><label id="bas_content">&nbsp;'+ j[i].restLock + '</label></div>'+
 	                            	'<div class="restContent2"><span id="rest-Status">청결상태</span><label id="bas_content">&nbsp;'+ j[i].restStatus + '</label></div>'+
 	                            '</div>'+
-                             '</div>'
+                             '</div>'+
+                             '<div id="overFlow"style="overflow: auto;">'
                  }
-                   
+                   matchNum = 0;
                     for(var a =0; a<reviewList.length;a++){                       
                         if(detailList[i].number == reviewList[a].number){
                              detailList[i].overrayContent += reviewList[a].overrayContent    
@@ -193,13 +207,13 @@ function WriteMarker(){
                      detailList[i].overrayContent += '<div id="review">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
                     } 
                  detailList[i].overrayContent += 
-               	'<div id="reply-Form">'+
+               	'</div><div id="reply-Form">'+
 	               	'<form name="	   var formData = $("#join_form").serialize(); " id="replyForm">'+
 		                '<div id="reviewSend">'+
 			                 '<span id="form_title">리뷰작성</span>'+
 				             '<div id="selectStart">'+
 				                 	'<fieldset>'+
-					         		 	'<input type="radio" name="reSco" value="5" id="rate1"><label for="rate1">★</label>'+
+					         		 	'<input type="radio" name="reSco" value="5" id="rate1" checked><label for="rate1">★</label>'+
 					         			'<input type="radio" name="reSco" value="4" id="rate2"><label for="rate2">★</label>'+
 					         		 	'<input type="radio" name="reSco" value="3" id="rate3"><label for="rate3">★</label>'+
 					         		 	'<input type="radio" name="reSco" value="2" id="rate4"><label for="rate4">★</label>'+
@@ -207,7 +221,7 @@ function WriteMarker(){
 					         		 	'<span class="selectText">별점을 선택해주세요</span>'+
 				         		 	'</fieldset>'+
 					         '</div><br>'+
-			                 '<input type="text" id="reply" name="reContent" size="35" maxlength="22">&nbsp;'+
+			                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
 			                 '<input type="hidden" id="basNo" name="basNo" value="'+j[i].basNo+'">'+
 			                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
 	                 	'</div>'+

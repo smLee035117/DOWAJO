@@ -35,19 +35,35 @@
 	
 }
 #contentView{
-	font-size: 1.2em;
+	font-size: 1em;
 	
 }
 #scoreView{
 	float:right;
 	padding-top: 3px;
-	padding-right: 20px;
+	padding-right: 10px;
 	color :rgba(250, 208, 0, 0.99);
 }
 #dateView{
 	padding-top: 5px;
 	font-size: 0.8em;
 	float: right;
+}
+
+#clear{
+	clear : both;
+}
+#bas_Name{
+	display: block;
+	float: left;
+}
+#avg{
+	padding-right: 40px;
+	display:block;
+	float: right;
+}
+#star {
+	color: orange;
 }
 #review {
 	clear: both;
@@ -146,7 +162,7 @@ input:focus {
 	background-color:#f5f5f5;
 	position: fixed;
 	right: 30px; 
-	top: 20%;
+	top: 25%;
 	z-index: 100;
 	box-shadow: 0.5px 0.5px 1px 0.5px gray;
 	border-radius: 50%;
@@ -215,7 +231,11 @@ input:focus {
 	width:100%;
 	outline : none;
 }
-
+#overFlow{
+	clear:both;
+	height: 100px;
+	display: block;
+}
 #rest-Toi, #rest-Uri,#rest-Lock, #rest-Status{
 	font-size: 1.2em;
 	font-weight: bold;
