@@ -41,4 +41,10 @@ public class MemberController {
 		model.addAttribute("toiletList", list);
 	}
 	
+	@GetMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 }
