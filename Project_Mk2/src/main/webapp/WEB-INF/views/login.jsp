@@ -3,7 +3,7 @@
 
 <head>
 
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -19,6 +19,13 @@
 
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
+	  integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous"></script>
+	<script>
+	  Kakao.init('b79dc1db7766029ef40b797b707b121b'); // 사용하려는 앱의 JavaScript 키 입력
+	  //console.log(Kakao.isInitialized());
+	</script>
+	<script type="text/javascript" src="resources/js/kakaoLogin.js"></script>
 <style type="text/css">
 .row { 
 	height: 600px;
@@ -56,16 +63,23 @@
                                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">                                
                                     </form>
                                     <hr>
+                                    <!-- <a href="index.html" class="btn btn-google btn-user btn-block">
+                                        <i class="fab fa-google fa-fw"></i> Login with Google
+                                    </a>
+                                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                    </a> -->
+                                    <a id="kakao-login-btn" href="javascript:loginWithKakao()">
+  										<img src="resources/img/kakao_login_large_wide.png" width="350" alt="카카오 로그인 버튼" />
+									</a>
+									<p id="token-result"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <!-- Bootstrap core JavaScript-->
