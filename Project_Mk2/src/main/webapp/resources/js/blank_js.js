@@ -1,4 +1,3 @@
- 
    var matchNum;
    var infowindowOpened = [];
    var userCheckToilet = [];
@@ -9,7 +8,6 @@
    var mapContainer;
    var map;
    var reviewList = [];
- 
  function publicCreateMarker(){
 	 // 공공api 마커 생성
 	            for (var i = 0; i < toilet.length; i ++) {
@@ -35,8 +33,7 @@
 	                //마우스 오버후 이동시 끄는 리스너
 	                kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	                //마우스 클릭시 디테일 내용 나오는 리스너
-	                kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   
-	                
+	                kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   	                
 	            }
 }
 function privateCreateMarker(){
@@ -46,7 +43,6 @@ function privateCreateMarker(){
 	                    map: map, // 마커를 표시할 지도
 	                    position: userCheckToilet[i].latlng // 마커의 위치
 	                });
-	         
 	                  // 제목 페이지 info
 	                  infowindow = new kakao.maps.InfoWindow({
 	                     content: userCheckToilet[i].content // 인포윈도우에 표시할 내용
@@ -62,8 +58,6 @@ function privateCreateMarker(){
 	
 	                    }
 	                 } 
-	              
-	            
 	                //마우스 오버 후 제목 내용 나오는 리스너
 	                kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 	                //마우스 오버후 이동시 끄는 리스너
@@ -74,8 +68,8 @@ function privateCreateMarker(){
 }
 function WriteMarker(){
 	         //마우스 클릭시 생성될 marker
-                     var marker3 =new kakao.maps.Marker({
-                                  map: map, // 마커를 표시할 지도
+                     var marker2 =new kakao.maps.Marker({
+                               map: null, // 마커를 표시할 지도
                                position: null // 마커의 위치
                         });
                    //마우스 클릭시 주소를 보여주는 info
@@ -84,22 +78,20 @@ function WriteMarker(){
                   //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
                 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {  
                     searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {     
-                            if (status === kakao.maps.services.Status.OK && result[0].road_address != null) {
-                               
+                            if (status === kakao.maps.services.Status.OK && result[0].road_address != null) {                              
                                 var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
-                                detailAddr += result[0].address.address_name ;         
-                             
+                                detailAddr += result[0].address.address_name ;                                      
                                 var content = '<div class="bAddr">' +
                                                 '<span class="title"> 주소정보 : </span>' + 
                                                 detailAddr + 
                                             '</div>';
                                 // 마커를 클릭한 위치에 표시합니다 
-                                marker3.setPosition(mouseEvent.latLng);
-                                marker3.setMap(map);
+                                marker2.setPosition(mouseEvent.latLng);
+                                marker2.setMap(map);
 
                                 // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-                                 infowindow23.setContent(content);
-                                infowindow23.open(map, marker3);  
+                                infowindow23.setContent(content);
+                                infowindow23.open(map, marker2);  
                                  $('#basAddr').val(detailAddr)  
                             $('#latlng').val(mouseEvent.latLng)
                                $('#layer-popup').addClass("show");   
@@ -292,12 +284,13 @@ function WriteMarker(){
         url:"replyWritePost",
         type:"post",   
         dataType : "json",
+        async:false,
         data:formData,
         success:function(responseData){      
            var j = JSON.parse(responseData)
               if(j==1){             
                  alert("등록이 완료되었습니다")
-                   location.href='/root/'
+                  location.reload();
               }else{                   
                  alert("알수없는 오류입니다")
               }
@@ -312,11 +305,11 @@ function WriteMarker(){
        var la = $('#latlng').val()
        var newStr = la.replace('(', ' ');
        newStr = newStr.replace(')', ' ');
-       
         $.ajax({
           url:"blank",
           type:"post",   
           dataType : "json",
+          async:false,
           data:{
              "basName" : $('#basName').val(),
              "restToi" : $('#restToi').val(),
@@ -329,7 +322,7 @@ function WriteMarker(){
              var j = JSON.parse(responseData)
                 if(j==1){             
                    alert("등록이 완료되었습니다")
-                   location.href='/root/'
+                  location.reload();
                 }else{                   
                    alert("알수없는 오류입니다")
                 }

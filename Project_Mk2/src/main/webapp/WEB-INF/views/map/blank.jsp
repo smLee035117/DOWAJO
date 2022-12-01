@@ -24,10 +24,10 @@
 <script src="resources/vendor/jquery/jquery.min.js"></script>
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
 </head>
+   <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
 <script type="text/javascript" src="resources/js/blank_js.js"></script>
 <script type="text/javascript"
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
-   <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
 <script type="text/javascript">
 $(function () {
 	//get url 매개변수 삭제
@@ -208,9 +208,6 @@ $(function () {
         } 
     });
 
-     
-   //객체생성
-    var marker2 = new kakao.maps.Marker({ });
    
  })
 
