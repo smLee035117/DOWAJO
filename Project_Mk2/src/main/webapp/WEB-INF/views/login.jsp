@@ -1,6 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
     <meta charset="UTF-8">
@@ -16,7 +17,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
      <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
@@ -31,6 +32,14 @@
 	height: 600px;
 }
 </style>
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("wB6dgpsZrPXVqEWVChoT", "http://localhost:8080/root/callback");
+	var state = naver_id_login.getUniqState();
+	naver_id_login.setButton("white", 2,40);
+	naver_id_login.setDomain("http://localhost:8080/APIExamNaverLogin");
+	naver_id_login.setState(state);
+	naver_id_login.init_naver_id_login();
+</script>
 </head>
 
 <body class="bg-gradient-primary">
@@ -72,7 +81,8 @@
                                     <a id="kakao-login-btn" href="javascript:loginWithKakao()">
   										<img src="resources/img/kakao_login_large_wide.png" width="350" alt="카카오 로그인 버튼" />
 									</a>
-									<p id="token-result"></p>
+									<div id="naver_id_login"></div>
+									<!-- <p id="token-result"></p> -->
                                 </div>
                             </div>
                         </div>
