@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
       <!-- Sidebar -->
       <ul
          class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
@@ -71,10 +72,27 @@
             </div></li>             -->
          <!-- Divider -->
          <hr class="sidebar-divider">
-
+ 			<!-- 카카오 로그인 -->
+         <%if(session.getAttribute("mem_key")==null){ %>
+          <div>
+       		  <p>guest 님 환영합니다 <br> 로그인하세요 ㅡㅡ</p>
+		  </div>
+		  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
+           <div>
+          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
+		  </div>
+		  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
+           <div>
+          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
+		  </div>
+		  <%}else if(session.getAttribute("mem_key").equals("K")){ %>{ %>
+           <div>
+             	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>        	
+		  </div>
+		  <%} %>
          <!-- Heading -->
          <div class="sidebar-heading">Addons</div>
-
+       
          <!-- Nav Item - Pages Collapse Menu -->
          <li class="nav-item active"><a class="nav-link" href="#"
             data-toggle="collapse" data-target="#collapsePages"

@@ -8,12 +8,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.root.basicdata.dto.BasicDataDTO;
+import com.project.root.basicdata.dto.KakaoUserInfo;
 import com.project.root.basicdata.service.BasicDataService;
 import com.project.root.member.service.MemberService;
+import com.project.root.util.KakaoOAuth2;
 
 @Controller
 public class MemberController {
@@ -47,4 +53,17 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+
+	@RequestMapping(value = "kakaoLoginResult" , method = RequestMethod.GET)
+	public String kakaoLoginResult(@RequestParam String code,HttpSession session) {
+		KakaoOAuth2 kakaoOAuth2 = new KakaoOAuth2();
+		  // code는 카카오 서버로부터 받은 인가 코드
+		 KakaoUserInfo kakaoUserInfo =  kakaoOAuth2.getUserInfo(code);
+		 session.setAttribute("id", "kakao_"+kakaoUserInfo.getId());
+		 session.setAttribute("nickname", kakaoUserInfo.getNickname());		 
+		 System.out.println(session.getAttribute("id"));
+		 System.out.println(session.getAttribute("nickname"));
+		  return "redirect:/";
+	}
+
 }
