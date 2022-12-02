@@ -61,8 +61,7 @@ public class MemberController {
 		 KakaoUserInfo kakaoUserInfo =  kakaoOAuth2.getUserInfo(code);
 		 session.setAttribute("id", "kakao_"+kakaoUserInfo.getId());
 		 session.setAttribute("nickname", kakaoUserInfo.getNickname());		 
-		 System.out.println(session.getAttribute("id"));
-		 System.out.println(session.getAttribute("nickname"));
+		 session.setAttribute("mem_key", "K");
 		  return "redirect:/";
 	}
 

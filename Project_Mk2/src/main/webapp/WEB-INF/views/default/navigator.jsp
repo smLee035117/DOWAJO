@@ -73,23 +73,17 @@
          <!-- Divider -->
          <hr class="sidebar-divider">
  			<!-- 카카오 로그인 -->
-         <%if(session.getAttribute("mem_key")==null){ %>
           <div>
-       		  <p>guest 님 환영합니다 <br> 로그인하세요 ㅡㅡ</p>
+	         <%if(session.getAttribute("mem_key")==null){ %>
+	       		  <p>guest 님 환영합니다</p>	
+			  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
+	          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
+			  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
+	          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
+			  <%}else if(session.getAttribute("mem_key").equals("K")){ %>
+	             	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>        	
+			  <%} %>		 
 		  </div>
-		  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
-           <div>
-          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
-		  </div>
-		  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
-           <div>
-          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
-		  </div>
-		  <%}else if(session.getAttribute("mem_key").equals("K")){ %>{ %>
-           <div>
-             	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>        	
-		  </div>
-		  <%} %>
          <!-- Heading -->
          <div class="sidebar-heading">Addons</div>
        
@@ -140,4 +134,9 @@
       </ul>
       <!-- End of Sidebar -->
 </body>
+<script type="text/javascript">
+	$(function () {
+		alert(sessionStorage.getItem('mem_key'))
+	})
+</script>
 </html>

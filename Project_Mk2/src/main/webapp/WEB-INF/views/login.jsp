@@ -31,15 +31,9 @@
 .row { 
 	height: 600px;
 }
+
 </style>
-<script type="text/javascript">
-	var naver_id_login = new naver_id_login("wB6dgpsZrPXVqEWVChoT", "http://localhost:8080/root/callback");
-	var state = naver_id_login.getUniqState();
-	naver_id_login.setButton("white", 2,40);
-	naver_id_login.setDomain("http://localhost:8080/APIExamNaverLogin");
-	naver_id_login.setState(state);
-	naver_id_login.init_naver_id_login();
-</script>
+
 </head>
 
 <body class="bg-gradient-primary">
@@ -103,5 +97,17 @@
     <script src="resources/js/sb-admin-2.min.js"></script>
 
 </body>
-
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("wB6dgpsZrPXVqEWVChoT", "http://localhost:8080/root/callback");
+	var state = naver_id_login.getUniqState();
+	naver_id_login.setButton("green", 3,76);
+	naver_id_login.setDomain("http://localhost:8080/APIExamNaverLogin");
+	naver_id_login.setState(state);
+	naver_id_login.init_naver_id_login();
+</script>
+<style>
+#naver_id_login #naver_id_login_anchor {
+	height: 10px;
+}
+</style>
 </html>
