@@ -63,9 +63,5 @@
   function getCookie(name) {
     var parts = document.cookie.split(name + '=');
     if (parts.length === 2) { return parts[1].split(';')[0]; }
-  }*/
-  
 
-  
-  
-  
+  }*/

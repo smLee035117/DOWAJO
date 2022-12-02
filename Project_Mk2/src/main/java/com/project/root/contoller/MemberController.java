@@ -53,6 +53,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+
 	@RequestMapping(value = "kakaoLoginResult" , method = RequestMethod.GET)
 	public String kakaoLoginResult(@RequestParam String code,HttpSession session) {
 		KakaoOAuth2 kakaoOAuth2 = new KakaoOAuth2();
@@ -64,4 +65,5 @@ public class MemberController {
 		 System.out.println(session.getAttribute("nickname"));
 		  return "redirect:/";
 	}
+
 }

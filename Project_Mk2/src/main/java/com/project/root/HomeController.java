@@ -36,7 +36,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "tables", method = RequestMethod.GET)
 	public String tables() {
-		return "tables2";
+		return "tablesTest";
 	}
 	/*
 	 * @RequestMapping(value = "buttons", method = RequestMethod.GET) public String
