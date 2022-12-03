@@ -1,7 +1,5 @@
 package com.project.root;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,20 +13,7 @@ public class HomeController {
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login() {
 		return "login";
-	}
-	
-	 @RequestMapping(value="APIExamNaverLogin", method= RequestMethod.GET)
-	    public String APIExamNaverLoginGet() {
-		 logger.info("home controller");
-	        return "APIExamNaverLogin";
-	    }
-
-	    @RequestMapping(value="callback", method=RequestMethod.GET)
-	    public String callbackGet(HttpSession session) {	    	
-	    	logger.info("callback controller");
-	        return "callback";
-	    }
-	
+	}	
 	
 	/*
 	 * @RequestMapping(value = "/", method = RequestMethod.GET) public String home()

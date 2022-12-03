@@ -2,6 +2,7 @@ package com.project.root.contoller;
 
 import java.util.List;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -64,5 +65,25 @@ public class MemberController {
 		 session.setAttribute("mem_key", "K");
 		  return "redirect:/";
 	}
-
+	
+	//네이버 로그인시 callback 함수 실행되는 곳
+    @RequestMapping(value="callback", method=RequestMethod.GET)
+    public String callbackGet(HttpSession session) {	    	
+        return "callback";
+    }
+	    
+    @RequestMapping(value="nvaerSession", method=RequestMethod.POST)
+    public String nvaerSessionGet(HttpSession session,@RequestParam("id") String id,
+    		@RequestParam("mem_key") String mem_key,@RequestParam("loginToken") String loginToken) {
+    	System.out.println(id);
+    	System.out.println(mem_key);
+    	System.out.println(loginToken);
+    	session.setAttribute("mem_key", mem_key);
+    	session.setAttribute("id", id);
+    	session.setAttribute("loginToken", loginToken);
+    	
+		 return "redirect:/"; 
+    }
+    
+    
 }
