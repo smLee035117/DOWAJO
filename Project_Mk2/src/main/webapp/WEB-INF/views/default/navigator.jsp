@@ -6,6 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#welcome {
+	display : block;
+	width: 200px;
+	height: 50px;
+}
+#welcome p {
+display : block;
+	padding-left : 15px;
+	color : white;
+	font-size : 16px;
+}
+
+.navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled #welcome p{
+	font-size : 10px;
+}
+</style>
 </head>
 <body>
 	
@@ -73,9 +90,9 @@
          <!-- Divider -->
          <hr class="sidebar-divider">
  			<!-- 카카오 로그인 -->
-          <div>
+          <div id="welcome">
 	         <%if(session.getAttribute("mem_key")==null){ %>
-	       		  <p>guest 님 환영합니다</p>	
+	       		  <p>guest</p>	
 			  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
 	          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
 			  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
@@ -135,8 +152,8 @@
       <!-- End of Sidebar -->
 </body>
 <script type="text/javascript">
-	$(function () {
+/* 	$(function () {
 		alert(sessionStorage.getItem('mem_key'))
-	})
+	}) */
 </script>
 </html>
