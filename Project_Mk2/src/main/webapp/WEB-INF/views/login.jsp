@@ -32,10 +32,22 @@
 	height: 600px;
 }
 
+#naver_id_login  {
+	position : relative;
+	top : 10px;
+	display: inline-block;
+	height : 52.5px;
+	overflow: hidden;
+	background-image : url("resources/img/naver_login.png");
+	background-size: 350px 52.5px;
+	background-repeat : no-repeat;
+}
+#naver_id_login img{
+	 opacity:0; 
+}
+
 </style>
-
 </head>
-
 <body class="bg-gradient-primary">
 
     <div class="container">
@@ -98,7 +110,8 @@
 
 </body>
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("wB6dgpsZrPXVqEWVChoT", "http://localhost:8080/root/callback");
+	// test 전용 id 로 로그인 설정.
+	var naver_id_login = new naver_id_login("kN9BHPF615UoOj8_Sup_", "http://localhost:8080/root/callback");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("green", 3,76);
 	naver_id_login.setDomain("http://localhost:8080/APIExamNaverLogin");
