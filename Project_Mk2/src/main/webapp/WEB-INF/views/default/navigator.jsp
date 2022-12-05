@@ -6,6 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#welcome {
+	display : block;
+	width: 200px;
+	height: 50px;
+}
+#welcome p {
+display : block;
+	padding-left : 15px;
+	color : white;
+	font-size : 16px;
+}
+
+.navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled #welcome p{
+	font-size : 10px;
+}
+</style>
 </head>
 <body>
 	
@@ -73,23 +90,19 @@
          <!-- Divider -->
          <hr class="sidebar-divider">
  			<!-- 카카오 로그인 -->
-         <%if(session.getAttribute("mem_key")==null){ %>
-          <div>
-       		  <p>guest 님 환영합니다 <br> 로그인하세요 ㅡㅡ</p>
+          <div id="welcome">
+	         <%if(session.getAttribute("mem_key")==null){ %>
+	       		  <p>guest</p>	
+			  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
+	          	 <p>네이버 회원</p>
+			  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
+	          	 	<p>사이트 회원</p>
+			  <%}else if(session.getAttribute("mem_key").equals("K")){ %>
+	             	<p>카카오 회원</p>        	
+			  <%}else if(session.getAttribute("mem_key").equals("A")){ %>
+			  		<p>관리자 계정</p>
+			  <%} %>	 
 		  </div>
-		  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
-           <div>
-          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
-		  </div>
-		  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
-           <div>
-          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
-		  </div>
-		  <%}else if(session.getAttribute("mem_key").equals("K")){ %>{ %>
-           <div>
-             	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>        	
-		  </div>
-		  <%} %>
          <!-- Heading -->
          <div class="sidebar-heading">Addons</div>
        
@@ -140,4 +153,9 @@
       </ul>
       <!-- End of Sidebar -->
 </body>
+<script type="text/javascript">
+/* 	$(function () {
+		alert(sessionStorage.getItem('mem_key'))
+	}) */
+</script>
 </html>

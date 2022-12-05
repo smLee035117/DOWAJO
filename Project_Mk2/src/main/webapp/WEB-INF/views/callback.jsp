@@ -11,26 +11,30 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-callback
 <script type="text/javascript">
-    var naver_id_login = new naver_id_login("wB6dgpsZrPXVqEWVChoT", "http://localhost:8080/root/callback");
+    var naver_id_login = new naver_id_login("kN9BHPF615UoOj8_Sup_", "http://localhost:8080/root/callback");
     // 접근 토큰 값 출력
     
     var naverToken = naver_id_login.oauthParams.access_token
     sessionStorage.setItem('loginToken', naverToken);
-    sessionStorage.setItem('mem_key', 'N');
-    
-    
+    sessionStorage.setItem('mem_key', 'N');	
     // 네이버 사용자 프로필 조회
     naver_id_login.get_naver_userprofile("naverSignInCallback()");
 
     // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
     function naverSignInCallback() {
-    	 sessionStorage.setItem('id', naver_id_login.getProfileData('email'));
-        alert(sessionStorage.getItem('id')+'님 반갑습니다');
-        location.href="/root/"
+    	sessionStorage.setItem('id', naver_id_login.getProfileData('email'));
+    	$('#loginToken').val(naverToken)
+    	$('#mem_key').val('N')
+    	$('#id').val(naver_id_login.getProfileData('email'))
+   		$('#frmNaver').submit()
     }
 </script>
+<form action="nvaerSession" method="post" id="frmNaver" name="frmNaver">
+	<input type="hidden" name="mem_key" id="mem_key" >
+	<input type="hidden" name="id" id="id" >
+	<input type="hidden" name="loginToken" id="loginToken" >
+</form>
 </body>
 </html>
 
