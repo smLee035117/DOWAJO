@@ -42,10 +42,11 @@ public class MemberController {
 		return "redirect:login";
 	}
 	
-	@GetMapping("tablesTest")
-	public void tables(Model model) {
+	@RequestMapping(value = "tables", method = RequestMethod.GET)
+	public String tables(Model model) {
 		List<BasicDataDTO>list = bs.basicList();
 		model.addAttribute("toiletList", list);
+		return "tablesTest";
 	}
 	
 	@GetMapping("logout")

@@ -94,12 +94,14 @@ display : block;
 	         <%if(session.getAttribute("mem_key")==null){ %>
 	       		  <p>guest</p>	
 			  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
-	          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
+	          	 <p>네이버 회원</p>
 			  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
-	          	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>
+	          	 	<p>사이트 회원</p>
 			  <%}else if(session.getAttribute("mem_key").equals("K")){ %>
-	             	 <p><%=session.getAttribute("id") %> 님 환영합니다</p>        	
-			  <%} %>		 
+	             	<p>카카오 회원</p>        	
+			  <%}else if(session.getAttribute("mem_key").equals("A")){ %>
+			  		<p>관리자 계정</p>
+			  <%} %>	 
 		  </div>
          <!-- Heading -->
          <div class="sidebar-heading">Addons</div>
