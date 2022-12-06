@@ -249,7 +249,7 @@ $(function () {
          <div class="modal-dialog">
             <div class="modal-content">
             <!-- <button onclick="bb()">xxx</button> -->
-            <form id="frmSug" name="frmSug" method="post">
+            <form id="frmSug" name="frmSug">
      	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
           	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
                <button class="popBtn" onclick="sugWrite()"><span id="btn-span">확인</span></button>
