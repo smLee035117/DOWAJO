@@ -73,8 +73,8 @@ $(function () {
 	                       '<div id="bas_Name">'+j[0].row[i].FNAME+'</div>'+
 		              		'<div id="avg"><span id="star">★</span><span>'+ avg +'</span></div>'+
 	              		'</div>'+
-                         '<div id="clear"></div><div><span style="font-size:0.8em">화장실구분&nbsp;</span>'+j[0].row[i].ANAME+'</div>'+
-                         '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>'+
+                         '<div id="clear"></div><div><span id="infoContent">화장실구분&nbsp;</span><label id="info_content">'+j[0].row[i].ANAME+'</label></div>'+
+                         '<div><span id="infoContent">정보수정일자&nbsp;</span><label id="info_content">'+j[0].row[i].UPDATEDATE+'</label></div>'+
                          '<div id="overFlow"style="overflow: auto;">',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도                      
                  }
