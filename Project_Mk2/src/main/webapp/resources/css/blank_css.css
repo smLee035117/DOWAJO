@@ -243,6 +243,24 @@ input:focus {
 	width:100%;
 	outline : none;
 }
+
+#replyDetail{
+	display: block;
+	width: 400px;
+	padding : 10px;
+	clear:both;
+}
+
+#replyDetail summary{
+	margin-bottom : 20px;
+}
+
+#replyDetail[open]{
+	background-color : #fff;
+	height: 250px;
+}
+
+
 #overFlow{
 	clear:both;
 	height: 100px;

@@ -75,7 +75,7 @@ $(function () {
 	              		'</div>'+
                          '<div id="clear"></div><div><span id="infoContent">화장실구분&nbsp;</span><label id="info_content">'+j[0].row[i].ANAME+'</label></div>'+
                          '<div><span id="infoContent">정보수정일자&nbsp;</span><label id="info_content">'+j[0].row[i].UPDATEDATE+'</label></div>'+
-                         '<div id="overFlow"style="overflow: auto;">',
+                         '<details id="replyDetail"><summary> 리뷰 </summary><div id="overFlow"style="overflow: auto;">',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도      
                          
                  }
@@ -109,7 +109,7 @@ $(function () {
 				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
 		                 	'</div>'+
 		                 '</form>'+
-	              '</div>'+
+	              '</div></details>'+
 	              '</div>'
                  
              }
@@ -249,6 +249,7 @@ $(function () {
          <div class="modal-dialog">
             <div class="modal-content">
             <!-- <button onclick="bb()">xxx</button> -->
+            <p> 건의사항 </p>
             <form id="frmSug" name="frmSug">
      	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
           	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
