@@ -332,26 +332,25 @@ function WriteMarker(){
        });
 }
    
-   function emailPop() {
-	      $('#layer-popup-email').addClass("show");   
+   function sugPop() {
+	      $('#layer-popup-sug').addClass("show");   
 	}
    
-	function sendMail() {
-	    $('#layer-popup-email').addClass("show");   
+   // 12/06 
+	function sugWrite() {
 	    $.ajax({
-	         url:"mailSend",
+	         url:"sugWrite",
 	         type:"post",   
 	         dataType : "json",
-	         data:{
-	            "mailSubject" : $('#mailSubject').val(),
-	            "mailContent" : $('#mailContent').val()
-	         },
+	         data: $('#frmSug').serialize(),
 	         success:function(responseData){      
 	            var j = JSON.parse(responseData)
 	               if(j==1){             
-	                  alert("메일 전송이 성공하였습니다.")
+	                  alert("건의사항 작성이 완료되었습니다.")
+	                  location.reload();
 	               }else{                   
-	                  alert("메일 전송이 실패하였습니다.")
+	                  alert("건의사항 작성이 실패하였습니다.")
+	                  location.reload();
 	               }
 	          },error : function () {
 	             console.log('fail')
