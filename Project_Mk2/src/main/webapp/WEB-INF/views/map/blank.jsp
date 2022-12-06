@@ -76,7 +76,8 @@ $(function () {
                          '<div id="clear"></div><div><span style="font-size:0.8em">화장실구분&nbsp;</span>'+j[0].row[i].ANAME+'</div>'+
                          '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>'+
                          '<div id="overFlow"style="overflow: auto;">',
-                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도                      
+                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도      
+                         
                  }
                  for(var a =0; a<reviewList.length;a++){                       
                 	 if(j[0].row[i].POI_ID == reviewList[a].number){                             
@@ -243,21 +244,26 @@ $(function () {
             </div>
          </div>
       </div>
-      <!--email 팝  -->
-      <div class="layer-popup" id="layer-popup-email">
+      <!--건의사항 팝업  -->
+      <div class="layer-popup" id="layer-popup-sug">
          <div class="modal-dialog">
             <div class="modal-content">
             <!-- <button onclick="bb()">xxx</button> -->
-               <input type="text" id="mailSubject" name="mailSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
-               <textarea id="mailContent" name="mailContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
-               <button class="popBtn" onclick="sendMail()"><span id="btn-span">확인</span></button>
+            <form id="frmSug" name="frmSug" method="post">
+     	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
+          	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
+               <button class="popBtn" onclick="sugWrite()"><span id="btn-span">확인</span></button>
+            </form>
             </div>
          </div>
       </div>
       
    </div>
    <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
-   <div id="MAIL"><a onclick="location.reload()"><img id="gps-img" src="resources/img/email_image.jpg" width="60%" height="60%"></a></div>
+  
+	  <c:if test="${sessionScope.mem_key ne null }">
+   		 <div id="MAIL"><a onclick="sugPop()"><img id="gps-img" src="resources/img/email_image.jpg" width="60%" height="60%"></a></div>    
+	  </c:if>
    
    <!-- Page Wrapper -->
    <div id="clickLatlng"></div>

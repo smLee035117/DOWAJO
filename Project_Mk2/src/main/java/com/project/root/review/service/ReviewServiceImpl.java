@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.root.mybatis.review.ReviewMapper;
 import com.project.root.review.dto.ReviewDTO;
+import com.project.root.suggestions.dto.SuggestionsDTO;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -23,6 +24,11 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public int replyWritePost(ReviewDTO reviewDTO) {
 		return reviewMapper.replyWritePost(reviewDTO);
+	}
+
+	@Override
+	public int sugWrite(SuggestionsDTO suggestionsDTO) {		
+		return reviewMapper.sugWrite(suggestionsDTO);
 	}
 
 	
