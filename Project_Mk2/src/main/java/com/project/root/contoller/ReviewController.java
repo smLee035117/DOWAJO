@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.root.review.dto.ReviewDTO;
 import com.project.root.review.service.ReviewService;
+import com.project.root.suggestions.dto.SuggestionsDTO;
 import com.project.root.util.JavaGMailSend;
 
 @Controller
@@ -30,8 +31,9 @@ public class ReviewController {
 		return reviewService.replyWritePost(reviewDTO);
 	}
 	
-	@RequestMapping(value = "mailSend" , method = RequestMethod.POST )
-	public int mailSend(String text) {
-		return JavaGMailSend.mailSend(text);
+	@RequestMapping(value = "sugWrite" , method = RequestMethod.POST )
+	@ResponseBody
+	public int mailSend(SuggestionsDTO suggestionsDTO) {
+		return reviewService.sugWrite(suggestionsDTO);
 	}
 }
