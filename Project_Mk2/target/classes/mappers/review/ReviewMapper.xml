@@ -7,6 +7,11 @@
 	private int reSco;
 	private String reContent;
 	
+		private int sugNo;
+	private String sugSubject;
+	private String sugContent;
+	private Timestamp sugRegDate;
+	private String sugReadCk;
  -->
 <mapper namespace="com.project.root.mybatis.review.ReviewMapper">
 	<resultMap type="com.project.root.review.dto.ReviewDTO" id="review">
@@ -16,6 +21,17 @@
 		<result property="reContent" column="re_content"/>
 		<result property="reRegDate" column="re_reg_date"/>
 	</resultMap>
+	<resultMap type="com.project.root.suggestions.dto.SuggestionsDTO" id="suggestions">
+		<id property="sugNo" column="sug_no"/>
+		<result property="sugSubject" column="sug_subject"/>
+		<result property="sugContent" column="sug_content"/>
+		<result property="sugRegDate" column="sug_reg_date"/>
+		<result property="sugReadCk" column="sug_read_ck"/>
+	</resultMap>
+	
+	<insert id="sugWrite">
+		insert into sug_board values(sug_seq.nextval,#{sugSubject},#{sugContent},sysdate,'N')
+	</insert>
 	
 	<select id="getReviewList" resultMap="review">
 		select * from review
@@ -24,4 +40,5 @@
 	<insert id="replyWritePost">
 		insert into review values(review_seq.nextval,#{basNo},#{reSco},#{reContent},sysdate)
 	</insert>
+	
 </mapper>

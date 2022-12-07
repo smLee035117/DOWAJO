@@ -25,7 +25,7 @@
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
 </head>
    <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
-<script type="text/javascript" src="resources/js/blank_js.js"></script>
+<script type="text/javascript" src="resources/js/wifiZone.js"></script>
 <script type="text/javascript"
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
 <script type="text/javascript">
@@ -176,11 +176,11 @@ $(function () {
                  map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
                  geocoder = new kakao.maps.services.Geocoder();
                  
-	                 // 공공api 마커 생성
-	  		       publicCreateMarker();
+	             // 공공api 마커 생성
+	  		     publicCreateMarker();
 	                 
 	  		     //마우스 클릭시 생성될 marker
-	               WriteMarker();  
+	             WriteMarker();  
 	  		     
                    <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
                       userCheckToilet.push({
