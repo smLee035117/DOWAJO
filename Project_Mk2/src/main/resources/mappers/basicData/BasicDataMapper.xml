@@ -38,8 +38,12 @@
 	</resultMap>
 	
 	<select id="getToiletList" resultMap="basicData">
-		select * from basic_data
-	</select> 
+		select * from basic_data where cat_no = 1
+	</select>
+	
+	<select id="getWIFIList" resultMap="basicData">
+		select * from basic_data where cat_no = 3
+	</select>
 	
 	<insert id="WriteBasicRest">
 		INSERT INTO BASIC_DATA VALUES('BAS'||TO_CHAR(LPAD(BASIC_DATA_SEQ.NEXTVAL,5,'0')), 1,#{basName},#{basAddr} ,#{basLat},#{basLng} )		
