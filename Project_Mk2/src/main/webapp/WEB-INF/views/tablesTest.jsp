@@ -25,15 +25,9 @@
 
     <!-- Custom styles for this page -->
     <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-   <script src="resources/vendor/jquery/jquery.min.js"></script>
+   
 </head>
-<script type="text/javascript">
-$(function () {
-	$('.collapse show').attr('class','collapse')
-	$('#collapseTwo').attr('class','collapse show')
-	$('#ToiletList').css({"color":"#d55353","font-weight": "bold"})	
-})
-</script>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->

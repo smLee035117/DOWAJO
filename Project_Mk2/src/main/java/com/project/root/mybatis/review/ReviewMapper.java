@@ -9,6 +9,5 @@ public interface ReviewMapper {
 
 	public List<ReviewDTO> getReviewList();
 	public int replyWritePost(ReviewDTO reviewDTO);
-
-	
+	public int sugWrite(SuggestionsDTO suggestionsDTO);
 }
