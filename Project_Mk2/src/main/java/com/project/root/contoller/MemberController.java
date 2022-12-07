@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.root.basicdata.dto.BasicDataDTO;
 import com.project.root.basicdata.dto.KakaoUserInfo;
 import com.project.root.basicdata.service.BasicDataService;
 import com.project.root.member.service.MemberService;
+import com.project.root.suggestions.dto.SuggestionsDTO;
 import com.project.root.util.KakaoOAuth2;
 
 @Controller
@@ -84,7 +86,5 @@ public class MemberController {
     	session.setAttribute("loginToken", loginToken);
     	
 		 return "redirect:/"; 
-    }
-    
-    
+    }  
 }
