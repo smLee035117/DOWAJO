@@ -1,5 +1,7 @@
 package com.project.root.member.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.root.member.dto.MemberDTO;
 import com.project.root.mybatis.member.MemberMapper;
+import com.project.root.suggestions.dto.SuggestionsDTO;
 @Service
 public class MemberServiceImpl implements MemberService {
 	
@@ -30,5 +33,31 @@ public class MemberServiceImpl implements MemberService {
 		return MemKey;
 	}
 	
+	//---------AdminController------------
+	//sugTable페이지 값 뿌림
+	@Override
+	public int sugWrite(SuggestionsDTO suggestionsDTO) {		
+		return mapper.sugWrite(suggestionsDTO);
+	}
+
+	//sugTable페이지 상세페이지
+	@Override
+	public List<SuggestionsDTO> getSuggestionsList() {
+		return mapper.getSuggestionsList();
+	}
+
+	//blank 페이지에서 건의사항 작성
+	@Override
+	public SuggestionsDTO sugDetail(SuggestionsDTO suggestionsDTO) {		
+		return mapper.sugDetail(suggestionsDTO);
+	}
+	
+	//sugTable페이지 상세페이지 볼때 읽음 표시
+	@Override
+	public int ReadCk(SuggestionsDTO suggestionsDTO) {
+		return mapper.ReadCk(suggestionsDTO);
+	}
+	//-------End------------------------	
+
 	
 }
