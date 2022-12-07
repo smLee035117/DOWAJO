@@ -30,6 +30,11 @@
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
 <script type="text/javascript">
 $(function () {
+	
+	$('.collapse show').attr('class','collapse')
+	$('#collapsePages').attr('class','collapse show')
+	$('#ToiletInfo').css({"color":"#d55353","font-weight": "bold"})
+	
 	//get url 매개변수 삭제
     history.replaceState({}, null, location.pathname); 
     

@@ -16,6 +16,14 @@
 		<result property="memKey" column="mem_key"/>
 	</resultMap>
 	
+	<resultMap type="com.project.root.suggestions.dto.SuggestionsDTO" id="suggestions">
+		<id property="sugNo" column="sug_no"/>
+		<result property="sugSubject" column="sug_subject"/>
+		<result property="sugContent" column="sug_content"/>
+		<result property="sugRegDate" column="sug_reg_date"/>
+		<result property="sugReadCk" column="sug_read_ck"/>
+	</resultMap>
+	
 	<select id="user_check" resultMap="member">
 		select * from member where mem_id = #{id}
 	</select>
@@ -24,4 +32,21 @@
 		select mem_key from member where mem_id = #{id}
 	</select>
 	
+	<!--AdminController  -->
+	<insert id="sugWrite">
+		insert into sug_board values(sug_seq.nextval,#{sugSubject},#{sugContent},sysdate,'N')
+	</insert>
+
+	<select id="getSuggestionsList" resultMap="suggestions">
+		select * from sug_board 
+	</select>
+
+	<select id="sugDetail" resultMap="suggestions">
+		select * from sug_board where sug_no = #{sugNo}
+	</select>
+	
+	<update id="ReadCk">
+		update sug_board set sug_read_ck = 'Y' where sug_no = #{sugNo}
+	</update>
+	<!-- end -->
 </mapper>
