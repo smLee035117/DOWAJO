@@ -26,6 +26,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/tables"/>
+			<mapping path="/sugTable"/>
 				<beans:ref bean="adminInterceptor"/>
 		</interceptor>
 	</interceptors>
