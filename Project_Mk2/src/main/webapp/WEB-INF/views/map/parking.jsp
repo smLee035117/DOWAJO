@@ -30,11 +30,6 @@
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
 <script type="text/javascript">
 $(function () {
-	
-	$('.collapse show').attr('class','collapse')
-	$('#collapsePages').attr('class','collapse show')
-	$('#ToiletInfo').css({"color":"#d55353","font-weight": "bold"})
-	
 	//get url 매개변수 삭제
     history.replaceState({}, null, location.pathname); 
     
@@ -42,82 +37,86 @@ $(function () {
     showReply();
     
     //화장실 상세데이터 보여주는 함수
-    showToiletDetail();
+    //showToiletDetail();
     
-    //  공공데이터 api 정보가져오기 
-   $.ajax({
-       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
-       type:"get",   
-       dataType : "json",
-       contentType:"application/json",
-       success:function(responseData){         
-          var j = Object.values(responseData)
-             for(var i = 0 ; i < j[0].row.length; i++){
-            	 matchNum = 0 
-                 toilet[i] = {
-                         content: '<div>'+j[0].row[i].FNAME+'</div>',
-                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84), //위도 , 경도
-                         number: j[0].row[i].POI_ID
-                 }
-                 var sum = 0;
-            	 var avg = 0;
-                 for(var a =0; a<reviewList.length;a++){
-                      if(j[0].row[i].POI_ID == reviewList[a].number){
-                           sum += reviewList[a].reSco 
-                           matchNum ++;
-                      } 
-                 }
-                if(sum!=0){
-                	avg = (sum/matchNum).toFixed(2);
-                }else {
-                	avg = 0.00;
-                }
-                 toiletDetail[i] ={
-                       content: '<div id="ditailInfoWindow"><div id="detailInfo">'+
-                       '<div id="basName">'+
-	                       '<div id="bas_Name">'+j[0].row[i].FNAME+'</div>'+
-		              		'<div id="avg"><span id="star">★</span><span>'+ avg +'</span></div>'+
-	              		'</div>'+
-                         '<div id="clear"></div><div><span style="font-size:0.8em">화장실구분&nbsp;</span>'+j[0].row[i].ANAME+'</div>'+
-                         '<div><span style="font-size:0.8em">정보수정일자&nbsp;</span>'+j[0].row[i].UPDATEDATE+'</div>'+
-                         '<div id="overFlow"style="overflow: auto;">',
-                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도      
-                         
-                 }
-                 for(var a =0; a<reviewList.length;a++){                       
-                	 if(j[0].row[i].POI_ID == reviewList[a].number){                             
-                         toiletDetail[i].content += reviewList[a].overrayContent;
-                           //리뷰가 있는지 없는지 확인하는 변수
-                          matchNum ++;
-                     }
-                 }
-            	 if(matchNum==0){
-                     toiletDetail[i].content += '<div id="review">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
-                 }
-                 toiletDetail[i].content += 
-	            	'</div><div id="reply-Form">'+
-		               	'<form name="replyForm" id="replyForm">'+
-			                '<div id="reviewSend">'+
-				                 '<span id="form_title">리뷰작성</span>'+
-					             '<div id="selectStart">'+
-					                 	'<fieldset>'+
-						         		 	'<input type="radio" name="reSco" value="5" id="rate1" checked><label for="rate1">★</label>'+
-						         			'<input type="radio" name="reSco" value="4" id="rate2"><label for="rate2">★</label>'+
-						         		 	'<input type="radio" name="reSco" value="3" id="rate3"><label for="rate3">★</label>'+
-						         		 	'<input type="radio" name="reSco" value="2" id="rate4"><label for="rate4">★</label>'+
-						         		 	'<input type="radio" name="reSco" value="1" id="rate5"><label for="rate5">★</label>&nbsp;'+
-						         		 	'<span class="selectText">별점을 선택해주세요</span>'+
-					         		 	'</fieldset>'+
-						         '</div><br>'+
-						         '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].POI_ID +'">'+
-				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
-				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
-		                 	'</div>'+
-		                 '</form>'+
-	              '</div>'+
-	              '</div>'
-                 
-             }
+
+          //  공공주차장 데이터 api 정보가져오기 
+          $.ajax({
+              url:"http://openapi.seoul.go.kr:8088/41746c4861776f6e3439466f4c504a/json/GetParkInfo/1/1000",
+              type:"get",   
+              dataType : "json",
+              contentType:"application/json",
+              success:function(responseData){         
+                 var j = Object.values(responseData)
+                    for(var i = 0 ; i < j[0].row.length; i++){
+                   	 matchNum = 0 
+                        parking[i] = {
+                                content: '<div>'+j[0].row[i].PARKING_NAME+'</div>',
+                                latlng: new kakao.maps.LatLng(j[0].row[i].LAT, j[0].row[i].LNG), //위도 , 경도
+                                number: 'PAR'+j[0].row[i].PARKING_CODE
+                        }
+                        var sum = 0;
+                   	 var avg = 0;
+                        for(var a =0; a<reviewList.length;a++){
+                             if(parking[i].number == reviewList[a].number){
+                                  sum += reviewList[a].reSco 
+                                  matchNum ++;
+                             } 
+                        }
+                       if(sum!=0){
+                       	avg = (sum/matchNum).toFixed(2);
+                       }else {
+                       	avg = 0.00;
+                       }
+                       parkingDetail[i] ={
+                              content: '<div id="ditailInfoWindow"><div id="detailInfo">'+
+                              '<div id="parkName">'+
+       	                       '<div id="park_Name">'+j[0].row[i].PARKING_NAME+'</div>'+
+       		              		'<div id="avg"><span id="star">★</span><span>'+ avg +'</span></div>'+
+       	              		'</div>'+
+                                '<div id="clear"></div><div><span id="infoContent">주소&nbsp;</span><label id="info_content">'+j[0].row[i].ADDR+'</label></div>'+
+                                '<div><span id="infoContent">주소&nbsp;</span><label id="info_content">'+j[0].row[i].ADDR+'</label></div>'+
+                                '<details id="replyDetail"><summary> 리뷰 </summary><div id="overFlow"style="overflow: auto;">',
+                                latlng: new kakao.maps.LatLng(j[0].row[i].LAT, j[0].row[i].LNG) //위도 , 경도      
+                                
+                        }
+                        for(var a =0; a<reviewList.length;a++){                       
+                       	 if(parking[i].number == reviewList[a].number){                             
+                       		parkingDetail[i].content += reviewList[a].overrayContent;
+                                  //리뷰가 있는지 없는지 확인하는 변수
+                                 matchNum ++;
+                            }
+                        }
+                   	 if(matchNum==0){
+                   			parkingDetail[i].content += '<div id="review">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
+                        }
+                   			parkingDetail[i].content += 
+       	            	'</div><div id="reply-Form">'+
+       		               	'<form name="replyForm" id="replyForm">'+
+       			                '<div id="reviewSend">'+
+       				                 '<span id="form_title">리뷰작성</span>'+
+       					             '<div id="selectStart">'+
+       					                 	'<fieldset>'+
+       						         		 	'<input type="radio" name="reSco" value="5" id="rate1" checked><label for="rate1">★</label>'+
+       						         			'<input type="radio" name="reSco" value="4" id="rate2"><label for="rate2">★</label>'+
+       						         		 	'<input type="radio" name="reSco" value="3" id="rate3"><label for="rate3">★</label>'+
+       						         		 	'<input type="radio" name="reSco" value="2" id="rate4"><label for="rate4">★</label>'+
+       						         		 	'<input type="radio" name="reSco" value="1" id="rate5"><label for="rate5">★</label>&nbsp;'+
+       						         		 	'<span class="selectText">별점을 선택해주세요</span>'+
+       					         		 	'</fieldset>'+
+       						         '</div><br>'+
+       						         '<input type="hidden" id="basNo" name="basNo" value="PAR'+j[0].row[i].PARKING_CODE +'">'+
+       				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
+       				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
+       		                 	'</div>'+
+       		                 '</form>'+
+       	              '</div></details>'+
+       	              '</div>'
+                        
+                    }
+          
+          
+          
          //자신의 위치 가져오는 geolocation api 
        navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
           
@@ -152,13 +151,13 @@ $(function () {
 		       // 마커가 지도 위에 표시되도록 설정합니다
 		       myMarker.setMap(map);  
 		       
-		  	   // 공공api 마커 생성
-		       publicToiletCreateMarker();
-		  	   
+				console.log(parking[2]);
+		  	   // 공공주차장api 마커 생성
+		  	   publicParkingCreateMarker();
 		       //마우스 클릭시 생성될 marker
 		       WriteMarker();  
 	             
-	             <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
+/* 	             <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
 	                userCheckToilet.push({
 	                   content: '<div>${toiletList.basName}</div>',
 	                   latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
@@ -167,8 +166,7 @@ $(function () {
 	            </c:forEach>
 	          
 	         	  // baic_data 정보 불러와서 뿌리는 마커
-	     		  privateCreateMarker();
-	         	  console.log(toilet[1]);
+	     		  privateCreateMarker() */
 	          }// 성공했을때 실행 끝
 	          
           //자신의 위치 가져오는 geolocation api이 실패했을때 실행
@@ -182,13 +180,13 @@ $(function () {
                  map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
                  geocoder = new kakao.maps.services.Geocoder();
                  
-	                 // 공공api 마커 생성
-	  		       publicCreateMarker();
+	                 // 공공 주차장 api 마커 생성
+	  		       publicParkingCreateMarker();
 	                 
 	  		     //마우스 클릭시 생성될 marker
 	               WriteMarker();  
 	  		     
-                   <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
+               /*     <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
                       userCheckToilet.push({
                          content: '<div>${toiletList.basName}</div>',
                          latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
@@ -196,7 +194,7 @@ $(function () {
                    })
                   </c:forEach>
                       // baic_data 정보 불러와서 뿌리는 마커
-                       privateCreateMarker()
+                       privateCreateMarker() */
               //geolocation 실패시 띄우는 메세지      
                switch(error.code) {
                   case error.PERMISSION_DENIED:
@@ -255,6 +253,7 @@ $(function () {
          <div class="modal-dialog">
             <div class="modal-content">
             <!-- <button onclick="bb()">xxx</button> -->
+            <p> 건의사항 </p>
             <form id="frmSug" name="frmSug">
      	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
           	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
