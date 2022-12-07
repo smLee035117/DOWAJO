@@ -185,7 +185,7 @@ function WriteMarker(){
 	                            	'<div class="restContent2"><span id="rest-Status">청결상태</span><label id="bas_content">&nbsp;'+ j[i].restStatus + '</label></div>'+
 	                            '</div>'+
                              '</div>'+
-                             '<details id="replyDetail"><summary> 리뷰 </summary><div id="overFlow"style="overflow: auto;">'
+                             '<div id="overFlow"style="overflow: auto;">'
                  }
                    matchNum = 0;
                     for(var a =0; a<reviewList.length;a++){                       
@@ -218,7 +218,7 @@ function WriteMarker(){
 			                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
 	                 	'</div>'+
 	                 '</form>'+
-                 '</div></details>'+
+                 '</div>'+
                  '</div>'
           }
             },error : function () {
