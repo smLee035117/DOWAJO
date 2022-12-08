@@ -44,7 +44,9 @@ $(function () {
        async:false,
        success:function(WIFIInfo){         
           var j = Object.values(WIFIInfo);
+          console.log(j);
              for(var i = 0 ; i < j.length; i++){
+            	 console.log(j);
             	 matchNum = 0; 
                  wifi[i] = {
                          content: '<div>'+j[i].basName+'</div>',
@@ -59,11 +61,12 @@ $(function () {
                  }
                  
                  wifiDetail[i] ={
+                		number : j[i].basNo,
                        content: '<div id="ditailInfoWindow"><div id="detailInfo">'+
                        '<div id="basName">'+
 	                       '<div id="bas_Name">'+j[i].basName+'</div>'+
 	              		'</div>'+
-                         '<div id="clear"></div><div><span id="infoContent">와이파이명&nbsp;</span><label id="info_content">'+j[i].wifiNameE+'</label></div>'+
+                         '<div id="clear"></div><div><span id="infoContent">와이파이명&nbsp;</span><label id="info_content">'+j[i].wifiName+'</label></div>'+
                          '<div><span id="infoContent">비밀번호&nbsp;</span><label id="info_content">'+j[i].wifiPw+'</label></div>'+
                          '<details id="replyDetail"><summary> 리뷰 </summary><div id="overFlow"style="overflow: auto;">',
                          latlng: new kakao.maps.LatLng(j[i].basLat, j[i].basLng) //위도 , 경도      
@@ -137,7 +140,6 @@ $(function () {
                   number: '${wifiList.basNo}'
           	  	})
           	   </c:forEach>
-	          console.log(userCheckWIFI);
 	         	  // baic_data 정보 불러와서 뿌리는 마커
 	     		  privateCreateMarker();
 	          }// 성공했을때 실행 끝
@@ -164,7 +166,6 @@ $(function () {
                          number: '${wifiList.basNo}'
                    })
                   </c:forEach>
-                      console.log(userCheckWIFI);
                       // baic_data 정보 불러와서 뿌리는 마커
                        privateCreateMarker()
               //geolocation 실패시 띄우는 메세지      

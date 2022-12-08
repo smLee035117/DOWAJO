@@ -1,7 +1,8 @@
    var matchNum;
    var infowindowOpened = [];
    var userCheckWIFI = [];
-   var detailList= [];   
+   var wifi= [];
+   var wifiDetail= [];   
    var geocoder = null;
    var mapContainer;
    var map;
@@ -21,14 +22,17 @@ function privateCreateMarker(){
 	                });
 	                  // 제목 페이지 info
 	                  infowindow = new kakao.maps.InfoWindow({
-	                     content: userCheckWIFI[i].content // 인포윈도우에 표시할 내용
+	                  content: userCheckWIFI[i].content // 인포윈도우에 표시할 내용
 	                 });
 	        
-	                //상세 페이지 info
-	                 for(var v = 0; v < detailList.length; v++){
-	                    if(detailList[v].number == userCheckWIFI[i].number){
+	                //상세 페이지 info     
+	                	console.log(wifiDetail)
+	                 for(var v = 0; v < wifiDetail.length; v++){
+							console.log(wifiDetail[v].number)
+							console.log(userCheckWIFI[i].number)
+	                    if(wifiDetail[v].number == userCheckWIFI[i].number){
 	                      infowindowDetail = new kakao.maps.InfoWindow({
-	                          content: detailList[v].overrayContent, 
+	                          content: wifiDetail[v].content, 
 	                          removable: true
 	                      });
 	
