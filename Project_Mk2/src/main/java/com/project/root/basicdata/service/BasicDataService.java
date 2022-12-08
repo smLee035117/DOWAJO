@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.project.root.basicdata.dto.BasicDataDTO;
 import com.project.root.restdata.dto.RestDataDTO;
+import com.project.root.wifidata.dto.WIFIDataDTO;
 
 
 public interface BasicDataService {
@@ -15,4 +16,9 @@ public interface BasicDataService {
 	
 	public int seqCntSelect();
 	public List<BasicDataDTO> basicList();
+	
+	public int WriteBasicWIFI(BasicDataDTO basicDataDTO);
+	
+	public int WriteDetailWIFI(WIFIDataDTO wifiDataDTO);
+	
 }

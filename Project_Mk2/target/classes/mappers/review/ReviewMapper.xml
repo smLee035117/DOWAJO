@@ -21,17 +21,6 @@
 		<result property="reContent" column="re_content"/>
 		<result property="reRegDate" column="re_reg_date"/>
 	</resultMap>
-	<resultMap type="com.project.root.suggestions.dto.SuggestionsDTO" id="suggestions">
-		<id property="sugNo" column="sug_no"/>
-		<result property="sugSubject" column="sug_subject"/>
-		<result property="sugContent" column="sug_content"/>
-		<result property="sugRegDate" column="sug_reg_date"/>
-		<result property="sugReadCk" column="sug_read_ck"/>
-	</resultMap>
-	
-	<insert id="sugWrite">
-		insert into sug_board values(sug_seq.nextval,#{sugSubject},#{sugContent},sysdate,'N')
-	</insert>
 	
 	<!-- 리뷰 전체 불러오기 -->
 	<select id="getReviewList" resultMap="review">

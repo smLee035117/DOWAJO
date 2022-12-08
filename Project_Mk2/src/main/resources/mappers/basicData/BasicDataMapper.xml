@@ -54,6 +54,15 @@
 		INSERT INTO REST_DATA VALUES(REST_DATA_SEQ.NEXTVAL ,#{basNo},'09:00',#{restLock} ,#{restToi},#{restUri},#{restDisToi},#{restDisUri},'13:00',#{restStatus},#{restKey})
 	</insert>
 	
+	
+	<insert id="WriteBasicWIFI">
+		INSERT INTO BASIC_DATA VALUES('BAS'||TO_CHAR(LPAD(BASIC_DATA_SEQ.NEXTVAL,5,'0')), 3,#{basName},#{basAddr} ,#{basLat},#{basLng} )		
+	</insert>
+	
+	<insert id="WriteDetailWIFI">
+		INSERT INTO WIFI_DATA VALUES(WIFI_SEQ.NEXTVAL , #{basNo}, #{wifiName}, #{wifiPw} )
+	</insert>
+	
 	<!-- 마지막 시퀀스 가져오는 방법 -->
 	<select id="seqCntSelect" resultType="int">	
 		SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'BASIC_DATA_SEQ'

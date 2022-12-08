@@ -20,7 +20,7 @@
    rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/blank_css.css" rel="stylesheet">
+<link href="resources/css/toilet_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
 </head>
@@ -44,12 +44,12 @@ $(function () {
        async:false,
        success:function(WIFIInfo){         
           var j = Object.values(WIFIInfo);
-             for(var i = 0 ; i < j[0].row.length; i++){
+             for(var i = 0 ; i < j.length; i++){
             	 matchNum = 0; 
                  wifi[i] = {
-                         content: '<div>'+j[0].row[i].basName+'</div>',
-                         latlng: new kakao.maps.LatLng(j[0].row[i].basLat, j[0].row[i].basLng), //위도 , 경도
-                         number: j[0].row[i].basNo
+                         content: '<div>'+j[i].basName+'</div>',
+                         latlng: new kakao.maps.LatLng(j[i].basLat, j[i].basLng), //위도 , 경도
+                         number: j[i].basNo
                  }
             	 for(var a =0; a<reviewList.length;a++){
                      if(j[i].basNo == reviewList[a].number){
@@ -61,16 +61,16 @@ $(function () {
                  wifiDetail[i] ={
                        content: '<div id="ditailInfoWindow"><div id="detailInfo">'+
                        '<div id="basName">'+
-	                       '<div id="bas_Name">'+j[0].row[i].basName+'</div>'+
+	                       '<div id="bas_Name">'+j[i].basName+'</div>'+
 	              		'</div>'+
-                         '<div id="clear"></div><div><span id="infoContent">와이파이명&nbsp;</span><label id="info_content">'+j[0].row[i].wifiNameE+'</label></div>'+
-                         '<div><span id="infoContent">비밀번호&nbsp;</span><label id="info_content">'+j[0].row[i].wifiPw+'</label></div>'+
+                         '<div id="clear"></div><div><span id="infoContent">와이파이명&nbsp;</span><label id="info_content">'+j[i].wifiNameE+'</label></div>'+
+                         '<div><span id="infoContent">비밀번호&nbsp;</span><label id="info_content">'+j[i].wifiPw+'</label></div>'+
                          '<details id="replyDetail"><summary> 리뷰 </summary><div id="overFlow"style="overflow: auto;">',
-                         latlng: new kakao.maps.LatLng(j[0].row[i].basLat, j[0].row[i].basLng) //위도 , 경도      
+                         latlng: new kakao.maps.LatLng(j[i].basLat, j[i].basLng) //위도 , 경도      
                          
                  }
                  for(var a =0; a<reviewList.length;a++){                       
-                	 if(j[0].row[i].basNo == reviewList[a].number){                             
+                	 if(j[i].basNo == reviewList[a].number){                             
                 		 wifiDetail[i].content += reviewList[a].overrayContent;
                      }
                  }
@@ -82,7 +82,7 @@ $(function () {
 		               	'<form name="replyForm" id="replyForm">'+
 			                '<div id="reviewSend">'+
 				                 '<span id="form_title">리뷰작성</span>'+
-						         '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].basNo +'">'+
+						         '<input type="hidden" id="basNo" name="basNo" value="'+j[i].basNo +'">'+
 						         '<input type="hidden" id="reSco" name"reSco" value="0">'+
 				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
 				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
@@ -130,14 +130,14 @@ $(function () {
 		       //마우스 클릭시 생성될 marker
 		       WriteMarker();  
 	             
-	             <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
-	                userCheckToilet.push({
-	                   content: '<div>${toiletList.basName}</div>',
-	                   latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
-	                   number: '${toiletList.basNo}'
-	                })
-	            </c:forEach>
-	          
+		       <c:forEach var="wifiList" items="${wifiList}" varStatus="status">
+               userCheckWIFI.push({
+                  content: '<div>${wifiList.basName}</div>',
+                  latlng: new kakao.maps.LatLng(${wifiList.basLat},${wifiList.basLng}),
+                  number: '${wifiList.basNo}'
+          	  	})
+          	   </c:forEach>
+	          console.log(userCheckWIFI);
 	         	  // baic_data 정보 불러와서 뿌리는 마커
 	     		  privateCreateMarker();
 	          }// 성공했을때 실행 끝
@@ -157,13 +157,14 @@ $(function () {
 	  		     //마우스 클릭시 생성될 marker
 	             WriteMarker();  
 	  		     
-                   <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
-                      userCheckToilet.push({
-                         content: '<div>${toiletList.basName}</div>',
-                         latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
-                         number: '${toiletList.basNo}'
+                   <c:forEach var="wifiList" items="${wifiList}" varStatus="status">
+                      userCheckWIFI.push({
+                         content: '<div>${wifiList.basName}</div>',
+                         latlng: new kakao.maps.LatLng(${wifiList.basLat},${wifiList.basLng}),
+                         number: '${wifiList.basNo}'
                    })
                   </c:forEach>
+                      console.log(userCheckWIFI);
                       // baic_data 정보 불러와서 뿌리는 마커
                        privateCreateMarker()
               //geolocation 실패시 띄우는 메세지      
@@ -199,8 +200,8 @@ $(function () {
                   <input type="text" id="basName" name="basName" style="border:none;border-bottom:1px solid black" placeholder="장소명 입력"><br>      
                   <div id = "content">
                      <div>
-                     	<input type="text" id="wifiName" style="border:none;border-bottom:1px solid black" placeholder="와이파이명"><br>
-                     	<input type="text" id="wifiPw" style="border:none;border-bottom:1px solid black" placeholder="비밀번호"> 
+                     	<input type="text" id="wifiName" name="wifiName" style="border:none;border-bottom:1px solid black" placeholder="와이파이명"><br>
+                     	<input type="text" id="wifiPw" name="wifiPw" style="border:none;border-bottom:1px solid black" placeholder="비밀번호"> 
                      </div>
                   </div>                                       
                <input type="hidden" id="latlng" name="latlng"><br>   
