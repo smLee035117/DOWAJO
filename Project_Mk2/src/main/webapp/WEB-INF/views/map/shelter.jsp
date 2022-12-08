@@ -20,7 +20,7 @@
    rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/blank_css.css" rel="stylesheet">
+<link href="resources/css/shelter_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
 </head>
@@ -55,24 +55,17 @@ $(function () {
                                 latlng: new kakao.maps.LatLng(j[0].row[i].YCORD, j[0].row[i].XCORD), //위도 , 경도
                                 number: ('SLT'+j[0].row[i].R_SEQ_NO).padStart(10,'0')
                         }
-                        var sum = 0;
-                   	 var avg = 0;
+                        
                         for(var a =0; a<reviewList.length;a++){
                              if(shelter[i].number == reviewList[a].number){
-                                  sum += reviewList[a].reSco 
                                   matchNum ++;
                              } 
                         }
-                       if(sum!=0){
-                       	avg = (sum/matchNum).toFixed(2);
-                       }else {
-                       	avg = 0.00;
-                       }
                        shelterDetail[i] ={
                               content: '<div id="ditailInfoWindow"><div id="detailInfo">'+
                               '<div id="shelterName">'+
        	                       '<div id="shelter_Name">'+j[0].row[i].EQUP_NM+'</div>'+
-       		              		'<div id="avg"><span id="star">★</span><span>'+ avg +'</span></div>'+
+       		              		'<div id="people"><span id="emoji"><img src="resources/img/emoji.png" width="30px" height="35px"/></span><span id="peopleCount">'+ matchNum +'</span></div>'+
        	              		'</div>'+
                                 '<div id="clear"></div><div><span id="infoContent">주소&nbsp;</span><label id="info_content">'+j[0].row[i].LOC_SFPR_A+'</label></div>'+
                                 '<div><span id="infoContent">수용인원&nbsp;</span><label id="info_content">'+Math.floor((j[0].row[i].SECT_EQUP)/4)+'</label>명</div>'+
@@ -99,6 +92,7 @@ $(function () {
        					             '<div id="selectStart">'+
        						         '</div><br>'+
        						         '<input type="hidden" id="basNo" name="basNo" value="'+a+'">'+
+       						      	 '<input type="hidden" id="reSco" name="reSco" value="0">'+
        				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="이름과 전화번호를 적어주세요">&nbsp;'+
        				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
        		                 	'</div>'+
@@ -188,34 +182,6 @@ $(function () {
 </script>
 <body id="page-top">
    <div class="container">
-      <div class="layer-popup" id="layer-popup">
-         <div class="modal-dialog">
-            <div class="modal-content">
-            <!-- <button onclick="bb()">xxx</button> -->
-               <form name="frmModal" id="frmModal">
-                  <input type="text" id="basName" name="basName" style="border:none;border-bottom:1px solid black" placeholder="이름입력"><br>      
-                  <div id = "content">
-                     <div id='small'>
-                        <span>소변기</span>&nbsp;<input type="text" id="restToi" name="restToi" size="2" maxlength="2" style="border:none" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
-                     </div>      
-                     <div id='big'>
-                        <span>좌변기</span>&nbsp;<input type="text" id="restUri" name="restUri" size="2" style="border:none" maxlength="2" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
-                     </div>
-                  </div>                        
-                  <!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->                             
-                  <div id="lock" style="width:100%; padding-top:15px;" >
-                  <label style="width:30%">잠금유무</label>                  
-                  있음<input type="radio" id="choice1" name="restLock" value="Y" style="width:15%" > &nbsp;
-                  없음<input type="radio" id="choice2" name="restLock" value="N"  style="width:15%" checked="checked">
-                  </div>
-                  <br>                  
-               <input type="hidden" id="latlng" name="latlng"><br>   
-               <input type="hidden" id="basAddr" name="basAddr"><br>                  
-               <button class="popBtn" onclick="popData()"><span id="btn-span">확인</span></button>            
-               </form>
-            </div>
-         </div>
-      </div>
       <!--건의사항 팝업  -->
       <div class="layer-popup" id="layer-popup-sug">
          <div class="modal-dialog">
