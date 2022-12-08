@@ -9,6 +9,8 @@ import com.project.root.restdata.dto.RestDataDTO;
 public interface BasicDataMapper {
 
 	public List<BasicDataDTO> getToiletList();
+	
+	public List<BasicDataDTO> getWIFIList();
 
 	//화장실 공통 정보등록
 	public int WriteBasicRest(BasicDataDTO basicDataDTO);
