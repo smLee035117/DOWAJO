@@ -52,6 +52,7 @@ $(function () {
        contentType:"application/json",
        success:function(responseData){         
           var j = Object.values(responseData)
+          console.log(j)
              for(var i = 0 ; i < j[0].row.length; i++){
             	 matchNum = 0 
                  toilet[i] = {

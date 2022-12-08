@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.project.root.basicdata.dto.BasicDataDTO;
 import com.project.root.mybatis.basicdata.BasicDataMapper;
 import com.project.root.restdata.dto.RestDataDTO;
+import com.project.root.wifidata.dto.WIFIDataDTO;
 
 @Service
 public class BasicDataServiceImpl implements BasicDataService {
@@ -36,6 +37,16 @@ public class BasicDataServiceImpl implements BasicDataService {
 	public List<BasicDataDTO> basicList() {
 		List<BasicDataDTO> list = basicDataMapper.getToiletList();
 		return list;
+	}
+
+	@Override
+	public int WriteDetailWIFI(WIFIDataDTO wifiDataDTO) {
+		return basicDataMapper.WriteDetailWIFI(wifiDataDTO);
+	}
+
+	@Override
+	public int WriteBasicWIFI(BasicDataDTO basicDataDTO) {
+		return basicDataMapper.WriteBasicWIFI(basicDataDTO);
 	}
 	
 
