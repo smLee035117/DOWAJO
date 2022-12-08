@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.project.root.member.dto.MemberDTO;
 import com.project.root.suggestions.dto.SuggestionsDTO;
 
 public interface MemberService {
 
-	int loginCheck(HttpServletRequest request);
-	String getMemKey(String id);
+	public int loginCheck(HttpServletRequest request);
+	public String getMemKey(String id);
+	public int writeRegister(MemberDTO memberDTO);
 	
 	//---------AdminController------------
 	//sugTable페이지 값 뿌림

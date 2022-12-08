@@ -22,12 +22,19 @@
 		<result property="reRegDate" column="re_reg_date"/>
 	</resultMap>
 	
+	<!-- 리뷰 전체 불러오기 -->
 	<select id="getReviewList" resultMap="review">
 		select * from review
 	</select>
-	
+		
+	<!-- 리뷰 작성 -->
 	<insert id="replyWritePost">
 		insert into review values(review_seq.nextval,#{basNo},#{reSco},#{reContent},sysdate)
 	</insert>
+	
+	<!-- 특정 리뷰 불러오기 -->
+	<select id="getSerarchReviewList" resultType="int">
+		select count(*) from review where bas_no = #{basNo}
+	</select>
 	
 </mapper>

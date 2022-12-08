@@ -106,8 +106,8 @@ display : block;
                   <c:if test="${id !=null }">
                   	<a class="collapse-item" href="logout">Logout</a>
                   </c:if>
-                  <a class="collapse-item active" id="ToiletInfo" href="${pageContext.request.contextPath }/"
-                   style="color:black;font-weight: normal;">Toilet Info</a>
+                  <a class="collapse-item active" id="ToiletInfo" href="${pageContext.request.contextPath }/"  style="color:black;font-weight: normal;">Toilet Info</a>
+                  <a class="collapse-item active" id="ShelterInfo" href="${pageContext.request.contextPath }/shelter"  style="color:black;font-weight: normal;">Shelter Info</a>
                </div>
             </div></li>
          <!-- Nav Item - Tables -->

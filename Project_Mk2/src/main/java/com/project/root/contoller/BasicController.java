@@ -46,7 +46,7 @@ public class BasicController {
 		
 		//BASIC_DATA 시퀀스 불러오는 것
 		int seqCntSelect = basicDataService.seqCntSelect();
-		restDataDTO.setBasNo("BAS"+String.format("%05d", seqCntSelect));
+		restDataDTO.setBasNo("BAS"+String.format("%07d", seqCntSelect));
 		restDataDTO.setRestStatus("Clean");
 		restDataDTO.setRestKey("Y");
 		int result =   basicDataService.WriteBasicRest(basicDataDTO);

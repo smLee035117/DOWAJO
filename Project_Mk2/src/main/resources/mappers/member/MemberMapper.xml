@@ -32,6 +32,14 @@
 		select mem_key from member where mem_id = #{id}
 	</select>
 	
+	<insert id="writeRegister">
+		insert into member values(member_seq.nextval,#{memId},#{memPass},'U')
+	</insert>	
+	
+	<select id="userCk" resultType="int">
+		select count(*) from member where mem_id = #{memId}
+	</select>
+	
 	<!--AdminController  -->
 	<insert id="sugWrite">
 		insert into sug_board values(sug_seq.nextval,#{sugSubject},#{sugContent},sysdate,'N')

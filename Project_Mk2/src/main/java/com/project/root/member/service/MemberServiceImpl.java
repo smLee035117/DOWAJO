@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.root.member.dto.MemberDTO;
 import com.project.root.mybatis.member.MemberMapper;
@@ -33,6 +34,18 @@ public class MemberServiceImpl implements MemberService {
 		return MemKey;
 	}
 	
+	@Override
+	public int writeRegister(MemberDTO memberDTO) {		
+		int result = mapper.userCk(memberDTO);
+		System.out.println("serResult = "+result);
+		if(result>=1) {		
+			result=2;
+		}else {
+			result = mapper.writeRegister(memberDTO);		
+		}
+		return result;
+	}
+	
 	//---------AdminController------------
 	//sugTable페이지 값 뿌림
 	@Override
@@ -58,6 +71,8 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.ReadCk(suggestionsDTO);
 	}
 	//-------End------------------------	
+
+
 
 	
 }

@@ -9,7 +9,8 @@ public interface MemberMapper {
 
 	public MemberDTO user_check(String id);
 	public String getMemKey(String id);
-	
+	public int writeRegister(MemberDTO memberDTO);
+	public int userCk(MemberDTO memberDTO);
 	//---------AdminController------------
 	//sugTable페이지 값 뿌림
 	public int sugWrite(SuggestionsDTO suggestionsDTO);
