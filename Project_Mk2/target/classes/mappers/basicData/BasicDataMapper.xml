@@ -46,7 +46,7 @@
 	</select>
 	
 	<insert id="WriteBasicRest">
-		INSERT INTO BASIC_DATA VALUES('BAS'||TO_CHAR(LPAD(BASIC_DATA_SEQ.NEXTVAL,7,'0')), 1,#{basName},#{basAddr} ,#{basLat},#{basLng} )		
+		INSERT INTO BASIC_DATA VALUES('TOI'||TO_CHAR(LPAD(BASIC_DATA_SEQ.NEXTVAL,7,'0')), 1,#{basName},#{basAddr} ,#{basLat},#{basLng} )		
 	</insert>
 
 	<!-- 화장실 개방시간 09:00 고정 / 청소 시간 13:00 고정 -->
@@ -56,7 +56,7 @@
 	
 	
 	<insert id="WriteBasicWIFI">
-		INSERT INTO BASIC_DATA VALUES('BAS'||TO_CHAR(LPAD(BASIC_DATA_SEQ.NEXTVAL,5,'0')), 3,#{basName},#{basAddr} ,#{basLat},#{basLng} )		
+		INSERT INTO BASIC_DATA VALUES('WIFI'||TO_CHAR(LPAD(BASIC_DATA_SEQ.NEXTVAL,6,'0')), 3,#{basName},#{basAddr} ,#{basLat},#{basLng} )		
 	</insert>
 	
 	<insert id="WriteDetailWIFI">

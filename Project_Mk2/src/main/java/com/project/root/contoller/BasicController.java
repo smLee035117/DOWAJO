@@ -56,7 +56,7 @@ public class BasicController {
 		
 		//BASIC_DATA 시퀀스 불러오는 것
 		int seqCntSelect = basicDataService.seqCntSelect();
-		restDataDTO.setBasNo("BAS"+String.format("%07d", seqCntSelect));
+		restDataDTO.setBasNo("TOI"+String.format("%07d", seqCntSelect));
 		restDataDTO.setRestStatus("Clean");
 		restDataDTO.setRestKey("Y");
 		int result =   basicDataService.WriteBasicRest(basicDataDTO);
@@ -82,7 +82,6 @@ public class BasicController {
 	@RequestMapping(value = "wifi", method = RequestMethod.GET)
 	public String wifi(Model model) {
 		wifiDataService.getWIFIList(model);
-		System.out.println(model.getAttribute("wifiList"));
 		return "map/WIFIZone";
 	}
 	// WIFI Post
@@ -97,7 +96,7 @@ public class BasicController {
 			
 			//BASIC_DATA 시퀀스 불러오는 것
 			int seqCntSelect = basicDataService.seqCntSelect();
-			wifiDataDTO.setBasNo("BAS"+String.format("%07d", seqCntSelect));
+			wifiDataDTO.setBasNo("WIFI"+String.format("%06d", seqCntSelect));
 			int result =   basicDataService.WriteBasicWIFI(basicDataDTO);
 			int result2 =  basicDataService.WriteDetailWIFI(wifiDataDTO);
 			System.out.println("result="+result);
