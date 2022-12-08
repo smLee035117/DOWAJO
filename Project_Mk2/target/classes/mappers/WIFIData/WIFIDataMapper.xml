@@ -20,9 +20,18 @@
 	private String wifiPw;
 	
 	
+	
+	
  -->
 <mapper namespace="com.project.root.mybatis.wifidata.WIFIDataMapper">
 	<resultMap type="com.project.root.wifidata.dto.WIFIDataDTO" id="WIFIData">
+		<id property="wifiNo" column="wifi_no"/>
+		<result property="basNo" column="bas_no"/>		
+		<result property="wifiName" column="wifi_name"/>
+		<result property="wifiPw" column="wifi_pw"/>
+	</resultMap>
+	
+	<resultMap type="com.project.root.wifidata.dto.BasicWIFIDataDTO" id="BasicWifiData">
 		<id property="basNo" column="bas_no"/>
 		<result property="catNo" column="cat_no"/>		
 		<result property="basName" column="bas_name"/>
@@ -34,15 +43,8 @@
 		<result property="wifiPw" column="wifi_pw"/>
 	</resultMap>
 	
-	<resultMap type="com.project.root.wifidata.dto.BasicWifiDataDTO" id="BasicWifiData">
-		<id property="wifiNo" column="wifi_no"/>
-		<result property="basNo" column="bas_no"/>		
-		<result property="wifiName" column="wifi_name"/>
-		<result property="wifiPw" column="wifi_pw"/>
-	</resultMap>
-	
-	<select id="getWifiDetail" resultType="WIFIData">
-		select * from wifi_data
+	<select id="getWifiDetail" resultMap="BasicWifiData">
+		select W.*,B.* from wifi_data W, basic_data B  where W.bas_no = B.bas_no
 	</select>
 	
 </mapper>

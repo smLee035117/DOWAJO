@@ -8,34 +8,6 @@
    var mapContainer;
    var map;
    var reviewList = [];
- function publicCreateMarker(){
-	 // 공공api 마커 생성
-	            for (var i = 0; i < toilet.length; i ++) {
-	                // 마커를 생성합니다
-	                 var marker = new kakao.maps.Marker({
-	                    map: map, // 마커를 표시할 지도
-	                    position: toilet[i].latlng // 마커의 위치
-	                });
-	         
-	                  // 제목 페이지 info
-	                  infowindow = new kakao.maps.InfoWindow({
-	                     content: toilet[i].content // 인포윈도우에 표시할 내용
-	                 });
-	                 
-	                 //상세 페이지 info
-	                infowindowDetail = new kakao.maps.InfoWindow({
-	                   content: toiletDetail[i].content,
-	                   removable: true
-	                });
-	            
-	                //마우스 오버 후 제목 내용 나오는 리스너
-	                kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-	                //마우스 오버후 이동시 끄는 리스너
-	                kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-	                //마우스 클릭시 디테일 내용 나오는 리스너
-	                kakao.maps.event.addListener(marker,'click',makeClickListener(map, marker, infowindowDetail));   	                
-	            }
-}
 function privateCreateMarker(){
 	     for (var i = 0; i < userCheckToilet.length; i ++) {
 	                // 마커를 생성합니다
@@ -112,28 +84,8 @@ function WriteMarker(){
             success:function(toiletInfo){
              var j = Object.values(toiletInfo)
              for(var i = 0; i < j.length; i++){
-            	var score;
-            	 
-            	 switch(j[i].reSco){
-            	 case 1:
-            		 score = '★';
-            		 break;
-				case 2:
-					score = '★★';
-            		 break;
-				case 3:
-					score = '★★★';
-           		 break;
-				case 4:
-					score = '★★★★';
-           		 break;
-				case 5:
-					score = '★★★★★';
-           		 break;
-           	  
-            	 } 
+            	
                   reviewList[i] = {
-						reSco : j[i].reSco,
                         number : j[i].basNo,                       
                         overrayContent : '<div id="review"><span id="contentView">'+ j[i].reContent+'</span>'+
                         '<span id="dateView">'+moment(j[i].reRegDate).format("YY-MM-DD")+'</span>'+
@@ -312,9 +264,8 @@ function WriteMarker(){
           async:false,
           data:{
              "basName" : $('#basName').val(),
-             "restToi" : $('#restToi').val(),
-             "restUri" : $('#restUri').val(),
-             "restLock" :   $('input[name="restLock"]:checked').val(),
+             "wifiName" : $('#wifiName').val(),
+             "wifiPw" : $('#wifiPw').val(),
              "latlng" : newStr,
              "basAddr" : $('#basAddr').val()          
           },
