@@ -13,7 +13,8 @@
     <title>SB Admin 2 - Login</title>
 
     <!-- Custom fonts for this template-->
-    <link href="resources/vendor/fontawesome-free/resources/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="resources/css/shelter_css.css" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -51,7 +52,17 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
-
+  	<!--회원가입 팝업  -->
+      <div class="layer-popup" id="layer-popup-reg">
+         <div class="modal-dialog">
+            <div class="modal-content">
+            <p> 회원가입 </p>
+     	       <input type="text" class="form-control form-control-user" id="memId" name="memId" style="width: 100%;" placeholder="아이디 입력"><br>   
+          	   <input  type="password" class="form-control form-control-user" id="memPass" name="memPass" style="width: 100%;" placeholder="비밀번호 입력" ><br><br><br>       
+               <button class="popBtn" onclick="writeRegister()" style="height: 30px;"><span id="btn-span">확인</span></button>              
+            </div>
+         </div>
+      </div>
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
@@ -75,6 +86,7 @@
                                             <input type="password" name="pw" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
+                                       	<a href="#" onclick="popRegister()" style="float: right;padding: 0 10px 5px 0;">회원가입</a>
                                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">                                
                                     </form>
                                     <hr>
@@ -117,10 +129,55 @@
 	naver_id_login.setDomain("http://localhost:8080/APIExamNaverLogin");
 	naver_id_login.setState(state);
 	naver_id_login.init_naver_id_login();
+	
+   function popRegister() {
+	      $('#layer-popup-reg').addClass("show");   
+	}	   
+    function cancelRegister() {
+	      $('#layer-popup-reg').addClass("hide");   
+	}	    
+   function writeRegister() {
+	   if(!$('#memId').val()){
+		   $('#memId').focus();
+		   alert("아이디를 입력해주세요")
+		   return;
+	   }else if(!$('#memPass').val()){
+		   $('#memPass').focus();
+		   alert("비밀번호를 입력해주세요")
+		   return;
+	   }
+		   $.ajax({
+		        url:"writeRegister",
+		        type:"post",   
+		        dataType : "json",
+		        async:false,
+		        data:{
+		        	"memId" : $('#memId').val(),
+		        	"memPass" : $('#memPass').val()
+		        },
+		        success:function(responseData){      
+		           var j = JSON.parse(responseData)
+		              if(j==1){             
+		                 alert("회원가입이 완료되었습니다")
+		                  location.reload();
+		              }else if(j==2){                   
+		                 alert("중복된 아이디입니다")
+		              }else{		            	  
+		                 alert("알 수없는 오류입니다")
+		              }
+		         },error : function () {
+		            console.log('fail')
+		         } 
+		     });
+	  
+	}
+   // 외부영역 클릭 시 팝업 닫기
+    $(document).mouseup(function (e){
+     var LayerPopup = $(".layer-popup");
+     if(LayerPopup.has(e.target).length === 0){
+       LayerPopup.removeClass("show");
+     }
+   }); 
+   
 </script>
-<style>
-#naver_id_login #naver_id_login_anchor {
-	height: 10px;
-}
-</style>
 </html>

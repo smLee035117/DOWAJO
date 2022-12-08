@@ -30,6 +30,11 @@
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
 <script type="text/javascript">
 $(function () {
+	
+	$('.collapse show').attr('class','collapse')
+	$('#collapsePages').attr('class','collapse show')
+	$('#ShelterInfo').css({"color":"#d55353","font-weight": "bold"})
+	
 	//get url 매개변수 삭제
     history.replaceState({}, null, location.pathname); 
     
@@ -38,8 +43,6 @@ $(function () {
     
     //화장실 상세데이터 보여주는 함수
     //showToiletDetail();
-    
-
           //  공공주차장 데이터 api 정보가져오기 
           $.ajax({
               url:"http://openapi.seoul.go.kr:8088/754c766f48666967313036634d746a6f/json/TlEtqkP/1/1000",
@@ -58,9 +61,11 @@ $(function () {
                         
                         for(var a =0; a<reviewList.length;a++){
                              if(shelter[i].number == reviewList[a].number){
+                            	 //리뷰가 있는지 없는지 확인하는 변수
                                   matchNum ++;
                              } 
                         }
+                   	 var maxCount = Math.floor((j[0].row[i].SECT_EQUP)/4);
                        shelterDetail[i] ={
                               content: '<div id="ditailInfoWindow"><div id="detailInfo">'+
                               '<div id="shelterName">'+
@@ -68,7 +73,7 @@ $(function () {
        		              		'<div id="people"><span id="emoji"><img src="resources/img/emoji.png" width="30px" height="35px"/></span><span id="peopleCount">'+ matchNum +'</span></div>'+
        	              		'</div>'+
                                 '<div id="clear"></div><div><span id="infoContent">주소&nbsp;</span><label id="info_content">'+j[0].row[i].LOC_SFPR_A+'</label></div>'+
-                                '<div><span id="infoContent">수용인원&nbsp;</span><label id="info_content">'+Math.floor((j[0].row[i].SECT_EQUP)/4)+'</label>명</div>'+
+                                '<div><span id="infoContent">수용인원&nbsp;</span><label id="info_content">'+maxCount+'</label>명</div>'+
                                 '<details id="replyDetail"><summary> 생존신고 </summary><div id="overFlow"style="overflow: auto;">',
                                 latlng: new kakao.maps.LatLng(j[0].row[i].YCORD, j[0].row[i].XCORD) //위도 , 경도      
                                 
@@ -76,8 +81,6 @@ $(function () {
                         for(var a =0; a<reviewList.length;a++){                       
                        	 if(shelter[i].number == reviewList[a].number){                             
                        		shelterDetail[i].content += reviewList[a].overrayContent;
-                                  //리뷰가 있는지 없는지 확인하는 변수
-                                 matchNum ++;
                             }
                         }
                    	 if(matchNum==0){
@@ -91,7 +94,9 @@ $(function () {
        				                 '<span id="form_title">생존신고</span>'+
        					             '<div id="selectStart">'+
        						         '</div><br>'+
+       						         '<input type="hidden" id="maxCount" name="maxCount" value="'+maxCount+'">'+
        						         '<input type="hidden" id="basNo" name="basNo" value="'+a+'">'+
+       						         '<input type="hidden" id="count" name="count" value="'+a+'">'+
        						      	 '<input type="hidden" id="reSco" name="reSco" value="0">'+
        				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="이름과 전화번호를 적어주세요">&nbsp;'+
        				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
@@ -186,7 +191,6 @@ $(function () {
       <div class="layer-popup" id="layer-popup-sug">
          <div class="modal-dialog">
             <div class="modal-content">
-            <!-- <button onclick="bb()">xxx</button> -->
             <p> 건의사항 </p>
             <form id="frmSug" name="frmSug">
      	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
@@ -199,7 +203,7 @@ $(function () {
       
    </div>
    <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
-  
+  	<!--  로그인시 건의사항 보여줌 -->
 	  <c:if test="${sessionScope.mem_key ne null }">
    		 <div id="MAIL"><a onclick="sugPop()"><img id="gps-img" src="resources/img/email_image.jpg" width="60%" height="60%"></a></div>    
 	  </c:if>

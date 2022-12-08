@@ -95,15 +95,12 @@
          };      
    }
    
-
    //마우스 오버후 이동시 끄는 리스너
    function makeOutListener(infowindow) {
         return function() {
            infowindow.close(); 
        }; 
    }
-   
- 
    
   function replyShow(){
      $('#layer-popup').addClass("show");  
@@ -113,17 +110,21 @@
   function popReply() {
 	   var formData = $("#replyForm").serialize(); 
       $.ajax({
-        url:"replyWritePost",
+        url:"survivalWritePost",
         type:"post",   
         dataType : "json",
         async:false,
         data:formData,
         success:function(responseData){      
            var j = JSON.parse(responseData)
+           console.log(j)
               if(j==1){             
                  alert("등록이 완료되었습니다")
                   location.reload();
-              }else{                   
+              }else if(j==2){                   
+                 alert("최대 수용인원입니다. 더이상 작성하실 수 없습니다.")
+                 location.reload();
+              }else {                   
                  alert("알수없는 오류입니다")
               }
          },error : function () {
@@ -136,7 +137,6 @@
 	      $('#layer-popup-sug').addClass("show");   
 	}
    
-   // 12/06 
 	function sugWrite() {
 	    $.ajax({
 	         url:"sugWrite",

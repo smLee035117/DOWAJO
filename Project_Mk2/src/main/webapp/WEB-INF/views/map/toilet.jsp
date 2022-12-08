@@ -62,8 +62,9 @@ $(function () {
                  var sum = 0;
             	 var avg = 0;
                  for(var a =0; a<reviewList.length;a++){
-                      if(j[0].row[i].POI_ID == reviewList[a].number){
-                           sum += reviewList[a].reSco 
+                      if(j[0].row[i].POI_ID == reviewList[a].number){                           
+                    	  sum += reviewList[a].reSco 
+                    	  //리뷰가 있는지 없는지 확인하는 변수
                            matchNum ++;
                       } 
                  }
@@ -87,8 +88,6 @@ $(function () {
                  for(var a =0; a<reviewList.length;a++){                       
                 	 if(j[0].row[i].POI_ID == reviewList[a].number){                             
                          toiletDetail[i].content += reviewList[a].overrayContent;
-                           //리뷰가 있는지 없는지 확인하는 변수
-                          matchNum ++;
                      }
                  }
             	 if(matchNum==0){
@@ -195,8 +194,10 @@ $(function () {
                          number: '${toiletList.basNo}'
                    })
                   </c:forEach>
+                      
                       // baic_data 정보 불러와서 뿌리는 마커
                        privateCreateMarker()
+                      
               //geolocation 실패시 띄우는 메세지      
                switch(error.code) {
                   case error.PERMISSION_DENIED:
@@ -222,10 +223,10 @@ $(function () {
 </script>
 <body id="page-top">
    <div class="container">
+   		<!-- 화장실 장소 등록 팝업 -->
       <div class="layer-popup" id="layer-popup">
          <div class="modal-dialog">
             <div class="modal-content">
-            <!-- <button onclick="bb()">xxx</button> -->
                <form name="frmModal" id="frmModal">
                   <input type="text" id="basName" name="basName" style="border:none;border-bottom:1px solid black" placeholder="이름입력"><br>      
                   <div id = "content">
@@ -235,8 +236,7 @@ $(function () {
                      <div id='big'>
                         <span>좌변기</span>&nbsp;<input type="text" id="restUri" name="restUri" size="2" style="border:none" maxlength="2" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                      </div>
-                  </div>                        
-                  <!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->                             
+                  </div>                                                  
                   <div id="lock" style="width:100%; padding-top:15px;" >
                   <label style="width:30%">잠금유무</label>                  
                   있음<input type="radio" id="choice1" name="restLock" value="Y" style="width:15%" > &nbsp;
@@ -250,11 +250,11 @@ $(function () {
             </div>
          </div>
       </div>
+      
       <!--건의사항 팝업  -->
       <div class="layer-popup" id="layer-popup-sug">
          <div class="modal-dialog">
-            <div class="modal-content">
-            <!-- <button onclick="bb()">xxx</button> -->
+            <div class="modal-content">            
             <form id="frmSug" name="frmSug">
      	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
           	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
@@ -266,7 +266,7 @@ $(function () {
       
    </div>
    <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
-  
+  		<!--  로그인시 건의사항 보여줌 -->
 	  <c:if test="${sessionScope.mem_key ne null }">
    		 <div id="MAIL"><a onclick="sugPop()"><img id="gps-img" src="resources/img/email_image.jpg" width="60%" height="60%"></a></div>    
 	  </c:if>
