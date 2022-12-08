@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	private int wifiNo;
+	private String basNo;
+	private String wifiName;
+	private String wifiPw;
+	
+	
+	private String basNo;
+	private String basName;
+	private int catNo;
+	private String basAddr;
+	private String basLat;
+	private String basLng;
+	private int wifiNo;
+	private String wifiName;
+	private String wifiPw;
+	
+	
+	
+	
+ -->
+<mapper namespace="com.project.root.mybatis.wifidata.WIFIDataMapper">
+	<resultMap type="com.project.root.wifidata.dto.WIFIDataDTO" id="WIFIData">
+		<id property="wifiNo" column="wifi_no"/>
+		<result property="basNo" column="bas_no"/>		
+		<result property="wifiName" column="wifi_name"/>
+		<result property="wifiPw" column="wifi_pw"/>
+	</resultMap>
+	
+	<resultMap type="com.project.root.wifidata.dto.BasicWIFIDataDTO" id="BasicWifiData">
+		<id property="basNo" column="bas_no"/>
+		<result property="catNo" column="cat_no"/>		
+		<result property="basName" column="bas_name"/>
+		<result property="basAddr" column="bas_addr"/>
+		<result property="basLat" column="bas_lat"/>
+		<result property="basLng" column="bas_lng"/>
+		<result property="wifiNo" column="wifi_no"/>		
+		<result property="wifiName" column="wifi_name"/>
+		<result property="wifiPw" column="wifi_pw"/>
+	</resultMap>
+	
+	<select id="getWifiDetail" resultMap="BasicWifiData">
+		select W.*,B.* from wifi_data W, basic_data B  where W.bas_no = B.bas_no
+	</select>
+	
+</mapper>

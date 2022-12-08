@@ -4,11 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.root.mybatis.review.ReviewMapper;
 import com.project.root.review.dto.ReviewDTO;
-import com.project.root.suggestions.dto.SuggestionsDTO;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -16,20 +14,25 @@ public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	private ReviewMapper reviewMapper;
 	
+	// 리뷰 전체 불러오기
 	@Override
 	public List<ReviewDTO> getReviewList() {
 		return reviewMapper.getReviewList();
 	}
 
+	// 리뷰 작성
 	@Override
 	public int replyWritePost(ReviewDTO reviewDTO) {
 		return reviewMapper.replyWritePost(reviewDTO);
 	}
 
+	// 특정 리뷰 불러오기
 	@Override
-	public int sugWrite(SuggestionsDTO suggestionsDTO) {		
-		return reviewMapper.sugWrite(suggestionsDTO);
+	public int getSerarchReviewList(ReviewDTO reviewDTO) {		
+		return reviewMapper.getSerarchReviewList(reviewDTO);
 	}
+
+
 
 	
 }

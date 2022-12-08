@@ -28,6 +28,7 @@ public class RestDataServiceImpl implements RestDataService {
 	}
 	@Override
 	public List<BasicRestDataDTO> getToiletDetail() {
+		System.out.println();
 		return  restMapper.getToiletDetail();
 	}
 	

@@ -20,12 +20,12 @@
    rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/blank_css.css" rel="stylesheet">
+<link href="resources/css/toilet_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
 </head>
    <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
-<script type="text/javascript" src="resources/js/blank_js.js"></script>
+<script type="text/javascript" src="resources/js/wifiZone.js"></script>
 <script type="text/javascript"
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
 <script type="text/javascript">
@@ -36,80 +36,62 @@ $(function () {
     //리플 보여주는 함수
     showReply();
     
-    //화장실 상세데이터 보여주는 함수
-    showToiletDetail();
-    
-    //  공공데이터 api 정보가져오기 
+    //  WIFI 상세정보 가져오기 
    $.ajax({
-       url:"http://openAPI.seoul.go.kr:8088/705365615a776f6e33334f5a42516e/json/SearchPublicToiletPOIService/1/1000",
+       url:"WIFIDetail",
        type:"get",   
        dataType : "json",
-       contentType:"application/json",
-       success:function(responseData){         
-          var j = Object.values(responseData)
-             for(var i = 0 ; i < j[0].row.length; i++){
-            	 matchNum = 0 
-                 toilet[i] = {
-                         content: '<div>'+j[0].row[i].FNAME+'</div>',
-                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84), //위도 , 경도
-                         number: j[0].row[i].POI_ID
+       async:false,
+       success:function(WIFIInfo){         
+          var j = Object.values(WIFIInfo);
+          console.log(j);
+             for(var i = 0 ; i < j.length; i++){
+            	 console.log(j);
+            	 matchNum = 0; 
+                 wifi[i] = {
+                         content: '<div>'+j[i].basName+'</div>',
+                         latlng: new kakao.maps.LatLng(j[i].basLat, j[i].basLng), //위도 , 경도
+                         number: j[i].basNo
                  }
-                 var sum = 0;
-            	 var avg = 0;
-                 for(var a =0; a<reviewList.length;a++){
-                      if(j[0].row[i].POI_ID == reviewList[a].number){
-                           sum += reviewList[a].reSco 
-                           matchNum ++;
-                      } 
+            	 for(var a =0; a<reviewList.length;a++){
+                     if(j[i].basNo == reviewList[a].number){
+                    	//리뷰가 있는지 없는지 확인하는 변수
+                         matchNum ++;
+                     }
                  }
-                if(sum!=0){
-                	avg = (sum/matchNum).toFixed(2);
-                }else {
-                	avg = 0.00;
-                }
-                 toiletDetail[i] ={
+                 
+                 wifiDetail[i] ={
+                		number : j[i].basNo,
                        content: '<div id="ditailInfoWindow"><div id="detailInfo">'+
                        '<div id="basName">'+
-	                       '<div id="bas_Name">'+j[0].row[i].FNAME+'</div>'+
-		              		'<div id="avg"><span id="star">★</span><span>'+ avg +'</span></div>'+
+	                       '<div id="bas_Name">'+j[i].basName+'</div>'+
 	              		'</div>'+
-                         '<div id="clear"></div><div><span id="infoContent">화장실구분&nbsp;</span><label id="info_content">'+j[0].row[i].ANAME+'</label></div>'+
-                         '<div><span id="infoContent">정보수정일자&nbsp;</span><label id="info_content">'+j[0].row[i].UPDATEDATE+'</label></div>'+
-                         '<div id="overFlow"style="overflow: auto;">',
-                         latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84) //위도 , 경도      
+                         '<div id="clear"></div><div><span id="infoContent">와이파이명&nbsp;</span><label id="info_content">'+j[i].wifiName+'</label></div>'+
+                         '<div><span id="infoContent">비밀번호&nbsp;</span><label id="info_content">'+j[i].wifiPw+'</label></div>'+
+                         '<details id="replyDetail"><summary> 리뷰 </summary><div id="overFlow"style="overflow: auto;">',
+                         latlng: new kakao.maps.LatLng(j[i].basLat, j[i].basLng) //위도 , 경도      
                          
                  }
                  for(var a =0; a<reviewList.length;a++){                       
-                	 if(j[0].row[i].POI_ID == reviewList[a].number){                             
-                         toiletDetail[i].content += reviewList[a].overrayContent;
-                           //리뷰가 있는지 없는지 확인하는 변수
-                          matchNum ++;
+                	 if(j[i].basNo == reviewList[a].number){                             
+                		 wifiDetail[i].content += reviewList[a].overrayContent;
                      }
                  }
             	 if(matchNum==0){
-                     toiletDetail[i].content += '<div id="review">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
+            		 wifiDetail[i].content += '<div id="review">리뷰가 없습니다. 리뷰를 작성해주세요</div>'                         
                  }
-                 toiletDetail[i].content += 
+            	 wifiDetail[i].content += 
 	            	'</div><div id="reply-Form">'+
 		               	'<form name="replyForm" id="replyForm">'+
 			                '<div id="reviewSend">'+
 				                 '<span id="form_title">리뷰작성</span>'+
-					             '<div id="selectStart">'+
-					                 	'<fieldset>'+
-						         		 	'<input type="radio" name="reSco" value="5" id="rate1" checked><label for="rate1">★</label>'+
-						         			'<input type="radio" name="reSco" value="4" id="rate2"><label for="rate2">★</label>'+
-						         		 	'<input type="radio" name="reSco" value="3" id="rate3"><label for="rate3">★</label>'+
-						         		 	'<input type="radio" name="reSco" value="2" id="rate4"><label for="rate4">★</label>'+
-						         		 	'<input type="radio" name="reSco" value="1" id="rate5"><label for="rate5">★</label>&nbsp;'+
-						         		 	'<span class="selectText">별점을 선택해주세요</span>'+
-					         		 	'</fieldset>'+
-						         '</div><br>'+
-						         '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].POI_ID +'">'+
+						         '<input type="hidden" id="basNo" name="basNo" value="'+j[i].basNo +'">'+
+						         '<input type="hidden" id="reSco" name"reSco" value="0">'+
 				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
 				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
 		                 	'</div>'+
 		                 '</form>'+
-	              '</div>'+
+	              '</div></details>'+
 	              '</div>'
                  
              }
@@ -119,13 +101,13 @@ $(function () {
           function showYourLocation(position) {  // 성공했을때 실행
 	            var lat = position.coords.latitude, // 현재 위도
 	           	lon = position.coords.longitude; // 현재 경도
-             
 		        mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 		          mapOption = {
 		              center: new kakao.maps.LatLng(lat, lon), // 바꿔야 하는 위도 경도
 		              level: 2 // 지도의 확대 레벨
 		          };
 		    
+	           	
 		       // 내 위치 마커 생성
 		       var imageSrc = 'resources/img/myMaker.png', // 마커이미지의 주소입니다    
 	           imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
@@ -147,22 +129,19 @@ $(function () {
 		       // 마커가 지도 위에 표시되도록 설정합니다
 		       myMarker.setMap(map);  
 		       
-		  	   // 공공api 마커 생성
-		       publicCreateMarker();
 		  	   
 		       //마우스 클릭시 생성될 marker
 		       WriteMarker();  
 	             
-	             <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
-	                userCheckToilet.push({
-	                   content: '<div>${toiletList.basName}</div>',
-	                   latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
-	                   number: '${toiletList.basNo}'
-	                })
-	            </c:forEach>
-	          
+		       <c:forEach var="wifiList" items="${wifiList}" varStatus="status">
+               userCheckWIFI.push({
+                  content: '<div>${wifiList.basName}</div>',
+                  latlng: new kakao.maps.LatLng(${wifiList.basLat},${wifiList.basLng}),
+                  number: '${wifiList.basNo}'
+          	  	})
+          	   </c:forEach>
 	         	  // baic_data 정보 불러와서 뿌리는 마커
-	     		  privateCreateMarker()
+	     		  privateCreateMarker();
 	          }// 성공했을때 실행 끝
 	          
           //자신의 위치 가져오는 geolocation api이 실패했을때 실행
@@ -176,17 +155,15 @@ $(function () {
                  map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
                  geocoder = new kakao.maps.services.Geocoder();
                  
-	                 // 공공api 마커 생성
-	  		       publicCreateMarker();
 	                 
 	  		     //마우스 클릭시 생성될 marker
-	               WriteMarker();  
+	             WriteMarker();  
 	  		     
-                   <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
-                      userCheckToilet.push({
-                         content: '<div>${toiletList.basName}</div>',
-                         latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
-                         number: '${toiletList.basNo}'
+                   <c:forEach var="wifiList" items="${wifiList}" varStatus="status">
+                      userCheckWIFI.push({
+                         content: '<div>${wifiList.basName}</div>',
+                         latlng: new kakao.maps.LatLng(${wifiList.basLat},${wifiList.basLng}),
+                         number: '${wifiList.basNo}'
                    })
                   </c:forEach>
                       // baic_data 정보 불러와서 뿌리는 마커
@@ -200,7 +177,7 @@ $(function () {
                      alert("사용자 정보를 사용할 수 없습니다")
                   break;          
                   case error.UNKNOWN_ERROR:
-                     alert("알수 없는 오류가 발생햇습니다.")
+                     alert("알수 없는 오류가 발생했습니다.")
                   break;
               }                         
           }//자신의 위치 가져오는 geolocation api이 실패했을때 실행 끝
@@ -221,22 +198,13 @@ $(function () {
             <div class="modal-content">
             <!-- <button onclick="bb()">xxx</button> -->
                <form name="frmModal" id="frmModal">
-                  <input type="text" id="basName" name="basName" style="border:none;border-bottom:1px solid black" placeholder="이름입력"><br>      
+                  <input type="text" id="basName" name="basName" style="border:none;border-bottom:1px solid black" placeholder="장소명 입력"><br>      
                   <div id = "content">
-                     <div id='small'>
-                        <span>소변기</span>&nbsp;<input type="text" id="restToi" name="restToi" size="2" maxlength="2" style="border:none" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
-                     </div>      
-                     <div id='big'>
-                        <span>좌변기</span>&nbsp;<input type="text" id="restUri" name="restUri" size="2" style="border:none" maxlength="2" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                     <div>
+                     	<input type="text" id="wifiName" name="wifiName" style="border:none;border-bottom:1px solid black" placeholder="와이파이명"><br>
+                     	<input type="text" id="wifiPw" name="wifiPw" style="border:none;border-bottom:1px solid black" placeholder="비밀번호"> 
                      </div>
-                  </div>                        
-                  <!-- <label for="content">내용</label> <input type="text" id="content" name="content" placeholder="내용입력">              -->                             
-                  <div id="lock" style="width:100%; padding-top:15px;" >
-                  <label style="width:30%">잠금유무</label>                  
-                  있음<input type="radio" id="choice1" name="restLock" value="Y" style="width:15%" > &nbsp;
-                  없음<input type="radio" id="choice2" name="restLock" value="N"  style="width:15%" checked="checked">
-                  </div>
-                  <br>                  
+                  </div>                                       
                <input type="hidden" id="latlng" name="latlng"><br>   
                <input type="hidden" id="basAddr" name="basAddr"><br>                  
                <button class="popBtn" onclick="popData()"><span id="btn-span">확인</span></button>            
@@ -249,6 +217,7 @@ $(function () {
          <div class="modal-dialog">
             <div class="modal-content">
             <!-- <button onclick="bb()">xxx</button> -->
+            <p> 건의사항 </p>
             <form id="frmSug" name="frmSug">
      	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
           	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       

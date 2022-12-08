@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,22 +26,25 @@
 
     <!-- Custom styles for this page -->
     <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-   <script src="resources/vendor/jquery/jquery.min.js"></script>
+   <script type="text/javascript" src="resources/js/sugTable_js.js"></script>
+<link href="resources/css/blank_css.css" rel="stylesheet">
+<script src="resources/vendor/jquery/jquery.min.js"></script>
+<link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
+</head>
 </head>
 <script type="text/javascript">
 $(function () {
 	$('.collapse show').attr('class','collapse')
 	$('#collapseTwo').attr('class','collapse show')
-	$('#ToiletList').css({"color":"#d55353","font-weight": "bold"})	
+	$('#SuggestionsList').css({"color":"#d55353","font-weight": "bold"})
 })
 </script>
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <c:import url="default/navigator.jsp"/>
+        <c:import url="../default/navigator.jsp"/>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -50,7 +54,7 @@ $(function () {
             <div id="content">
 
                 <!-- Topbar -->
-                <c:import url="default/header.jsp"/>
+                <c:import url="../default/header.jsp"/>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -63,6 +67,7 @@ $(function () {
                             href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
+
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
@@ -73,32 +78,44 @@ $(function () {
                                     <thead>
                                         <tr>
                                             <th>고유번호</th>
-                                            <th>이름</th>
-                                            <th>분류번호</th>
-                                            <th>주소</th>
-                                            <th>위도</th>
-                                            <th>경도</th>
+                                            <th>제목</th>
+                                            <th>글내용</th>
+                                            <th>작성일</th>
+                                            <th>읽음/안읽음</th>                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>고유번호</th>
-                                            <th>이름</th>
-                                            <th>분류번호</th>
-                                            <th>주소</th>
-                                            <th>위도</th>
-                                            <th>경도</th>
-                                        </tr>
-                                    </tfoot>
+                                            <th>제목</th>
+                                            <th>글내용</th>
+                                            <th>작성일</th>
+                                            <th>읽음/안읽음</th>                                          
+                                         </tr>
+                                    </tfoot>                                    
                                     <tbody>
-                                       <c:forEach var="toilet" items="${toiletList}">
+                                       <c:forEach var="sugList" items="${sugList}">	
                                        		<tr>
-                                       			<td> ${toilet.basNo }</td>
-                                       			<td> ${toilet.basName }</td>
-                                       			<td> ${toilet.catNo }</td>
-                                       			<td> ${toilet.basAddr }</td>
-                                       			<td> ${toilet.basLat }</td>
-                                       			<td> ${toilet.basLng }</td>
+                                       			<td> ${sugList.sugNo }</td>
+                                       			<td><a href="#" onclick="sugDetailPop(${sugList.sugNo })">${sugList.sugSubject }</a></td>
+                                       			<td>   
+													<c:choose>
+														<c:when test="${fn:length(sugList.sugContent) > 5}">														
+															${fn:substring(sugList.sugContent, 0, 3)}...														
+														</c:when>														
+														<c:otherwise>													
+															${sugList.sugContent}														
+														</c:otherwise>														
+													</c:choose>
+  
+												</td>                           			
+                                       			<td> ${sugList.sugRegDate }</td>
+                                       			<c:if test="${sugList.sugReadCk eq 'Y' }">
+	                                       			<td>이미 읽었습니다.</td>                                       			
+                                       			</c:if>
+                                      			<c:if test="${sugList.sugReadCk eq 'N' }">
+	                                       			<td>아직 안읽었습니다.</td>                                       			
+                                       			</c:if>
                                        		</tr>
                                        </c:forEach>
                                     </tbody>
@@ -153,7 +170,16 @@ $(function () {
             </div>
         </div>
     </div>
-
+      <div class="layer-popup" id="layer-popup-sug-Detail">
+         <div class="modal-dialog">
+            <div class="modal-content">
+            <!-- <button onclick="bb()">xxx</button> -->
+     	          <input type="text" id="sugSubject" name="sugSubject" readonly="readonly" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
+          	     <textarea id="sugContent" name="sugContent" readonly="readonly" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
+               <button class="popBtn" onclick="sugClose()"><span id="btn-span">닫기</span></button>
+            </div>
+         </div>
+      </div>
     <!-- Bootstrap core JavaScript-->
     <script src="resources/vendor/jquery/jquery.min.js"></script>
     <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

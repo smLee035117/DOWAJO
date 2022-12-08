@@ -7,6 +7,11 @@
 	private int reSco;
 	private String reContent;
 	
+		private int sugNo;
+	private String sugSubject;
+	private String sugContent;
+	private Timestamp sugRegDate;
+	private String sugReadCk;
  -->
 <mapper namespace="com.project.root.mybatis.review.ReviewMapper">
 	<resultMap type="com.project.root.review.dto.ReviewDTO" id="review">
@@ -17,11 +22,19 @@
 		<result property="reRegDate" column="re_reg_date"/>
 	</resultMap>
 	
+	<!-- 리뷰 전체 불러오기 -->
 	<select id="getReviewList" resultMap="review">
 		select * from review
 	</select>
-	
+		
+	<!-- 리뷰 작성 -->
 	<insert id="replyWritePost">
 		insert into review values(review_seq.nextval,#{basNo},#{reSco},#{reContent},sysdate)
 	</insert>
+	
+	<!-- 특정 리뷰 불러오기 -->
+	<select id="getSerarchReviewList" resultType="int">
+		select count(*) from review where bas_no = #{basNo}
+	</select>
+	
 </mapper>

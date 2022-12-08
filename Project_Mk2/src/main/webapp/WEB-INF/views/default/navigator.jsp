@@ -57,19 +57,7 @@ display : block;
          <!-- <div class="sidebar-heading">Interface</div>
 
          Nav Item - Pages Collapse Menu
-         <li class="nav-item"><a class="nav-link collapsed" href="#"
-            data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo"> <i
-               class="fas fa-fw fa-cog"></i> <span>Components</span>
-         </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-               data-parent="#accordionSidebar">
-               <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Custom Components:</h6>
-                  <a class="collapse-item" href="buttons">Buttons</a> <a
-                     class="collapse-item" href="cards">Cards</a>
-               </div>
-            </div></li>
+
 
          Nav Item - Utilities Collapse Menu
          <li class="nav-item"><a class="nav-link collapsed" href="#"
@@ -107,39 +95,33 @@ display : block;
          <div class="sidebar-heading">Addons</div>
        
          <!-- Nav Item - Pages Collapse Menu -->
-         <li class="nav-item active"><a class="nav-link" href="#"
-            data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages"> <i
-               class="fas fa-fw fa-folder"></i> <span>Pages</span>
-         </a>
-            <div id="collapsePages" class="collapse show"
-               aria-labelledby="headingPages" data-parent="#accordionSidebar">
+         <li class="nav-item">
+         	<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages"> 
+         	<i class="fas fa-fw fa-folder"></i> <span>Pages</span></a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
-                  <!-- <h6 class="collapse-header">Login Screens:</h6>
-                  <a class="collapse-item" href="login">Login</a> <a
-                     class="collapse-item" href="register">Register</a> <a
-                     class="collapse-item" href="forgotPassword">Forgot Password</a>
-                  <div class="collapse-divider"></div>
-                  <h6 class="collapse-header">Other Pages:</h6>
-                  <a class="collapse-item" href="404">404 Page</a> --> 
                   <c:if test="${id ==null }">
                   	<a class="collapse-item" href="login">Login</a>
                   </c:if>
                   <c:if test="${id !=null }">
                   	<a class="collapse-item" href="logout">Logout</a>
                   </c:if>
-                  <a class="collapse-item active" href="${pageContext.request.contextPath }/">Toilet Info</a>
+                  <a class="collapse-item active" id="ToiletInfo" href="${pageContext.request.contextPath }/"  style="color:black;font-weight: normal;">Toilet Info</a>
+                  <a class="collapse-item active" id="ShelterInfo" href="${pageContext.request.contextPath }/shelter"  style="color:black;font-weight: normal;">Shelter Info</a>
                </div>
             </div></li>
-
-         <!-- Nav Item - Charts -->
-       <!--   <li class="nav-item"><a class="nav-link" href="charts"> <i
-               class="fas fa-fw fa-chart-area"></i> <span>Charts</span></a></li> -->
-
          <!-- Nav Item - Tables -->
         <c:if test="${mem_key eq 'A' }">
-         <li class="nav-item"><a class="nav-link" href="tables"> <i
-               class="fas fa-fw fa-table"></i> <span>Tables</span></a></li>
+               <!-- Nav Item - Pages Collapse Menu -->
+         <li class="nav-item">
+         	<a class="nav-link " href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"> 
+            <i class="fas fa-fw fa-cog"></i><span>Components</span></a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+               <div class="bg-white py-2 collapse-inner rounded">
+                  <a class="collapse-item" id="ToiletList" href="tables" style="color: black;">ToiletList</a>
+                  <a class="collapse-item" id="SuggestionsList" href="sugTable" style="color: black;">SuggestionsList</a>
+               </div>
+            </div></li>            
       	</c:if>
       	
         <!--  Divider -->
@@ -153,9 +135,4 @@ display : block;
       </ul>
       <!-- End of Sidebar -->
 </body>
-<script type="text/javascript">
-/* 	$(function () {
-		alert(sessionStorage.getItem('mem_key'))
-	}) */
-</script>
 </html>
