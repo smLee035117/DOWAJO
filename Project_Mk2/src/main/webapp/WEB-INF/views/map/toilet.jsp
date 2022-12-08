@@ -20,12 +20,12 @@
    rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/blank_css.css" rel="stylesheet">
+<link href="resources/css/toilet_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
 </head>
    <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
-<script type="text/javascript" src="resources/js/blank_js.js"></script>
+<script type="text/javascript" src="resources/js/toilet_js.js"></script>
 <script type="text/javascript"
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
 <script type="text/javascript">
