@@ -58,7 +58,10 @@ function WriteMarker(){
                   //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
                 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {  
                     searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {     
-                            if (status === kakao.maps.services.Status.OK && result[0].road_address != null) {                              
+                            if (status === kakao.maps.services.Status.OK && result[0].road_address != null) {
+								$('#wifiName').val('');
+								$('#wifiPw').val('');
+								$('#basName').val('');                              
                                 var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
                                 detailAddr += result[0].address.address_name ;                                      
                                 var content = '<div class="bAddr">' +

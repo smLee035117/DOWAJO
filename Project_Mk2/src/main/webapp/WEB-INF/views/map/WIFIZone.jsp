@@ -20,7 +20,7 @@
    rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/toilet_css.css" rel="stylesheet">
+<link href="resources/css/wifi_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
 <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
 </head>
@@ -30,6 +30,11 @@
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
 <script type="text/javascript">
 $(function () {
+	
+	   $('.collapse show').attr('class','collapse')
+	   $('#collapsePages').attr('class','collapse show')
+	   $('#WIFIZoneInfo').css({"color":"#d55353","font-weight": "bold"})
+	
 	//get url 매개변수 삭제
     history.replaceState({}, null, location.pathname); 
     
@@ -196,13 +201,14 @@ $(function () {
       <div class="layer-popup" id="layer-popup">
          <div class="modal-dialog">
             <div class="modal-content">
-            <!-- <button onclick="bb()">xxx</button> -->
                <form name="frmModal" id="frmModal">
-                  <input type="text" id="basName" name="basName" style="border:none;border-bottom:1px solid black" placeholder="장소명 입력"><br>      
+                  <input type="text" id="basName" name="basName" style="border:none; border-bottom:1px solid black" placeholder="장소명 입력"><br>      
                   <div id = "content">
-                     <div>
-                     	<input type="text" id="wifiName" name="wifiName" style="border:none;border-bottom:1px solid black" placeholder="와이파이명"><br>
-                     	<input type="text" id="wifiPw" name="wifiPw" style="border:none;border-bottom:1px solid black" placeholder="비밀번호"> 
+                     <div id="WIFIId">
+                     	<label for="wifiName" id="wifiIdLabel"> WIFI ID</label>
+                     	<input type="text" id="wifiName" name="wifiName" style="border:none; border-bottom:1px solid black" placeholder="와이파이명"><br>
+                     	<label for="wifiPw" id="wifiPwLabel"> PW </label>
+                     	<input type="text" id="wifiPw" name="wifiPw" style="border:none; border-bottom:1px solid black" placeholder="비밀번호"><br>
                      </div>
                   </div>                                       
                <input type="hidden" id="latlng" name="latlng"><br>   
@@ -228,8 +234,7 @@ $(function () {
       </div>
       
    </div>
-   <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>
-  
+   <div id="GPS"><a onclick="location.reload()"><img id="gps-img" src="resources/img/gps_icon.png" width="60%" height="60%"></a></div>  
 	  <c:if test="${sessionScope.mem_key ne null }">
    		 <div id="MAIL"><a onclick="sugPop()"><img id="gps-img" src="resources/img/email_image.jpg" width="60%" height="60%"></a></div>    
 	  </c:if>
