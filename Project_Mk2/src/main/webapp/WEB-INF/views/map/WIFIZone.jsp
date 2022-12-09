@@ -89,7 +89,7 @@ $(function () {
 	            	'</div><div id="reply-Form">'+
 		               	'<form name="replyForm" id="replyForm">'+
 			                '<div id="reviewSend">'+
-				                 '<span id="form_title">리뷰작성</span>'+
+				                 '<span id="form_title">리뷰작성</span><div></div>'+
 						         '<input type="hidden" id="basNo" name="basNo" value="'+j[i].basNo +'">'+
 						         '<input type="hidden" id="reSco" name"reSco" value="0">'+
 				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
