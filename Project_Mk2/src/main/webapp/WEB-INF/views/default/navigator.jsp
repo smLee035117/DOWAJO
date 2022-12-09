@@ -108,6 +108,7 @@ display : block;
                   </c:if>
                   <a class="collapse-item active" id="ToiletInfo" href="${pageContext.request.contextPath }/"  style="color:black;font-weight: normal;">Toilet Info</a>
                   <a class="collapse-item active" id="ShelterInfo" href="${pageContext.request.contextPath }/shelter"  style="color:black;font-weight: normal;">Shelter Info</a>
+                  <a class="collapse-item active" id="WIFIZoneInfo" href="${pageContext.request.contextPath }/wifi"  style="color:black;font-weight: normal;">WIFIZone Info</a>
                </div>
             </div></li>
          <!-- Nav Item - Tables -->
