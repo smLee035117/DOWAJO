@@ -99,7 +99,7 @@ function WriteMarker(){
                   reviewList[i] = {
                         number : j[i].basNo,                       
                         overrayContent : '<div id="review"><span id="contentView">'+ j[i].reContent+'</span>'+
-                        '<span id="dateView">'+moment(j[i].reRegDate).format("YY-MM-DD")+'</span>'
+                        '<span id="dateView">'+moment(j[i].reRegDate).format("YY-MM-DD")+'</span></div>'
                   }
            }
              
