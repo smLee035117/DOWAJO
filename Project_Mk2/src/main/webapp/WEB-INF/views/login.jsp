@@ -14,7 +14,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="resources/css/shelter_css.css" rel="stylesheet">
+    <link href="resources/css/login_css.css" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -25,7 +25,7 @@
 	  integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous"></script>
 	<script>
 	  Kakao.init('b79dc1db7766029ef40b797b707b121b'); // 사용하려는 앱의 JavaScript 키 입력
-	  //console.log(Kakao.isInitialized());
+	  //console.log(Kakao.isInitialized())>
 	</script>
 	<script type="text/javascript" src="resources/js/kakaoLogin.js"></script>
 <style type="text/css">
@@ -46,7 +46,6 @@
 #naver_id_login img{
 	 opacity:0; 
 }
-
 </style>
 </head>
 <body class="bg-gradient-primary">
@@ -56,10 +55,13 @@
       <div class="layer-popup" id="layer-popup-reg">
          <div class="modal-dialog">
             <div class="modal-content">
-            <p> 회원가입 </p>
-     	       <input type="text" class="form-control form-control-user" id="memId" name="memId" style="width: 100%;" placeholder="아이디 입력"><br>   
+            <h2 style="margin-bottom: 20px;color: #333;"> 회원가입 </h2>
+            <form id="regFrm" name="regFrm">
+     	       <input type="text" class="form-control form-control-user" id="memId" name="memId" style="width: 100%;margin-bottom: 10px;" placeholder="아이디 입력">   
           	   <input  type="password" class="form-control form-control-user" id="memPass" name="memPass" style="width: 100%;" placeholder="비밀번호 입력" ><br><br><br>       
-               <button class="popBtn" onclick="writeRegister()" style="height: 30px;"><span id="btn-span">확인</span></button>              
+               <button type="button" class="popBtn" onclick="writeRegister()" ><span id="btn-span">확인</span></button>              
+               <button type="button" class="popBtn" onclick="cancelRegister()" ><span id="btn-span">취소</span></button>              
+            </form>         
             </div>
          </div>
       </div>
@@ -75,8 +77,15 @@
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Admin mode</h1>
+                                    <div class="text-center" style="padding-bottom: 20px;">
+                                   		    <p id="comeBackP">
+				                                <a id="comeBack" href="${pageContext.request.contextPath }/" >
+			                                        <img src="resources/img/dowajoLogo.png" style="background-color: #D55353;"  width="15%" height="15%">
+			                                        Dowajo
+				                                 </a>
+				                            </p>
+		                           
+		                            	
                                     </div>
                                     <form class="user" action="loginCheck" method="post">
                                         <div class="form-group">
@@ -130,13 +139,17 @@
 	naver_id_login.setState(state);
 	naver_id_login.init_naver_id_login();
 	
+    //팝업 띄우기
    function popRegister() {
 	      $('#layer-popup-reg').addClass("show");   
 	}	   
+   //팝업 닫기
     function cancelRegister() {
-	      $('#layer-popup-reg').addClass("hide");   
-	}	    
+    	$('.layer-popup').removeClass("show");   
+	}	  
+    // 가입
    function writeRegister() {
+	   
 	   if(!$('#memId').val()){
 		   $('#memId').focus();
 		   alert("아이디를 입력해주세요")
@@ -145,16 +158,14 @@
 		   $('#memPass').focus();
 		   alert("비밀번호를 입력해주세요")
 		   return;
-	   }
+	   }	
+	   
 		   $.ajax({
 		        url:"writeRegister",
 		        type:"post",   
 		        dataType : "json",
 		        async:false,
-		        data:{
-		        	"memId" : $('#memId').val(),
-		        	"memPass" : $('#memPass').val()
-		        },
+		        data:$("#regFrm").serialize() ,
 		        success:function(responseData){      
 		           var j = JSON.parse(responseData)
 		              if(j==1){             
@@ -171,13 +182,12 @@
 		     });
 	  
 	}
-   // 외부영역 클릭 시 팝업 닫기
-    $(document).mouseup(function (e){
-     var LayerPopup = $(".layer-popup");
-     if(LayerPopup.has(e.target).length === 0){
-       LayerPopup.removeClass("show");
-     }
-   }); 
    
+    document.addEventListener('keydown', function(event) {
+  	  if (event.keyCode === 13) {
+  	    event.preventDefault();
+  	  };
+  	}, true);
+    
 </script>
 </html>
