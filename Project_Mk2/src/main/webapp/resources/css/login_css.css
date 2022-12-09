@@ -16,11 +16,7 @@
 #detailInfo{
 	display: block;
 }
-#selectStart {
-	float: right;
-	padding-right: 10px;
-	vertical-align: -20%;
-}
+
 #reply-Form {
 	display: inline-block;
 	position: relative;
@@ -37,6 +33,10 @@
 #contentView{
 	font-size: 1em;
 	
+}
+#peopleCount{
+	font-size: 1.em;
+	color: green;
 }
 #scoreView{
 	float:right;
@@ -57,14 +57,14 @@
 	display: block;
 	float: left;
 }
-#avg{
+#people{
+	position : relative;
+	top:-33px;
 	padding-right: 40px;
 	display:block;
 	float: right;
 }
-#star {
-	color: orange;
-}
+
 #review {
 	clear: both;
 	display: block;
@@ -91,15 +91,7 @@
 	font-size: 0.8em;
 	color: rgba(0,0,0,0.6);
 }
-#replyForm label:hover{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#replyForm label:hover ~ label{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#replyForm input[type=radio]:checked ~ label{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
+
 input:focus {
 	outline: none;
 }
@@ -116,10 +108,16 @@ input:focus {
 	color: black;
 }
 
-#basName {
+#shelterName {
+	display: block;
+	height: 30px;
 	font-size: 20px;
 	font-weight: bold;
 	color:  rgba(0,0,0,0.8);
+}
+#shelter_Name{
+	display: block;
+	width: 250px;
 }
 #basAddr {
 	font-size: 17px;
@@ -133,10 +131,6 @@ input:focus {
 
 #send-icon:hover {
 	transform: rotate( -90deg );
-}
-#restUri, #restToi, #restLock, #restStatus{	
-	font-size: 1.4em;
-	color:  rgba(0,0,0,0.7);
 }
 
 
@@ -209,7 +203,7 @@ input:focus {
 .modal-content {
    padding: 50px 15px;
    text-align: center;
-   height: 300px;
+   height: 400px;
    border-radius: 10%;
  
 }
@@ -282,6 +276,8 @@ input:focus {
 	background-color: rgba(0,0,0,0.5);
 	border: none;
 	border-radius: 20px;
+	margin-bottom: 10px;
+	height: 50px;
 }
 .popBtn:hover {
 	background-color: rgba(0,0,0,0.7);
@@ -290,5 +286,19 @@ input:focus {
 }
 #btn-span {
 	color: rgba(230,230,230,0.8);
-		padding : 0px 44%;
+	padding : 0px 44%;
+}
+
+
+#comeBack{
+     color:#D55353;
+}
+#comeBack:hover{
+	text-decoration: none;
+}
+#comeBackP{
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+     font-size: 2.5rem;
 }

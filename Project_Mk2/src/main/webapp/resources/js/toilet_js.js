@@ -91,7 +91,10 @@ function WriteMarker(){
                   //마우스 클릭시 이전 마커 삭제후 새로운 마커 생성 리스너
                 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {  
                     searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {     
-                            if (status === kakao.maps.services.Status.OK && result[0].road_address != null) {                              
+                            if (status === kakao.maps.services.Status.OK && result[0].road_address != null) {          
+								$('#restToi').val('');                    
+								$('#restUri').val('');    
+								$('#basName').val('');                
                                 var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
                                 detailAddr += result[0].address.address_name ;                                      
                                 var content = '<div class="bAddr">' +
@@ -292,6 +295,13 @@ function WriteMarker(){
  
   
   function popReply() {
+	
+	 if(!$('#reContent').val()){		
+		$('#reContent').focus();
+		alert("리뷰를 입력해주세요");		
+		return;
+	  }
+	  
       var formData = $("#replyForm").serialize(); 
       $.ajax({
         url:"replyWritePost",
@@ -312,9 +322,21 @@ function WriteMarker(){
          } 
      });
 }
-  
    //장소 등록 
    function popData() {
+	  if(!$('#basName').val()){		
+		$('#basName').focus();
+		alert("이름을 입력해주세요");		
+		return;
+	  }else if(!$('#restToi').val()){
+		$('#restToi').focus();
+		alert("소변기를 입력해주세요");		
+		return;
+	  }else if(!$('#restUri').val()){
+		$('#restUri').focus();
+		alert("대변기를 입력해주세요");		
+		return;
+	  }
        var la = $('#latlng').val()
        var newStr = la.replace('(', ' ');
        newStr = newStr.replace(')', ' ');
@@ -351,6 +373,17 @@ function WriteMarker(){
    
    // 12/06 
    function sugWrite() {
+	
+	 if(!$('#sugSubject').val()){		
+		$('#sugSubject').focus();
+		alert("제목을 입력해주세요");		
+		return;
+	  }else if(!$('#sugContent').val()){
+		$('#sugContent').focus();
+		alert("내용을 입력해주세요");		
+		return;
+	 }
+	  
        $.ajax({
             url:"sugWrite",
             type:"post",   

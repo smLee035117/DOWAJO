@@ -38,12 +38,7 @@
 	font-size: 1em;
 	
 }
-#scoreView{
-	float:right;
-	padding-top: 3px;
-	padding-right: 10px;
-	color :rgba(250, 208, 0, 0.99);
-}
+
 #dateView{
 	padding-top: 5px;
 	font-size: 0.8em;
@@ -57,14 +52,7 @@
 	display: block;
 	float: left;
 }
-#avg{
-	padding-right: 40px;
-	display:block;
-	float: right;
-}
-#star {
-	color: orange;
-}
+
 #review {
 	clear: both;
 	display: block;
@@ -91,15 +79,7 @@
 	font-size: 0.8em;
 	color: rgba(0,0,0,0.6);
 }
-#replyForm label:hover{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#replyForm label:hover ~ label{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#replyForm input[type=radio]:checked ~ label{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
+
 input:focus {
 	outline: none;
 }
@@ -266,13 +246,27 @@ input:focus {
 	height: 100px;
 	display: block;
 }
-#rest-Toi, #rest-Uri,#rest-Lock, #rest-Status{
-	font-size: 1.2em;
-	font-weight: bold;
-	color: rgba(0,0,0,0.5);
+#WIFIId {
+	display:block;
+	text-align : left;
+	padding: 0px;
+	height:90px;
 }
-#rest-Toi:focus, #rest-Uri:focus{
+
+
+#WIFIId:focus, #WIFIPw:focus{
 	outline:none;
+}
+#WIFIId input{
+	display: block;
+	width : 200px;
+}
+
+#wifiIdLabel, #wifiPwLabel {
+	display:block;
+	margin : 0px;
+	width : 100px;
+	font-size : 0.7em;
 }
 
 .popBtn {
@@ -290,5 +284,5 @@ input:focus {
 }
 #btn-span {
 	color: rgba(230,230,230,0.8);
-		padding : 0px 44%;
+	padding : 0px 40%;
 }
