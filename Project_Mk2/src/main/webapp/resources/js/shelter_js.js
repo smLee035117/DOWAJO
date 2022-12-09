@@ -108,6 +108,13 @@
  
   
   function popReply() {
+	
+	 if(!$('#reContent').val()){		
+		$('#reContent').focus();
+		alert("이름과 전화번호를 입력해주세요");		
+		return;
+	  }
+	 
 	   var formData = $("#replyForm").serialize(); 
       $.ajax({
         url:"survivalWritePost",

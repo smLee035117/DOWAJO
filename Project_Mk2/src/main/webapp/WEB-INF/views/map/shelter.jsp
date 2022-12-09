@@ -182,7 +182,11 @@ $(function () {
 
    
  })
-
+document.addEventListener('keydown', function(event) {
+	  if (event.keyCode === 13) {
+	    event.preventDefault();
+	  };
+	}, true);
   
 </script>
 <body id="page-top">
@@ -195,7 +199,7 @@ $(function () {
             <form id="frmSug" name="frmSug">
      	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
           	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
-               <button class="popBtn" onclick="sugWrite()"><span id="btn-span">확인</span></button>
+               <button  type="button" class="popBtn" onclick="sugWrite()"><span id="btn-span">확인</span></button>
             </form>
             </div>
          </div>
@@ -239,29 +243,6 @@ $(function () {
    <a class="scroll-to-top rounded" href="#page-top"> <i
       class="fas fa-angle-up"></i>
    </a>
-
-   <!-- Logout Modal-->
-   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-      aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-               <button class="close" type="button" data-dismiss="modal"
-                  aria-label="Close">
-                  <span aria-hidden="true">Ã</span>
-               </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready
-               to end your current session.</div>
-            <div class="modal-footer">
-               <button class="btn btn-secondary" type="button"
-                  data-dismiss="modal">Cancel</button>
-               <a class="btn btn-primary" href="login">Logout</a>
-            </div>
-         </div>
-      </div>
-   </div>
 
    <!-- Bootstrap core JavaScript-->
 
