@@ -97,7 +97,7 @@ function WriteMarker(){
 								$('#basName').val('');                
                                 var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
                                 detailAddr += result[0].address.address_name ;                                      
-                                var content = '<div class="bAddr">' +
+                                var content = '<div class="bAddr" style="width:300px; padding:5px;text-align:center;">' +
                                                 '<span class="title"> 주소정보 : </span>' + 
                                                 detailAddr + 
                                             '</div>';
