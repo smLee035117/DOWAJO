@@ -49,12 +49,11 @@ $(function () {
        async:false,
        success:function(WIFIInfo){         
           var j = Object.values(WIFIInfo);
-          console.log(j);
-             for(var i = 0 ; i < j.length; i++){
-            	 console.log(j);
+          
+             for(var i = 0 ; i < j.length; i++){            	 
             	 matchNum = 0; 
                  wifi[i] = {
-                         content: '<div>'+j[i].basName+'</div>',
+                         content: '<div style="width:200px;">'+j[i].basName+'</div>',
                          latlng: new kakao.maps.LatLng(j[i].basLat, j[i].basLng), //위도 , 경도
                          number: j[i].basNo
                  }
@@ -92,7 +91,7 @@ $(function () {
 				                 '<span id="form_title">리뷰작성</span><div></div>'+
 						         '<input type="hidden" id="basNo" name="basNo" value="'+j[i].basNo +'">'+
 						         '<input type="hidden" id="reSco" name"reSco" value="0">'+
-				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
+				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="20" placeholder="최대등록글자는 20자입니다.">&nbsp;'+
 				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
 		                 	'</div>'+
 		                 '</form>'+
