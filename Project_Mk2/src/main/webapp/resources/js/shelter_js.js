@@ -6,7 +6,7 @@
    var mapContainer;
    var map;
    var reviewList = [];
-   
+   var cnt;
  function publicShelterCreateMarker(){
 	 // 공공 구호소 api 마커 생성
 	 var shelterMarkerImageSrc = 'resources/img/shelter_marker2.png', // 마커이미지의 주소입니다    
@@ -108,36 +108,36 @@
  
   
   function popReply() {
-	
-	 if(!$('#reContent').val()){		
-		$('#reContent').focus();
+	 if(!$('#reply').val()){		
+		$('#reply').focus();
 		alert("이름과 전화번호를 입력해주세요");		
 		return;
 	  }
+	   var formData = $("#replyForm").serialize(); 	    
+		   $.ajax({
+		        url:"survivalWritePost",
+		        type:"post",   
+		        dataType : "json",
+		        async:false,
+		        data:formData,
+		        success:function(responseData){      
+		           var j = JSON.parse(responseData)
+		              if(j==1){             
+		                 alert("등록이 완료되었습니다")
+		                  location.reload();
+		              }else if(j==2){                   
+		                 alert("최대 수용인원입니다. 더이상 작성하실 수 없습니다.")
+		                 location.reload();
+		              }else {                   
+		                 alert("알수없는 오류입니다")
+		              }
+		         },error : function () {
+		            console.log('fail')
+		         } 
+		     });
 	 
-	   var formData = $("#replyForm").serialize(); 
-      $.ajax({
-        url:"survivalWritePost",
-        type:"post",   
-        dataType : "json",
-        async:false,
-        data:formData,
-        success:function(responseData){      
-           var j = JSON.parse(responseData)
-           console.log(j)
-              if(j==1){             
-                 alert("등록이 완료되었습니다")
-                  location.reload();
-              }else if(j==2){                   
-                 alert("최대 수용인원입니다. 더이상 작성하실 수 없습니다.")
-                 location.reload();
-              }else {                   
-                 alert("알수없는 오류입니다")
-              }
-         },error : function () {
-            console.log('fail')
-         } 
-     });
+	 
+    
 }
    
    function sugPop() {

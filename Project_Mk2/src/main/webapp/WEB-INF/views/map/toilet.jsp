@@ -50,8 +50,7 @@ $(function () {
        dataType : "json",
        contentType:"application/json",
        success:function(responseData){         
-          var j = Object.values(responseData)
-          console.log(j)
+          var j = Object.values(responseData)          
              for(var i = 0 ; i < j[0].row.length; i++){
             	 matchNum = 0 
                  toilet[i] = {
@@ -166,8 +165,7 @@ $(function () {
 	            </c:forEach>
 	          
 	         	  // baic_data 정보 불러와서 뿌리는 마커
-	     		  privateCreateMarker();
-	         	  console.log(toilet[1]);
+	     		  privateCreateMarker();	         	  
 	          }// 성공했을때 실행 끝
 	          
           //자신의 위치 가져오는 geolocation api이 실패했을때 실행
@@ -182,7 +180,7 @@ $(function () {
                  geocoder = new kakao.maps.services.Geocoder();
                  
 	                 // 공공api 마커 생성
-	  		       publicCreateMarker();
+	  		       publicToiletCreateMarker();
 	                 
 	  		     //마우스 클릭시 생성될 marker
 	               WriteMarker();  
