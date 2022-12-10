@@ -98,7 +98,7 @@ $(function () {
        						         '<input type="hidden" id="basNo" name="basNo" value="'+a+'">'+
        						         '<input type="hidden" id="count" name="count" value="'+a+'">'+
        						      	 '<input type="hidden" id="reSco" name="reSco" value="0">'+
-       				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="이름과 전화번호를 적어주세요">&nbsp;'+
+       				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="20" placeholder="이름과 전화번호를 적어주세요">&nbsp;'+
        				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
        		                 	'</div>'+
        		                 '</form>'+

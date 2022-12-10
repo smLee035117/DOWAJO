@@ -25,11 +25,8 @@ function privateCreateMarker(){
 	                  content: userCheckWIFI[i].content // 인포윈도우에 표시할 내용
 	                 });
 	        
-	                //상세 페이지 info     
-	                	console.log(wifiDetail)
-	                 for(var v = 0; v < wifiDetail.length; v++){
-							console.log(wifiDetail[v].number)
-							console.log(userCheckWIFI[i].number)
+	                //상세 페이지 info     	                	
+	                 for(var v = 0; v < wifiDetail.length; v++){											
 	                    if(wifiDetail[v].number == userCheckWIFI[i].number){
 	                      infowindowDetail = new kakao.maps.InfoWindow({
 	                          content: wifiDetail[v].content, 
@@ -64,8 +61,8 @@ function WriteMarker(){
 								$('#basName').val('');                              
                                 var detailAddr = !result[0].road_address ?  result[0].road_address.address_name  : ' ';
                                 detailAddr += result[0].address.address_name ;                                      
-                                var content = '<div class="bAddr">' +
-                                                '<span class="title"> 주소정보 : </span>' + 
+                                var content = '<div class="bAddr" style="width:300px; padding:5px;text-align:center;" >' +
+                                                '<span class="title" > 주소정보 : </span>' + 
                                                 detailAddr + 
                                             '</div>';
                                 // 마커를 클릭한 위치에 표시합니다 
@@ -99,7 +96,7 @@ function WriteMarker(){
                   reviewList[i] = {
                         number : j[i].basNo,                       
                         overrayContent : '<div id="review"><span id="contentView">'+ j[i].reContent+'</span>'+
-                        '<span id="dateView">'+moment(j[i].reRegDate).format("YY-MM-DD")+'</span>'
+                        '<span id="dateView">'+moment(j[i].reRegDate).format("YY-MM-DD")+'</span></div>'
                   }
            }
              
@@ -201,8 +198,7 @@ function WriteMarker(){
              "basAddr" : $('#basAddr').val()          
           },
           success:function(responseData){      
-             var j = JSON.parse(responseData)
-             console.log(j);
+             var j = JSON.parse(responseData)             
                 if(j==1){             
                    alert("등록이 완료되었습니다")
                   location.reload();
