@@ -53,7 +53,7 @@ $(function () {
              for(var i = 0 ; i < j.length; i++){            	 
             	 matchNum = 0; 
                  wifi[i] = {
-                         content: '<div style="width:200px;">'+j[i].basName+'</div>',
+                         content: '<div style="width:300px; padding:5px;text-align:center;">'+j[i].basName+'</div>',
                          latlng: new kakao.maps.LatLng(j[i].basLat, j[i].basLng), //위도 , 경도
                          number: j[i].basNo
                  }
@@ -139,7 +139,7 @@ $(function () {
 	             
 		       <c:forEach var="wifiList" items="${wifiList}" varStatus="status">
                userCheckWIFI.push({
-                  content: '<div>${wifiList.basName}</div>',
+                  content: '<div style="width:300px; padding:5px;text-align:center;">${wifiList.basName}</div>',
                   latlng: new kakao.maps.LatLng(${wifiList.basLat},${wifiList.basLng}),
                   number: '${wifiList.basNo}'
           	  	})
@@ -165,7 +165,7 @@ $(function () {
 	  		     
                    <c:forEach var="wifiList" items="${wifiList}" varStatus="status">
                       userCheckWIFI.push({
-                         content: '<div>${wifiList.basName}</div>',
+                         content: '<div style="width:300px; padding:5px;text-align:center;">${wifiList.basName}</div>',
                          latlng: new kakao.maps.LatLng(${wifiList.basLat},${wifiList.basLng}),
                          number: '${wifiList.basNo}'
                    })

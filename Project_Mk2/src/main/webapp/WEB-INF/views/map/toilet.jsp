@@ -54,7 +54,7 @@ $(function () {
              for(var i = 0 ; i < j[0].row.length; i++){
             	 matchNum = 0 
                  toilet[i] = {
-                         content: '<div>'+j[0].row[i].FNAME+'</div>',
+                         content: '<div style="width:300px; padding:5px;text-align:center;">'+j[0].row[i].FNAME+'</div>',
                          latlng: new kakao.maps.LatLng(j[0].row[i].Y_WGS84, j[0].row[i].X_WGS84), //위도 , 경도
                          number: j[0].row[i].POI_ID
                  }
@@ -158,7 +158,7 @@ $(function () {
 	             
 	             <c:forEach var="toiletList" items="${toiletList}" varStatus="status">
 	                userCheckToilet.push({
-	                   content: '<div>${toiletList.basName}</div>',
+	                   content: '<div style="width:300px; padding:5px;text-align:center;">${toiletList.basName}</div>',
 	                   latlng: new kakao.maps.LatLng(${toiletList.basLat},${toiletList.basLng}),
 	                   number: '${toiletList.basNo}'
 	                })
