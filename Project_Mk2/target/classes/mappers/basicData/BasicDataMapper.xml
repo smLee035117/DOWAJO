@@ -37,6 +37,10 @@
 		<result property="restKey" column="rest_key"/>
 	</resultMap>
 	
+	<select id="getAllList" resultMap="basicData">
+		select * from basic_data
+	</select>
+	
 	<select id="getToiletList" resultMap="basicData">
 		select * from basic_data where cat_no = 1
 	</select>

@@ -35,7 +35,7 @@ public class BasicDataServiceImpl implements BasicDataService {
 
 	@Override
 	public List<BasicDataDTO> basicList() {
-		List<BasicDataDTO> list = basicDataMapper.getToiletList();
+		List<BasicDataDTO> list = basicDataMapper.getAllList();
 		return list;
 	}
 

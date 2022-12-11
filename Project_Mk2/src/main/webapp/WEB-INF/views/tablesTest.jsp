@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title> Dowajo </title>
 
     <!-- Custom fonts for this template -->
     <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -91,14 +91,14 @@ $(function () {
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                       <c:forEach var="toilet" items="${toiletList}">
+                                       <c:forEach var="allList" items="${allList}">
                                        		<tr>
-                                       			<td> ${toilet.basNo }</td>
-                                       			<td> ${toilet.basName }</td>
-                                       			<td> ${toilet.catNo }</td>
-                                       			<td> ${toilet.basAddr }</td>
-                                       			<td> ${toilet.basLat }</td>
-                                       			<td> ${toilet.basLng }</td>
+                                       			<td> ${allList.basNo }</td>
+                                       			<td> ${allList.basName }</td>
+                                       			<td> ${allList.catNo }</td>
+                                       			<td> ${allList.basAddr }</td>
+                                       			<td> ${allList.basLat }</td>
+                                       			<td> ${allList.basLng }</td>
                                        		</tr>
                                        </c:forEach>
                                     </tbody>

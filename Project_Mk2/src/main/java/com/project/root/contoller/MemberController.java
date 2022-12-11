@@ -45,7 +45,7 @@ public class MemberController {
 	@RequestMapping(value = "tables", method = RequestMethod.GET)
 	public String tables(Model model) {
 		List<BasicDataDTO>list = bs.basicList();
-		model.addAttribute("toiletList", list);
+		model.addAttribute("allList", list);
 		return "tablesTest";
 	}
 	

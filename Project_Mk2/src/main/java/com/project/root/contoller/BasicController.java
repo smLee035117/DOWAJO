@@ -99,8 +99,8 @@ public class BasicController {
 			wifiDataDTO.setBasNo("WIFI"+String.format("%06d", seqCntSelect));
 			int result =   basicDataService.WriteBasicWIFI(basicDataDTO);
 			int result2 =  basicDataService.WriteDetailWIFI(wifiDataDTO);
-			System.out.println("result="+result);
-			System.out.println("result2="+result2);
+			//System.out.println("result="+result);
+			//System.out.println("result2="+result2);
 			
 			if(result==1 && result2 ==1) {
 				return 1;
