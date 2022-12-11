@@ -2,8 +2,8 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +22,7 @@
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="resources/css/shelter_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
-<link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
+<link rel="icon" href="resources/img/dowajo-favicon.ico">
 </head>
    <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
 <script type="text/javascript" src="resources/js/shelter_js.js"></script>
@@ -30,7 +30,6 @@
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
 <script type="text/javascript">
 $(function () {
-	
 	$('.collapse show').attr('class','collapse')
 	$('#collapsePages').attr('class','collapse show')
 	$('#ShelterInfo').css({"color":"#d55353","font-weight": "bold"})
