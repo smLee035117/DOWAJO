@@ -11,7 +11,7 @@
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>SB Admin 2 - Blank</title>
+<title> Dowajo </title>
 <!-- Custom fonts for this template-->
 <link href="resources/vendor/fontawesome-free/css/all.min.css"
    rel="stylesheet" type="text/css">
@@ -192,7 +192,11 @@ $(function () {
 
    
  })
-
+document.addEventListener('keydown', function(event) {
+     if (event.keyCode === 13) {
+       event.preventDefault();
+     };
+   }, true);
   
 </script>
 <body id="page-top">
@@ -212,7 +216,7 @@ $(function () {
                   </div>                                       
                <input type="hidden" id="latlng" name="latlng"><br>   
                <input type="hidden" id="basAddr" name="basAddr"><br>                  
-               <button class="popBtn" onclick="popData()"><span id="btn-span">확인</span></button>            
+               <button type="button" class="popBtn" onclick="popData()"><span id="btn-span">확인</span></button>            
                </form>
             </div>
          </div>
@@ -226,7 +230,7 @@ $(function () {
             <form id="frmSug" name="frmSug">
      	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
           	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
-               <button class="popBtn" onclick="sugWrite()"><span id="btn-span">확인</span></button>
+               <button type="button" class="popBtn" onclick="sugWrite()"><span id="btn-span">확인</span></button>
             </form>
             </div>
          </div>

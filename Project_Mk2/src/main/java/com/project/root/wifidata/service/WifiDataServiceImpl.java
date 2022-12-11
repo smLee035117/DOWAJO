@@ -25,7 +25,6 @@ public class WifiDataServiceImpl implements WifiDataService {
 
 	@Override
 	public List<BasicWIFIDataDTO> getWIFIDetail() {
-		System.out.println(wifiMapper.getWifiDetail());
 		return wifiMapper.getWifiDetail();
 	}
 

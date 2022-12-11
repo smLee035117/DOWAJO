@@ -119,7 +119,7 @@ display : block;
             <i class="fas fa-fw fa-cog"></i><span>Components</span></a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="collapse-item" id="ToiletList" href="tables" style="color: black;">ToiletList</a>
+                  <a class="collapse-item" id="ToiletList" href="tables" style="color: black;">DataList</a>
                   <a class="collapse-item" id="SuggestionsList" href="sugTable" style="color: black;">SuggestionsList</a>
                </div>
             </div></li>            
