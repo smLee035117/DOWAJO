@@ -296,8 +296,8 @@ function WriteMarker(){
   
   function popReply() {
 	
-	 if(!$('#reContent').val()){		
-		$('#reContent').focus();
+	 if(!$('#reply').val()){		
+		$('#reply').focus();
 		alert("리뷰를 입력해주세요");		
 		return;
 	  }

@@ -54,7 +54,7 @@ $(function () {
                     for(var i = 0 ; i < j[0].row.length; i++){
                    	 matchNum = 0 
                         shelter[i] = {
-                                content: '<div>'+j[0].row[i].EQUP_NM+'</div>',
+                                content: '<div style="width:300px; padding:5px;text-align:center;">'+j[0].row[i].EQUP_NM+'</div>',
                                 latlng: new kakao.maps.LatLng(j[0].row[i].YCORD, j[0].row[i].XCORD), //위도 , 경도
                                 number: ('SLT'+j[0].row[i].R_SEQ_NO).padStart(10,'0')
                         }
