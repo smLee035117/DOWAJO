@@ -21,7 +21,7 @@
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="resources/css/toilet_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
-<link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
+<link rel="icon" href="resources/img/dowajo-favicon.ico">
 </head>
    <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
 <script type="text/javascript" src="resources/js/toilet_js.js"></script>
