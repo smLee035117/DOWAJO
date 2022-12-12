@@ -181,6 +181,19 @@ function WriteMarker(){
   
    //장소 등록 
    function popData() {
+    if(!$('#basName').val()){		
+		$('#basName').focus();
+		alert("장소명을 입력해주세요");		
+		return;
+	  }else if(!$('#wifiName').val()){
+		$('#wifiName').focus();
+		alert("와이파이 ID를 입력해주세요");		
+		return;
+	  }else if(!$('#wifiPw').val()){
+		$('#wifiPw').focus();
+		alert("비밀번호를 입력해주세요");		
+		return;
+	  }
        var la = $('#latlng').val()
        var newStr = la.replace('(', ' ');
        newStr = newStr.replace(')', ' ');

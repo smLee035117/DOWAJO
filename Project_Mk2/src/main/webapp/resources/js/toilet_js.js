@@ -8,6 +8,8 @@
    var mapContainer;
    var map;
    var reviewList = [];
+   var lock;
+   var status;
  function  publicToiletCreateMarker(){
 	 var toiletMarkerImageSrc = 'resources/img/toilet_marker.png', // 마커이미지의 주소입니다    
          toiletMarkerImageSize = new kakao.maps.Size(35, 42), // 마커이미지의 크기입니다
@@ -184,7 +186,17 @@ function WriteMarker(){
                       avg = (sum/matchNum).toFixed(2);
                    }else {
                       avg = 0.00;
-                   }         
+                   }
+                   if( j[i].restLock == 'N'){
+                   	lock = '열림'
+                   }else {
+                   	lock = '잠김'
+                   }        
+                   if( j[i].restStatus == 'Clean'){
+                   	status = '깨끗함'
+                   }else {
+                   	status = '더러움'
+                   }        
                  detailList[i] = {
                        number : j[i].basNo,                       
                        overrayContent : '<div id="ditailInfoWindow">'+
@@ -197,8 +209,8 @@ function WriteMarker(){
                                '<div id="restContent">'+
                                   '<div class="restContent1"><span id="rest-Uri">소변기</span><label id="bas_content">&nbsp;'+ j[i].restUri + '</label></div>'+
                                   '<div class="restContent1"><span id="rest-Toi">대변기</span><label id="bas_content">&nbsp;'+ j[i].restToi + '</label></div>'+
-                                  '<div class="restContent2"><span id="rest-Lock">잠금유무</span><label id="bas_content">&nbsp;'+ j[i].restLock + '</label></div>'+
-                                  '<div class="restContent2"><span id="rest-Status">청결상태</span><label id="bas_content">&nbsp;'+ j[i].restStatus + '</label></div>'+
+                                  '<div class="restContent2"><span id="rest-Lock">잠금유무</span><label id="bas_content">&nbsp;'+ lock + '</label></div>'+
+                                  '<div class="restContent2"><span id="rest-Status">청결상태</span><label id="bas_content">&nbsp;'+status + '</label></div>'+
                                '</div>'+
                              '</div>'+
                              '<div id="overFlow"style="overflow: auto;">'
