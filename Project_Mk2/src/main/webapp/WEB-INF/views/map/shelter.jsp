@@ -55,7 +55,7 @@ $(function () {
                         shelter[i] = {
                                 content: '<div style="width:300px; padding:5px;text-align:center;">'+j[0].row[i].EQUP_NM+'</div>',
                                 latlng: new kakao.maps.LatLng(j[0].row[i].YCORD, j[0].row[i].XCORD), //위도 , 경도
-                                number: ('SLT'+j[0].row[i].R_SEQ_NO).padStart(10,'0')
+                                number: 'SLT'+(j[0].row[i].R_SEQ_NO).padStart(7,'0')
                         }
                         
                         for(var a =0; a<reviewList.length;a++){
@@ -85,7 +85,7 @@ $(function () {
                    	 if(matchNum==0){
                    		shelterDetail[i].content += '<div id="review">등록된 인원이 없습니다.</div>'                         
                         }
-                   var a =('SLT'+j[0].row[i].R_SEQ_NO).padStart(10,'0')
+                   var a ='SLT'+(j[0].row[i].R_SEQ_NO).padStart(7,'0')
                    		shelterDetail[i].content += 
        	            	'</div><div id="reply-Form">'+
        		               	'<form name="replyForm" id="replyForm">'+
