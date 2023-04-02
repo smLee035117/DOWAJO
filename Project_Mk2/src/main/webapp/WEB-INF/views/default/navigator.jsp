@@ -22,6 +22,11 @@ display : block;
 .navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled #welcome p{
 	font-size : 10px;
 }
+
+#collapsePages,#collapseTwo {
+	z-index : 5; /* 접힌 상태에서 맵 화면 위에 팝업이 뜨게 함*/
+}
+
 </style>
 </head>
 <body>
@@ -84,9 +89,9 @@ display : block;
 			  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
 	          	 <p>네이버 회원</p>
 			  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
-	          	 	<p>사이트 회원</p>
+	          	 	<p>사이트 회원 : ${id}</p>
 			  <%}else if(session.getAttribute("mem_key").equals("K")){ %>
-	             	<p>카카오 회원</p>        	
+	             	<p>카카오 회원 : ${id}</p>        	
 			  <%}else if(session.getAttribute("mem_key").equals("A")){ %>
 			  		<p>관리자 계정</p>
 			  <%} %>	 

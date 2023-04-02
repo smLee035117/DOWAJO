@@ -56,7 +56,7 @@
 					</form>
 				</div></li>
 
-			<!-- Nav Item - Alerts -->
+			<!-- Nav Item - Alerts --> <!-- 여기가 알림 갯수 부분 -->
 			<li class="nav-item dropdown no-arrow mx-1"><a
 				class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -103,7 +103,7 @@
 						All Alerts</a>
 				</div></li>
 
-			<!-- Nav Item - Messages -->
+			<!-- Nav Item - Messages --> <!-- 메세지 개수 부분 -->
 			<li class="nav-item dropdown no-arrow mx-1"><a
 				class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -165,7 +165,7 @@
 
 			<div class="topbar-divider d-none d-sm-block"></div>
 
-			<!-- Nav Item - User Information -->
+			<!-- Nav Item - User Information --> <!-- 더글라스 (사용자 정보 부분)  -->
 			<li class="nav-item dropdown no-arrow"><a
 				class="nav-link dropdown-toggle" href="#" id="userDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
