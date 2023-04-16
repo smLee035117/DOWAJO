@@ -11,5 +11,6 @@ public interface ReviewMapper {
 	public int replyWritePost(ReviewDTO reviewDTO);
 	// 특정 리뷰 불러오기
 	public int getSerarchReviewList(ReviewDTO reviewDTO);
-	
+	// 리뷰 삭제하기
+	public int DeleteReivew(ReviewDTO reviewDTO);
 }

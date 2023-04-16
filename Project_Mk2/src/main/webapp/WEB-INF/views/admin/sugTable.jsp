@@ -26,8 +26,8 @@
 
     <!-- Custom styles for this page -->
     <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="resources/css/suggestionList_css.css" rel="stylesheet">
    <script type="text/javascript" src="resources/js/sugTable_js.js"></script>
-<link href="resources/css/blank_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
 <link rel="icon" href="resources/img/dowajo-favicon.ico">
 </head>

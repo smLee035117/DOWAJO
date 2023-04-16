@@ -14,4 +14,6 @@ public interface ReviewService {
 	// 특정 리뷰 불러오기
 	public int getSerarchReviewList(ReviewDTO reviewDTO);
 	
+	//리뷰 지우기
+	public int deleteReview(ReviewDTO reviewDTO);
 }

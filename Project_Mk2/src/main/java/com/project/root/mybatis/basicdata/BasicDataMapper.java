@@ -29,6 +29,7 @@ public interface BasicDataMapper {
 	//basic 시퀀스 조회
 	public int seqCntSelect();
 	
-	
+	// 기초 데이터 삭제하기
+	public int DeleteBasicData(BasicDataDTO basicDataDTO);
 	
 }

@@ -32,7 +32,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewMapper.getSerarchReviewList(reviewDTO);
 	}
 
-
+	// 리뷰 지우기
+	@Override
+	public int deleteReview(ReviewDTO reviewDTO) {
+		return reviewMapper.DeleteReivew(reviewDTO);
+	}
 
 	
 }
