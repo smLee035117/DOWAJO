@@ -201,15 +201,16 @@ input:focus {
 
 .modal-dialog {
    width: 20%;
+   min-width:260px;
    margin: 10% auto;
    background-color: #fff;
    border-radius: 10%;
 }
 	
 .modal-content {
-   padding: 50px 15px;
+   padding: 10% 4%;
    text-align: center;
-   height: 300px;
+   height: 70%;
    border-radius: 10%;
  
 }
@@ -290,5 +291,8 @@ input:focus {
 }
 #btn-span {
 	color: rgba(230,230,230,0.8);
-		padding : 0px 44%;
+	display:flex;
+	width:100%;
+	justify-content: center;
+
 }
