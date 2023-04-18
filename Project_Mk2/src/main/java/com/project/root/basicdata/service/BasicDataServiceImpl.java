@@ -49,5 +49,8 @@ public class BasicDataServiceImpl implements BasicDataService {
 		return basicDataMapper.WriteBasicWIFI(basicDataDTO);
 	}
 	
-
+	@Override
+	public int DeleteBasicRest(BasicDataDTO basicDataDTO) {
+		return basicDataMapper.DeleteBasicData(basicDataDTO);
+	}
 }

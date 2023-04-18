@@ -26,6 +26,7 @@
     <!-- Custom styles for this page -->
     <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
    <script src="resources/vendor/jquery/jquery.min.js"></script>
+   <script type="text/javascript" src="resources/js/tableTest_js.js"></script>
 </head>
 <script type="text/javascript">
 $(function () {
@@ -61,7 +62,6 @@ $(function () {
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p>
-
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -76,8 +76,7 @@ $(function () {
                                             <th>이름</th>
                                             <th>분류번호</th>
                                             <th>주소</th>
-                                            <th>위도</th>
-                                            <th>경도</th>
+                                            <th>삭제</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -86,19 +85,20 @@ $(function () {
                                             <th>이름</th>
                                             <th>분류번호</th>
                                             <th>주소</th>
-                                            <th>위도</th>
-                                            <th>경도</th>
+                                            <th>삭제</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                        <c:forEach var="allList" items="${allList}">
                                        		<tr>
-                                       			<td> ${allList.basNo }</td>
+                                       			<td><a>${allList.basNo }</a></td>
                                        			<td> ${allList.basName }</td>
                                        			<td> ${allList.catNo }</td>
                                        			<td> ${allList.basAddr }</td>
-                                       			<td> ${allList.basLat }</td>
-                                       			<td> ${allList.basLng }</td>
+                                       			<td> <button class="delete_info" type="button" onclick="delete_info(${allList.basNo })">
+                        								<span aria-hidden="true">삭제</span>
+                    								</button>
+                    							</td>
                                        		</tr>
                                        </c:forEach>
                                     </tbody>
@@ -106,7 +106,6 @@ $(function () {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -133,7 +132,6 @@ $(function () {
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">

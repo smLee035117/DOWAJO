@@ -71,4 +71,9 @@
 	<select id="seqCntSelect" resultType="int">	
 		SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'BASIC_DATA_SEQ'
 	</select>
+	
+	<!-- 20230416 추가 데이터지우기 -->
+	<delete id="DeleteBasicData">
+		DELETE FROM BASIC_DATA WHERE BAS_NO = #{basNo}
+	</delete>
 </mapper>

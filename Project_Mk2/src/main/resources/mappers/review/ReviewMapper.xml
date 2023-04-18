@@ -37,4 +37,8 @@
 		select count(*) from review where bas_no = #{basNo}
 	</select>
 	
+	<!-- 리뷰 지우기 -->
+	<delete id="deleteReview">
+		delete from review where bas_no = #{basNo}
+	</delete>
 </mapper>

@@ -21,4 +21,6 @@ public interface BasicDataService {
 	
 	public int WriteDetailWIFI(WIFIDataDTO wifiDataDTO);
 	
+	public int DeleteBasicRest(BasicDataDTO basicDataDTO);
+	
 }

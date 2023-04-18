@@ -11,14 +11,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.root.basicdata.dto.BasicDataDTO;
+import com.project.root.review.dto.ReviewDTO;
+import com.project.root.basicdata.service.BasicDataService;
 import com.project.root.member.service.MemberService;
+import com.project.root.review.service.ReviewService;
 import com.project.root.suggestions.dto.SuggestionsDTO;
+
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired 
+	private BasicDataService basicDataService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	//sugTable페이지 값 뿌림
 	@RequestMapping(value="sugTable",method = RequestMethod.GET)
@@ -47,4 +58,10 @@ public class AdminController {
 		return memberService.sugWrite(suggestionsDTO);
 	}
 	
+	// 관리테이블 페이지
+	@RequestMapping(value = "delete_info", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+	@ResponseBody
+	public int delete_info(BasicDataDTO basicDataDTO) {
+		return basicDataService.DeleteBasicRest(basicDataDTO);
+	}
 }
