@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService{
 	// 리뷰 지우기
 	@Override
 	public int deleteReview(ReviewDTO reviewDTO) {
-		return reviewMapper.DeleteReivew(reviewDTO);
+		return reviewMapper.deleteReview(reviewDTO);
 	}
 
 	

@@ -74,6 +74,7 @@
 	
 	<!-- 20230416 추가 데이터지우기 -->
 	<delete id="DeleteBasicData">
-		DELETE FROM BASIC_DATA WHERE BAS_NO = #{basNo}
+		DELETE FROM BASIC_DATA WHERE BAS_NO = #{basNo}		
 	</delete>
+	
 </mapper>

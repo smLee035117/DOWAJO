@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,9 +60,15 @@ public class AdminController {
 	}
 	
 	// 관리테이블 페이지
-	@RequestMapping(value = "delete_info", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
+	@RequestMapping(value = "delete_info", produces = "application/json; charset=utf-8", method = RequestMethod.GET )
 	@ResponseBody
-	public int delete_info(BasicDataDTO basicDataDTO) {
-		return basicDataService.DeleteBasicRest(basicDataDTO);
+	public int delete_info(@RequestParam("basNo") String BasNo) {
+		BasicDataDTO basicDTO = new BasicDataDTO();
+		basicDTO.setBasNo(BasNo);
+		ReviewDTO reviewDTO = new ReviewDTO();
+		reviewDTO.setBasNo(BasNo);
+		basicDataService.DeleteBasicRest(basicDTO);
+		reviewService.deleteReview(reviewDTO);
+		return 1;
 	}
 }
