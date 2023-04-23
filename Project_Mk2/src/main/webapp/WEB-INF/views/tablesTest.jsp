@@ -26,7 +26,7 @@
     <!-- Custom styles for this page -->
     <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
    <script src="resources/vendor/jquery/jquery.min.js"></script>
-   <script type="text/javascript" src="resources/js/tableTest_js.js"></script>
+   <script type="text/javascript" src="resources/js/tablesTest_js.js"></script>
 </head>
 <script type="text/javascript">
 $(function () {
@@ -95,7 +95,7 @@ $(function () {
                                        			<td> ${allList.basName }</td>
                                        			<td> ${allList.catNo }</td>
                                        			<td> ${allList.basAddr }</td>
-                                       			<td> <button class="delete_info" type="button" onclick="delete_info(${allList.basNo })">
+                                       			<td> <button class="delete_info" type="button" onclick="delete_info('${allList.basNo}')">
                         								<span aria-hidden="true">삭제</span>
                     								</button>
                     							</td>

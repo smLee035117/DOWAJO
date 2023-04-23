@@ -2,6 +2,8 @@ package com.project.root.mybatis.review;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.project.root.review.dto.ReviewDTO;
 
 public interface ReviewMapper {
@@ -12,5 +14,5 @@ public interface ReviewMapper {
 	// 특정 리뷰 불러오기
 	public int getSerarchReviewList(ReviewDTO reviewDTO);
 	// 리뷰 삭제하기
-	public int DeleteReivew(ReviewDTO reviewDTO);
+	public int deleteReview(ReviewDTO reviewDTO);
 }

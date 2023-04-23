@@ -3,6 +3,8 @@ package com.project.root.mybatis.basicdata;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.project.root.basicdata.dto.BasicDataDTO;
 import com.project.root.restdata.dto.RestDataDTO;
 import com.project.root.wifidata.dto.WIFIDataDTO;

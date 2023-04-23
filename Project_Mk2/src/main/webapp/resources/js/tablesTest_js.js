@@ -1,10 +1,10 @@
-function delete_info(BAS_NO) {
+function delete_info(basNo) {
 	  $.ajax({
 	         url:"delete_info",
 	         type:"get",
 	         async:false,
 	         data:{
-	        	 basNo : BAS_NO
+	        	 basNo : basNo
 	         },
 	         dataType: "json",
 	            success:function(){
