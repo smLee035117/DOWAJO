@@ -37,6 +37,5 @@ public class ReviewServiceImpl implements ReviewService{
 	public int deleteReview(ReviewDTO reviewDTO) {
 		return reviewMapper.deleteReview(reviewDTO);
 	}
-
 	
 }

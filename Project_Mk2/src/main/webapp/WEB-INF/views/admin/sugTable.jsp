@@ -170,6 +170,7 @@ $(function () {
             </div>
         </div>
     </div>
+    <!-- 건의사항 내용보기 -->
       <div class="layer-popup" id="layer-popup-sug-Detail">
          <div class="modal-dialog">
             <div class="modal-content">
