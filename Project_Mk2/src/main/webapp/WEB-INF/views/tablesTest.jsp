@@ -22,6 +22,7 @@
 
     <!-- Custom styles for this template -->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="resources/css/tablesTest_css.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -91,12 +92,12 @@ $(function () {
                                     <tbody>
                                        <c:forEach var="allList" items="${allList}">
                                        		<tr>
-                                       			<td><a>${allList.basNo }</a></td>
-                                       			<td> ${allList.basName }</td>
+                                       			<td>${allList.basNo }</td>
+                                       			<td><a onclick="showToiletDetail()">${allList.basName }</a></td>
                                        			<td> ${allList.catNo }</td>
                                        			<td> ${allList.basAddr }</td>
-                                       			<td> <button class="delete_info" type="button" onclick="delete_info('${allList.basNo}')">
-                        								<span aria-hidden="true">삭제</span>
+                                       			<td> <button id="deleteBtn" class="delete_info" type="button" onclick="delete_info('${allList.basNo}')">
+                        								<span id="btn-span" aria-hidden="true">삭제</span>
                     								</button>
                     							</td>
                                        		</tr>
@@ -151,7 +152,17 @@ $(function () {
             </div>
         </div>
     </div>
-
+    <!-- 등록장소 내용보기 -->
+      <div class="layer-popup" id="layer-popup-sug-Detail">
+         <div class="modal-dialog">
+            <div class="modal-content">
+            <!-- <button onclick="bb()">xxx</button> -->
+     	          <input type="text" id="sugSubject" name="sugSubject" readonly="readonly" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
+          	     <textarea id="sugContent" name="sugContent" readonly="readonly" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
+               <button class="popBtn" onclick="sugClose()"><span id="btn-span">닫기</span></button>
+            </div>
+         </div>
+      </div>
     <!-- Bootstrap core JavaScript-->
     <script src="resources/vendor/jquery/jquery.min.js"></script>
     <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
