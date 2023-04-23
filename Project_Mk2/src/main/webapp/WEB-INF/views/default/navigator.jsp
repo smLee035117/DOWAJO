@@ -91,7 +91,7 @@ display : block;
 			  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
 	          	 	<p>사이트 회원 : ${id}</p>
 			  <%}else if(session.getAttribute("mem_key").equals("K")){ %>
-	             	<p>카카오 회원 : ${id}</p>        	
+	             	<p>${nickname } 님</p>        	
 			  <%}else if(session.getAttribute("mem_key").equals("A")){ %>
 			  		<p>관리자 계정</p>
 			  <%} %>	 

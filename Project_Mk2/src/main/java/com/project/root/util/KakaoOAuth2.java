@@ -14,7 +14,7 @@ import com.project.root.basicdata.dto.KakaoUserInfo;
 
 public class KakaoOAuth2 {
 	 public KakaoUserInfo getUserInfo(String authorizedCode) {
-	        System.out.println("getUserInfo 호출");
+	        //System.out.println("getUserInfo 호출");
 	        // 인가코드 -> 액세스 토큰
 	        String accessToken = getAccessToken(authorizedCode);
 	        // 액세스 토큰 -> 카카오 사용자 정보
@@ -24,7 +24,7 @@ public class KakaoOAuth2 {
 	    }
 
 	    private String getAccessToken(String authorizedCode) {
-	        System.out.println("getAccessToken 호출");
+	        //System.out.println("getAccessToken 호출");
 	        // HttpHeader 오브젝트 생성
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -78,10 +78,18 @@ public class KakaoOAuth2 {
 
 	        JSONObject body = new JSONObject(response.getBody());
 	        Long id = body.getLong("id");
+	        String eaddr = body.getJSONObject("kakao_account").getString("email");
 	        String nickname = body.getJSONObject("properties").getString("nickname");
-
+	        int idx = 0;
+	        idx = eaddr.indexOf("@");
+	        eaddr = eaddr.substring(0,idx);
+	        
+	        //System.out.println(eaddr+" 호출");
+	        //System.out.println(nickname+" 호출");
+	        
+	        
 	        //가져온 사용자 정보를 객체로 만들어서 반환
-	        return new KakaoUserInfo(id, nickname);
+	        return new KakaoUserInfo(id,eaddr, nickname);
 	    }
 	    
 	    

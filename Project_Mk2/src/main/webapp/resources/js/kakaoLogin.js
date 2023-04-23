@@ -5,12 +5,28 @@
 
 
   function loginWithKakao() {
+	 Kakao.API.request({
+  url: '/v2/user/me',
+  data: {
+    property_keys: ['kakao_account.email'],
+  },
+})
+  .then(function(response) {
+    console.log(response);
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+    
+	
+	
    Kakao.Auth.authorize({
       //redirectUri: 'https://developers.kakao.com/tool/demo/oauth'
       redirectUri : "http://localhost:8080/root/kakaoLoginResult",
     });
     
     
+ 
     /*Kakao.Auth.login({
           success: function(authObj) {
             //alert(JSON.stringify(authObj))

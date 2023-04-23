@@ -19,10 +19,18 @@ public class KakaoUserInfo {
 		this.nickname = nickname;
 	}
 	
-	public KakaoUserInfo(Long id, String nickname) {
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public KakaoUserInfo(Long id, String email, String nickname) {
 		super();
 		this.id = id;
+		this.email = email;
 		this.nickname = nickname;
+		
 	}
 	
 	@Override

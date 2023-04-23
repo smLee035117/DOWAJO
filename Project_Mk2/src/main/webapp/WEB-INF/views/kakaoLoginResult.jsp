@@ -17,6 +17,7 @@
 <script type="text/javascript">
 function kakaoResult(){
 		sessionStorage.setItem("id",${code});
+		sessionStorage.setItem("nickname",request.getParameter('nickname'));
 		sessionStorage.setItem('mem_key', 'K');
 		alert("성공");
 		location.href="/";
