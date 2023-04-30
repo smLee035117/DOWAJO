@@ -29,7 +29,5 @@
 			<mapping path="/sugTable"/>
 				<beans:ref bean="adminInterceptor"/>
 		</interceptor>
-	</interceptors>
-	
-	
+	</interceptors>   
 </beans:beans>

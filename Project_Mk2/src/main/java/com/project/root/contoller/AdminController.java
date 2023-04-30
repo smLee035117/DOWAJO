@@ -71,4 +71,9 @@ public class AdminController {
 		reviewService.deleteReview(reviewDTO);
 		return 1;
 	}
+	// 개인정보 동의페이
+	@RequestMapping(value = "agreement", method = RequestMethod.GET)
+	public String agreement() {		
+		return "agreement";
+	}
 }
