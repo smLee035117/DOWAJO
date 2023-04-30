@@ -36,6 +36,7 @@ public class MemberController {
 		String memKey = ms.getMemKey(request.getParameter("id"));
 		if(result == 1) {
 			session.setAttribute("id", request.getParameter("id"));
+			session.setAttribute("nickName", request.getParameter("nickName"));
 			session.setAttribute("mem_key", memKey);
 			return "loginSuccess";
 		}
@@ -93,4 +94,9 @@ public class MemberController {
     	System.out.println("result="+result);
     	return result;
     }
+    
+    @RequestMapping(value = "signUp", method = RequestMethod.GET)
+	public String tables() {
+		return "signUp";
+	}
 }

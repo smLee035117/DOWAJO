@@ -3,6 +3,7 @@ package com.project.root.member.dto;
 public class MemberDTO {
 	private int memNo;
 	private String memId;
+	private String nickName;
 	private String memPass;
 	private String memKey;
 	
@@ -18,6 +19,13 @@ public class MemberDTO {
 	}
 	public void setMemId(String memId) {
 		this.memId = memId;
+	}
+	
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	public String getMemPass() {
 		return memPass;
