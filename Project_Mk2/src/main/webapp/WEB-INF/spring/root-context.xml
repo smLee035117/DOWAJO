@@ -39,4 +39,23 @@
    <!-- 매퍼는 상황에 따라 패키지에 맞게 추가 하여야합니다. -->
    <mybatis-spring:scan base-package="com.project.root.mybatis"/>
    
+   <!-- 이메일 context 등록 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.naver.com" />
+      <property name="port" value="465" />
+      <property name="username" value="dowajo1234@naver.com" />
+      <property name="password" value="Dowajo1234!" />
+      <property name="javaMailProperties">
+         <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+            </props>
+      </property>
+   </bean>
 </beans>
