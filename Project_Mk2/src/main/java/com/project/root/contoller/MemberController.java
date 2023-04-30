@@ -20,12 +20,16 @@ import com.project.root.basicdata.dto.KakaoUserInfo;
 import com.project.root.basicdata.service.BasicDataService;
 import com.project.root.member.dto.MemberDTO;
 import com.project.root.member.service.MemberService;
+import com.project.root.member.service.MailSendService;
 import com.project.root.util.KakaoOAuth2;
 
 @Controller
 public class MemberController {
 	@Autowired
 	private MemberService ms;
+	
+	@Autowired
+	private MailSendService mailService;
 	
 	@Autowired
 	private BasicDataService bs;
@@ -95,8 +99,22 @@ public class MemberController {
     	return result;
     }
     
+    //회원가입 부분
     @RequestMapping(value = "signUp", method = RequestMethod.GET)
 	public String tables() {
 		return "signUp";
 	}
+
+	//이메일 인증
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheck(String email) {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		return mailService.joinEmail(email);
+		
+			
+	}
+    
+
 }
