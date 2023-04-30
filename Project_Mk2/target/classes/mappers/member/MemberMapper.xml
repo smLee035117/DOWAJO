@@ -13,6 +13,7 @@
 		<id property="memNo" column="mem_no"/>
 		<result property="memId" column="mem_id"/>
 		<result property="memPass" column="mem_pass"/>
+		<result property="nickName" column="nick_name"/>
 		<result property="memKey" column="mem_key"/>
 	</resultMap>
 	
@@ -33,7 +34,7 @@
 	</select>
 	
 	<insert id="writeRegister">
-		insert into member values(member_seq.nextval,#{memId},#{memPass},'U')
+		insert into member values(member_seq.nextval,#{memId}, #{memPass}, #{nickName},'U')
 	</insert>	
 	
 	<select id="userCk" resultType="int">
