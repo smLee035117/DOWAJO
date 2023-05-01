@@ -83,13 +83,20 @@
 				 <label for="email">이메일</label>
 					 <div class="input-group">
 						<input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일" >
-						<select class="form-control" name="userEmail2" id="userEmail2" >
-						<option>@naver.com</option>
-						<option>@daum.net</option>
-						<option>@gmail.com</option>
-						<option>@kakao.com</option>
+						<div>
+							<input type="text" class="form-control" name="userEmail2" id="userEmail2" disabled value="naver.com">
+							<select class="form-control" name="emailSelect" id="emailSelect" >
+							<option value="@naver.com">@naver.com</option>
+							<option value="@daum.net">@daum.net</option>
+							<option value="@gmail.com">@gmail.com</option>
+							<option value="@kakao.com">@kakao.com</option>
+							<option value="@yahoo.co.kr">@yahoo.co.kr</option>
+							<option value="@nate.com">@nate.com</option>
+							<option value="1">직접입력</option>
 						</select>
-					</div>   
+						</div>
+					</div>
+					   
 					<div class="input-group-addon">
 						<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
 					</div>
@@ -115,6 +122,21 @@
 
 </body>
 <script type="text/javascript">
+
+// 이메일 선택
+$('#emailSelect').change(function(){
+	   $("#emailSelect option:selected").each(function () {
+			
+			if($(this).val()== '1'){ //직접입력일 경우
+				 $("#userEmail2").val('');                        //값 초기화
+				 $("#userEmail2").attr("disabled",false); //활성화
+				 $("#userEmail2").focus();
+			}else{ //직접입력이 아닐경우
+				 $("#userEmail2").val($(this).text());      //선택값 입력
+				 $("#userEmail2").attr("disabled",true); //비활성화
+			}
+	   });
+	});
 	// 하나이상의 숫자, 문자, 특수문자가 포함된 8~16자 비밀번호
 	
     
@@ -176,6 +198,11 @@
   	    event.preventDefault();
   	  };
   	}, true);
+    
+    // 회원가입 취소
+    function cancelRegister(){
+    	location.href="${pageContext.request.contextPath}/login";
+    }
     //팝업 띄우기
     function emailPopup() {
  	      $('#layer-popup').addClass("show");   
