@@ -57,4 +57,9 @@
 		update sug_board set sug_read_ck = 'Y' where sug_no = #{sugNo}
 	</update>
 	<!-- end -->
+
+	<!-- 비밀번호 변경 -->
+	<update id="pwChange">
+		update member set mem_pass= #{memPass} where mem_id = #{memId}
+	</update>
 </mapper>
