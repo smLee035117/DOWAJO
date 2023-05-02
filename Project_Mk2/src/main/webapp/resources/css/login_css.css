@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 #clear{
-   clear : both;
+	clear : both;
 }
 
 .selectText{
@@ -10,22 +10,22 @@
 }
 
 input:focus {
-   outline: none;
+	outline: none;
 }
 
 
 
 #MAIL {
-   display: block;
-   width: 40px;
-   height: 40px;
-   background-color:#f5f5f5;
-   position: fixed;
-   right: 30px; 
-   top: 25%;
-   z-index: 100;
-   box-shadow: 0.5px 0.5px 1px 0.5px gray;
-   border-radius: 50%;
+	display: block;
+	width: 40px;
+	height: 40px;
+	background-color:#f5f5f5;
+	position: fixed;
+	right: 30px; 
+	top: 25%;
+	z-index: 100;
+	box-shadow: 0.5px 0.5px 1px 0.5px gray;
+	border-radius: 50%;
 }
 
 .layer-popup {
@@ -58,8 +58,6 @@ input:focus {
  
 }
 
-
-
 .popBtn {
    display: flex;
    width: 100%;
@@ -72,10 +70,30 @@ input:focus {
    justify-content: center;
 }
 .popBtn:hover {
-   background-color: rgba(0,0,0,0.7);
-   text-decoration: none;
-   
+	background-color: rgba(0,0,0,0.7);
+	text-decoration: none;
 }
+
+.popBtnChk {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	background-color: rgba(0,0,0,0.3);
+	border: none;
+	border-radius: 20px;
+	margin-bottom: 10px;
+	height: 50px;
+}
+
+.popBtnChk.enabled {
+	background-color: rgba(0,0,0,0.5);
+}
+.popBtnChk.enabled:hover {
+	background-color: rgba(0,0,0,0.7);
+	text-decoration: none;
+}
+
+
 #btn-span {
    color: rgba(230,230,230,0.8);
    padding : 0px 44%;
