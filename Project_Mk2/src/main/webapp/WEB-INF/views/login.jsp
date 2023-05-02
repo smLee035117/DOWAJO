@@ -54,42 +54,33 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
-    
-    <!--이메일 팝업  -->
-      <div class="email-popup" id="email-popup">
-		 <div class="form-group email-form">
-			 <label for="email">이메일</label>
-			 <div class="input-group">
-			<input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일" >
-			<select class="form-control" name="userEmail2" id="userEmail2" >
-			<option>@naver.com</option>
-			<option>@daum.net</option>
-			<option>@gmail.com</option>
-			<option>@kakao.com</option>
-			</select>
-			</div>   
-		<div class="input-group-addon">
-			<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
-		</div>
-			<div class="mail-check-box">
-		<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-		</div>
-			<span id="mail-check-warn"></span>
-		</div>
-      </div>
-  	<!--회원가입 팝업  -->
+       
+  	<!-- 비밀번호 찾기 팝업  -->
       <div class="layer-popup" id="layer-popup-reg">
-         <div class="modal-dialog">
-            <div class="modal-content">
-            <h2 style="margin-bottom: 20px;color: #333;"> 회원가입 </h2>
-            <form id="regFrm" name="regFrm">
-     	       <input type="text" class="form-control form-control-user" id="memId" name="memId" style="width: 100%;margin-bottom: 10px;" placeholder="아이디 입력">   
-          	   <input  type="password" class="form-control form-control-user" id="memPass" name="memPass" style="width: 100%;" placeholder="비밀번호 입력" ><br><br><br>       
-               <button type="button" class="popBtn" onclick="writeRegister()" ><span id="btn-span">확인</span></button>              
+       <div class="modal-dialog">
+        <div class="modal-content">
+         <h2 style="margin-bottom: 20px;color: #333;"> 이메일 확인 </h2>
+         <form id="regFrm" name="regFrm" action="pwChange" method="post">
+			<div class="input-group">
+				<input type="text" class="form-control-user" name="userEmail1" id="userEmail1" placeholder="이메일" >
+				<select class="form-control-user" name="userEmail2" id="userEmail2" >
+					<option>@naver.com</option>
+					<option>@daum.net</option>
+					<option>@gmail.com</option>
+					<option>@kakao.com</option>
+				</select>
+				<input type="hidden" id="emailComple">
+				<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
+			</div>   
+			<div class="mail-check-box">
+				<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+			</div>
+			<span id="mail-check-warn"></span><br><br><br>       
+               <button type="button" id="pwChkBtn" class="popBtnChk" onclick="emailCheck()" disabled="disabled"><span id="btn-span" class="btnCheck">확인</span></button>              
                <button type="button" class="popBtn" onclick="cancelRegister()" ><span id="btn-span">취소</span></button>              
-            </form>         
-            </div>
+          </form>         
          </div>
+        </div>
       </div>
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -121,7 +112,7 @@
                                             <input type="password" name="pw" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
-                                       	<a href="#" onclick="popRegister()" style="float: right;padding: 0 10px 5px 0;">회원가입</a>
+                                       	<a href="#" onclick="popRegister()" style="float: right;padding: 0 10px 5px 0;">비밀번호 찾기</a>
                                        	<a href="${pageContext.request.contextPath}/agreement" onclick="" style="float: right;padding: 0 10px 5px 0;">회원가입</a>
                                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">                                
                                     </form>
@@ -172,43 +163,23 @@
 	}	   
    //팝업 닫기
     function cancelRegister() {
-    	$('.layer-popup').removeClass("show");   
-	}	  
-    // 가입
-   function writeRegister() {
-	   
-	   if(!$('#memId').val()){
-		   $('#memId').focus();
-		   alert("아이디를 입력해주세요")
-		   return;
-	   }else if(!$('#memPass').val()){
-		   $('#memPass').focus();
-		   alert("비밀번호를 입력해주세요")
-		   return;
-	   }	
-	   
-		   $.ajax({
-		        url:"writeRegister",
-		        type:"post",   
-		        dataType : "json",
-		        async:false,
-		        data:$("#regFrm").serialize() ,
-		        success:function(responseData){      
-		           var j = JSON.parse(responseData)
-		              if(j==1){             
-		                 alert("회원가입이 완료되었습니다")
-		                  location.reload();
-		              }else if(j==2){                   
-		                 alert("중복된 아이디입니다")
-		              }else{		            	  
-		                 alert("알 수없는 오류입니다")
-		              }
-		         },error : function () {
-		            console.log('fail')
-		         } 
-		     });
-	  
+    	$('.layer-popup').removeClass("show");
+    	$('#mail-check-warn').html('');
+    	$('#userEmail1').val('');
+    	$('.mail-check-input').val('');
+    	$('#mail-Check-Btn').attr('disabled',false);
+    	$('.mail-check-input').attr('disabled',true);
+		$('#userEmail1').attr('readonly',false);
+		$('#userEmail2').attr('readonly',false);
 	}
+   
+   function emailCheck(){
+	   const userEmail = $('#userEmail1').val() + $('#userEmail2').val();
+	   console.log(userEmail);
+	   $('#emailComple').val(userEmail);
+	   $('#regFrm').submit();
+	   
+   }
    
     document.addEventListener('keydown', function(event) {
   	  if (event.keyCode === 13) {
@@ -218,13 +189,19 @@
     
     //이메일 인증번호 보내기
     function emailBtnClick() {
-		const eamil = $('#userEmail1').val() + $('#userEmail2').val(); // 이메일 주소값 얻어오기!
-		console.log('완성된 이메일 : ' + eamil); // 이메일 오는지 확인
+		var email;
+		if(!$('#userEmail1').val()){
+			$('#userEmail1').focus();
+			alert('이메일을 입력하세요.');
+			return;
+		}
+		email = $('#userEmail1').val() + $('#userEmail2').val(); // 이메일 주소값 얻어오기!
+		console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
 		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
 		
 		$.ajax({
 			type : 'get',
-			url : '<c:url value ="/mailCheck?email="/>'+eamil, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+			url : '<c:url value ="/mailCheck?email="/>'+email, // GET방식이라 Url 뒤에 email을 붙힐수있다.
 			success : function (data) {
 				console.log("data : " +  data);
 				checkInput.attr('disabled',false);
@@ -232,13 +209,14 @@
 				alert('인증번호가 전송되었습니다.')
 			}			
 		}); // end ajax
-	} // end send eamil
+	} // end send email
 	
 	// 인증번호 비교 
 	// blur -> focus가 벗어나는 경우 발생
 	$('.mail-check-input').blur(function () {
 		const inputCode = $(this).val();
 		const $resultMsg = $('#mail-check-warn');
+		const $button = $('pwChkBtn');
 		
 		if(inputCode === code){
 			$resultMsg.html('인증번호가 일치합니다.');
@@ -247,10 +225,14 @@
 			$('#userEamil1').attr('readonly',true);
 			$('#userEamil2').attr('readonly',true);
 			$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-	         $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+	        $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+	        $('#pwChkBtn').attr('disabled',false);
+	        $('#pwChkBtn').addClass('enabled');
 		}else{
 			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
 			$resultMsg.css('color','red');
+			$('#pwChkBtn').attr('disabled',true);
+			$('#pwChkBtn').removeClass('enabled');
 		}
 	});
 </script>

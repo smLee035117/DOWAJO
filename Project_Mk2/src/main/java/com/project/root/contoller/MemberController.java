@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.root.basicdata.dto.BasicDataDTO;
 import com.project.root.basicdata.dto.KakaoUserInfo;
@@ -116,5 +117,20 @@ public class MemberController {
 			
 	}
     
+	@RequestMapping(value = "pwChange", method = RequestMethod.POST)
+	public String pwChange(HttpServletRequest request, Model model) {
+		model.addAttribute("email", request.getParameter("emailComple"));
+		model.addAttribute("email1", request.getParameter("userEmail1"));
+		model.addAttribute("email2", request.getParameter("userEmail2"));
+		return "pwChange";
+	}
+	
+	@RequestMapping(value = "pwChangeRes", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public int pwChangeRes(MemberDTO memberDTO) {
+    	int result = ms.pwChange(memberDTO);
+    	System.out.println("result="+result);
+    	return result;
+    }
 
 }

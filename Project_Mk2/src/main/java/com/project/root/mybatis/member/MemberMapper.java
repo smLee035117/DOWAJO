@@ -24,4 +24,7 @@ public interface MemberMapper {
 	//sugTable페이지 상세페이지 볼때 읽음 표시
 	public int ReadCk(SuggestionsDTO suggestionsDTO);
 	//-------End------------------------
+	
+	//비밀번호 변경
+	public int pwChange(MemberDTO memberDTO);
 }
