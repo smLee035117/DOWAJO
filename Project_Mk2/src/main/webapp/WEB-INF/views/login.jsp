@@ -53,8 +53,7 @@
 </head>
 <body class="bg-gradient-primary">
 
-    <div class="container">
-       
+    <div class="container">  
   	<!-- 비밀번호 찾기 팝업  -->
       <div class="layer-popup" id="layer-popup-reg">
        <div class="modal-dialog">

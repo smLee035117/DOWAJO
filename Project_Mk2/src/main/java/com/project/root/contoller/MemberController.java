@@ -95,6 +95,10 @@ public class MemberController {
     @RequestMapping(value = "writeRegister", method = RequestMethod.POST)
     @ResponseBody
     public int writeRegister(MemberDTO memberDTO) {
+    	System.out.println("id :" + memberDTO.getMemId());
+    	System.out.println("nickName : " + memberDTO.getNickName());
+    	System.out.println("pw : " + memberDTO.getMemPass());
+    	
     	int result = ms.writeRegister(memberDTO);
     	System.out.println("result="+result);
     	return result;

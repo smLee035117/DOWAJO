@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+<link rel="icon" href="resources/img/dowajo-favicon.ico">
     <title> Dowajo </title>
 
     <!-- Custom fonts for this template -->
@@ -35,6 +35,26 @@ $(function () {
 	$('#collapseTwo').attr('class','collapse show')
 	$('#ToiletList').css({"color":"#d55353","font-weight": "bold"})	
 })
+
+// 동의항목체크 루틴
+function nextBtn() {
+    var selected = false;
+    var chk1 = document.getElementById('chk1');
+    var chk2 = document.getElementById('chk2');
+
+    if (chk1.checked && chk2.checked)
+        {
+    	location.href="${pageContext.request.contextPath}/signUp";
+        }
+    else {
+        alert('동의항목을 체크해주세요');
+    }
+}
+
+
+
+// 동의체크 루틴
+
 </script>
 <body id="page-top">
             <!-- Main Content -->
@@ -97,7 +117,7 @@ $(function () {
 					</div>
 					<div class="align_right">
                                         <span class="checkbox_custom">
-                                            <input type="checkbox" name="chk">
+                                            <input type="checkbox" name="chk1" id = "chk1">
                                             <label class="checkbox_radio">동의합니다.</label>
                                         </span>
                     </div>
@@ -119,7 +139,7 @@ $(function () {
                     </div>
                     <div class="align_right">
                         <span class="checkbox_custom">
-                            <input type="checkbox" name="chk">
+                            <input type="checkbox" name="chk2" id = "chk2">
 							<label class="checkbox_radio">동의합니다.</label>
                     	</span>
                     </div>

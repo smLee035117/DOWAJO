@@ -5,8 +5,8 @@
 }
 
 .selectText{
-	font-size: 0.8em;
-	color: rgba(0,0,0,0.6);
+   font-size: 0.8em;
+   color: rgba(0,0,0,0.6);
 }
 
 input:focus {
@@ -49,7 +49,7 @@ input:focus {
    background-color: #fff;
    border-radius: 10%;
 }
-	
+   
 .modal-content {
    padding: 50px 15px;
    text-align: center;
@@ -59,14 +59,15 @@ input:focus {
 }
 
 .popBtn {
-	display: flex;
-	width: 100%;
-	align-items: center;
-	background-color: rgba(0,0,0,0.5);
-	border: none;
-	border-radius: 20px;
-	margin-bottom: 10px;
-	height: 50px;
+   display: flex;
+   width: 100%;
+   align-items: center;
+   background-color: rgba(0,0,0,0.5);
+   border: none;
+   border-radius: 20px;
+   margin-bottom: 10px;
+   height: 50px;
+   justify-content: center;
 }
 .popBtn:hover {
 	background-color: rgba(0,0,0,0.7);
@@ -86,7 +87,6 @@ input:focus {
 
 .popBtnChk.enabled {
 	background-color: rgba(0,0,0,0.5);
-	
 }
 .popBtnChk.enabled:hover {
 	background-color: rgba(0,0,0,0.7);
@@ -95,16 +95,21 @@ input:focus {
 
 
 #btn-span {
-	color: rgba(230,230,230,0.8);
-	padding : 0px 44%;
+   color: rgba(230,230,230,0.8);
+   padding : 0px 44%;
 }
-
+#btn-span-email {
+   color: rgba(230,230,230,0.8);
+}
+.form-group {
+	display: flex;
+}
 
 #comeBack{
      color:#D55353;
 }
 #comeBack:hover{
-	text-decoration: none;
+   text-decoration: none;
 }
 #comeBackP{
     margin-bottom: 0.5rem;

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,15 +49,17 @@
 				                                 </a>
 				                            </p>
                                     </div>
-                                    <form class="user" action="loginCheck" method="post">
+                                    <form id="regFrm" name="regFrm" class="user" action="loginCheck" method="post">
                                         <div class="form-group">
-                                        	<input type="text" id="id" name="id" class="form-control form-control-user" placeholder="ID"><input type="button" class="" value="확인">
+                                        	<input type="text" id="memId" name="memId" class="form-control form-control-user" placeholder="E-mail 인증이필요합니다." readonly="readonly">
+                                        	<button type="button" class="popBtn" onclick="emailPopup()" ><span id="btn-span-email">이메일 인증</span></button>
                                         </div>
+                                         
                                         <div class="form-group">
                                         	<input type="text" id="nickName" name="nickName" class="form-control form-control-user" placeholder="nickName">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" id="pw" name="pw" class="form-control form-control-user"
+                                            <input type="password" id="memPass" name="memPass" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
@@ -74,8 +77,39 @@
                 </div>
             </div>
         </div>
-    </div>
-
+        	<!-- 이메일인증 팝업 -->
+	      <div class="layer-popup" id="layer-popup">
+			 <div class="form-group email-form">
+				 <label for="email">이메일</label>
+					 <div class="input-group">
+						<input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일" >
+						<div>
+							<input type="text" class="form-control" name="userEmail2" id="userEmail2" disabled value="naver.com">
+							<select class="form-control" name="emailSelect" id="emailSelect" >
+							<option value="@naver.com">@naver.com</option>
+							<option value="@daum.net">@daum.net</option>
+							<option value="@gmail.com">@gmail.com</option>
+							<option value="@kakao.com">@kakao.com</option>
+							<option value="@yahoo.co.kr">@yahoo.co.kr</option>
+							<option value="@nate.com">@nate.com</option>
+							<option value="1">직접입력</option>
+						</select>
+						</div>
+					</div>
+					   
+					<div class="input-group-addon">
+						<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
+					</div>
+					<div class="mail-check-box">
+					<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+					</div>
+					<span id="mail-check-warn"></span>
+				</div>
+				    <button type="button" class="popBtn" onclick="emailChk()" id="email-chkSucess" disabled="disabled"><span id="btn-span">확인</span></button>              
+               		<button type="button" class="popBtn" onclick="cancel()" ><span id="btn-span">취소</span></button>
+	      	</div>
+     	</div>
+    
     <!-- Bootstrap core JavaScript-->
     <script src="resources/vendor/jquery/jquery.min.js"></script>
     <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -88,32 +122,50 @@
 
 </body>
 <script type="text/javascript">
+
+// 이메일 선택
+$('#emailSelect').change(function(){
+	   $("#emailSelect option:selected").each(function () {
+			
+			if($(this).val()== '1'){ //직접입력일 경우
+				 $("#userEmail2").val('');                        //값 초기화
+				 $("#userEmail2").attr("disabled",false); //활성화
+				 $("#userEmail2").focus();
+			}else{ //직접입력이 아닐경우
+				 $("#userEmail2").val($(this).text());      //선택값 입력
+				 $("#userEmail2").attr("disabled",true); //비활성화
+			}
+	   });
+	});
 	// 하나이상의 숫자, 문자, 특수문자가 포함된 8~16자 비밀번호
 	
     
 	// 가입
    function writeRegister() {
-	    var pwVal = $('pw').val();
-		var regExp = '/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/';
-		
-	   if(!$('#id').val()){
-		   $('#id').focus();
-		   alert("아이디를 입력하세요")
+	    var pwVal = $('#memPass').val();
+		var regExp1 = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+		console.log(pwVal);
+	   if(!$('#memId').val()){
+		   $('#memId').focus();
+		   alert("이메일를 입력하세요")
 		   return;
 	   }else if(!$('#nickName').val()){
 		   $('#nickName').focus();
 		   alert("닉네임을 입력하세요")
 		   return;
-	   }else if(!$('#pw').val()){
-		   $('#pw').focus();
+	   }else if(!$('#memPass').val()){
+		   $('#memPass').focus();
 		   alert("비밀번호를 입력하세요")
 		   return;
-	   }else if(false===regExp.search(pwVal)){
-		   $('#pw').focus();
+	   }else if(!regExp1.test(pwVal)){
+		   $('#memPass').focus();
 		   alert("비밀번호는 8자리 이상 16자리이하, 특수문자 및 숫자, 문자를 반드시 하나를 포함하세요.")
 		   return;
-	   }else if($('#pwChk').val()!=$('pw').val()){
+	   }else if($('#pwChk').val() != $('#memPass').val()){
 		   $('pwChk').focus();
+		   console.log($('#pwChk').val());
+		   console.log($('#pw').val());
+		   
 		   alert("비밀번호가 일치하지 않습니다")
 		   return;
 	   }	
@@ -130,7 +182,7 @@
 		                 alert("회원가입이 완료되었습니다")
 		                  location.reload();
 		              }else if(j==2){                   
-		                 alert("중복된 아이디입니다")
+		                 alert("중복된 이메일입니다")
 		              }else{		            	  
 		                 alert("알 수없는 오류입니다")
 		              }
@@ -147,5 +199,72 @@
   	  };
   	}, true);
     
+    // 회원가입 취소
+    function cancelRegister(){
+    	location.href="${pageContext.request.contextPath}/login";
+    }
+    //팝업 띄우기
+    function emailPopup() {
+ 	      $('#layer-popup').addClass("show");   
+ 	}	   
+    //팝업 닫기
+     function cancel() {
+    	$('#memId').value = null;
+     	$('.layer-popup').removeClass("show");   
+ 	}	
+     //이메일 인증번호 보내기
+     function emailBtnClick() {
+    	 
+  		var email = $('#userEmail1').val() + $('#userEmail2').val(); // 이메일 주소값 얻어오기!
+  		var re = new RegExp("^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$");
+  		
+  		// 유효성검
+  		if (email == '' || !re.test(email)) {
+  		alert("올바른 이메일 주소를 입력하세요")
+  			return false;
+  		}
+  		console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+    	if(confirm("이메일:"+ email +" 로 인증번호를 보내시겠습니까?")){
+ 		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+ 		
+ 		$.ajax({
+ 			type : 'get',
+ 			url : '<c:url value ="/mailCheck?email="/>'+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+ 			success : function (data) {
+ 				console.log("data : " +  data);
+ 				checkInput.attr('disabled',false);
+ 				code =data;
+ 				alert('인증번호가 전송되었습니다.')
+ 			}			
+ 		}); // end ajax
+     } else {
+    	 return;
+     }
+ 	} // end send eamil
+ 	
+ 	// 인증번호 비교 
+ 	// blur -> focus가 벗어나는 경우 발생
+ 	$('.mail-check-input').blur(function () {
+ 		const inputCode = $(this).val();
+ 		const $resultMsg = $('#mail-check-warn');
+ 		
+ 		if(inputCode === code){
+ 			$resultMsg.html('인증번호가 일치합니다.');
+ 			$resultMsg.css('color','green');
+ 			$('#mail-Check-Btn').attr('disabled',true);
+ 			$('#userEamil1').attr('readonly',true);
+ 			$('#userEamil2').attr('readonly',true);
+ 			$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+ 	        $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+ 	        $('#email-chkSucess').attr('disabled',false);
+ 		}else{
+ 			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+ 			$resultMsg.css('color','red');
+ 		}
+ 	});    
+ 	function emailChk(){
+ 		$('#memId').val($('#userEmail1').val() + $('#userEmail2').val());
+ 		$('.layer-popup').removeClass("show");
+ 	}
 </script>
 </html>
