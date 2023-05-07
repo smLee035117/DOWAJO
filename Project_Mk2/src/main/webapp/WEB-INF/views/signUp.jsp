@@ -10,16 +10,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-<link rel="icon" href="resources/img/dowajo-favicon.ico">
+	<link rel="icon" href="resources/img/dowajo-favicon.ico">
     <title>Dowajo - Login</title>
     <!-- Custom fonts for this template-->
     <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="resources/css/login_css.css" rel="stylesheet">
+    <link href="resources/css/signUp_css.css" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+	
 <style type="text/css">
 .row { 
 	height: 600px;
@@ -78,14 +79,16 @@
             </div>
         </div>
         	<!-- 이메일인증 팝업 -->
-	      <div class="layer-popup" id="layer-popup">
-			 <div class="form-group email-form">
-				 <label for="email">이메일</label>
+	    <div class="layer-popup" id="layer-popup">
+			<div class="modal-dialog">
+				 <div class="modal-content">
+	         		<h2 style="margin-bottom: 20px;color: #333;"> 이메일 확인 </h2>
 					 <div class="input-group">
 						<input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일" >
 						<div>
-							<input type="text" class="form-control" name="userEmail2" id="userEmail2" disabled value="naver.com">
+							<input type="text" class="form-control" name="userEmail2" id="userEmail2" disabled value="이메일 입력">
 							<select class="form-control" name="emailSelect" id="emailSelect" >
+							<option value="none" disabled> === 선택 === </option>
 							<option value="@naver.com">@naver.com</option>
 							<option value="@daum.net">@daum.net</option>
 							<option value="@gmail.com">@gmail.com</option>
@@ -93,23 +96,23 @@
 							<option value="@yahoo.co.kr">@yahoo.co.kr</option>
 							<option value="@nate.com">@nate.com</option>
 							<option value="1">직접입력</option>
-						</select>
+							</select>
+						</div>
+						<div class="input-group-addon" id="checkBtn">
+							<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
 						</div>
 					</div>
-					   
-					<div class="input-group-addon">
-						<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
-					</div>
 					<div class="mail-check-box">
-					<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+						<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
 					</div>
-					<span id="mail-check-warn"></span>
+					<span id="mail-check-warn">.</span>
+					<button type="button" class="popBtnChk" onclick="emailChk()" id="email-chkSucess" disabled="disabled"><span id="btn-span">확인</span></button>              
+               		<button type="button" class="popBtnCancle" onclick="cancel()" id="cancleBtn"><span id="btn-span">취소</span></button>
 				</div>
-				    <button type="button" class="popBtn" onclick="emailChk()" id="email-chkSucess" disabled="disabled"><span id="btn-span">확인</span></button>              
-               		<button type="button" class="popBtn" onclick="cancel()" ><span id="btn-span">취소</span></button>
+				
 	      	</div>
      	</div>
-    
+    </div>
     <!-- Bootstrap core JavaScript-->
     <script src="resources/vendor/jquery/jquery.min.js"></script>
     <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -251,20 +254,26 @@ $('#emailSelect').change(function(){
  		if(inputCode === code){
  			$resultMsg.html('인증번호가 일치합니다.');
  			$resultMsg.css('color','green');
+ 			$resultMsg.css('visibility','visible');
  			$('#mail-Check-Btn').attr('disabled',true);
  			$('#userEamil1').attr('readonly',true);
  			$('#userEamil2').attr('readonly',true);
  			$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
  	        $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
  	        $('#email-chkSucess').attr('disabled',false);
+ 	       	$('#email-chkSucess').addClass('enabled');
  		}else{
- 			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+ 			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!');
  			$resultMsg.css('color','red');
+ 			$resultMsg.css('visibility','visible');
+ 			$('#email-chkSucess').attr('disabled',true);
+ 			$('#email-chkSucess').removeClass('enabled');
  		}
  	});    
  	function emailChk(){
  		$('#memId').val($('#userEmail1').val() + $('#userEmail2').val());
  		$('.layer-popup').removeClass("show");
+ 		
  	}
 </script>
 </html>

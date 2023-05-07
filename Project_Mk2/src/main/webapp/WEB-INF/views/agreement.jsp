@@ -5,7 +5,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -56,13 +55,18 @@ function nextBtn() {
 // 동의체크 루틴
 
 </script>
-<body id="page-top">
+<body id="bg-gradient-primary">
+	<div class="container">
             <!-- Main Content -->
-            <div id="content">
+            <div id="justify-content-center">
                     <!--title -->
-                    <h1 class="h3 mb-2 text-gray-800">개인정보동의 </h1>
-                    <br><br>
+                    <h1 class="h3 mb-2 text-gray-800">개인정보동의  </h1>
                     <div></div>
+                    <div id="logo">
+                    	<a id="comeBack" href="${pageContext.request.contextPath }/" >
+				        	<img src="resources/img/dowajoLogo.png" style="background-color: #D55353; min-width:70px; min-height:70px;"  width="15%"  height="15%">
+						</a>
+					</div>
                     <!-- 이용약관 -->
 					<h3>이용약관</h3>
 					<div class="box">
@@ -116,10 +120,10 @@ function nextBtn() {
 						<p>본 약관은 2021년 1월 25일부터 시행하고 이전약관에 적용되던 모든 사항은 본약관으로 대체합니다.</p>
 					</div>
 					<div class="align_right">
-                                        <span class="checkbox_custom">
-                                            <input type="checkbox" name="chk1" id = "chk1">
-                                            <label class="checkbox_radio">동의합니다.</label>
-                                        </span>
+                    	<span class="checkbox_custom">
+                    		<input type="checkbox" name="chk1" id = "chk1">
+                    		<label class="checkbox_radio">동의합니다.</label>
+                    	</span>
                     </div>
                     <br>
                     <br>
@@ -135,7 +139,6 @@ function nextBtn() {
 	                    <td>가입 후 1년</td>
 	                    </table>
 	                    <p>귀하는 개인정보 제공 및 활용을 거부할 권리가 있습니다. 그러나 거부하실 경우 서비스 이용이 불가능함을 알려드립니다.</p>
-
                     </div>
                     <div class="align_right">
                         <span class="checkbox_custom">
@@ -143,44 +146,12 @@ function nextBtn() {
 							<label class="checkbox_radio">동의합니다.</label>
                     	</span>
                     </div>
-                 <div class="nextBtnDiv">   
-            	<button id="nextBtn" title="다음" onclick="nextBtn()"><span id="btn-span">다음</span></button>
+                <div class="nextBtnDiv">   
+            		<button id="nextBtn" title="다음" onclick="nextBtn()"><span id="btn-span">다음</span></button>
             	</div>
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">Ã</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login">Logout</a>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- Bootstrap core JavaScript-->
     <script src="resources/vendor/jquery/jquery.min.js"></script>
