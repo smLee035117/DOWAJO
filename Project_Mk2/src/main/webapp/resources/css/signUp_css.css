@@ -1,0 +1,153 @@
+@charset "UTF-8";
+
+#clear{
+	clear : both;
+}
+
+.selectText{
+   font-size: 0.8em;
+   color: rgba(0,0,0,0.6);
+}
+
+input:focus {
+	outline: none;
+}
+
+
+
+#MAIL {
+	display: block;
+	width: 40px;
+	height: 40px;
+	background-color:#f5f5f5;
+	position: fixed;
+	right: 30px; 
+	top: 25%;
+	z-index: 100;
+	box-shadow: 0.5px 0.5px 1px 0.5px gray;
+	border-radius: 50%;
+}
+
+.layer-popup {
+   display: none;
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: 100;
+}
+
+.layer-popup.show {
+   display: block;
+}
+
+.modal-dialog {
+   width: 80%;
+   margin: 10% auto;
+   background-color: #fff;
+   border-radius: 10%;
+}
+   
+.modal-content {
+   padding: 50px 15px;
+   text-align: center;
+   height: 400px;
+   border-radius: 10%;
+}
+
+#userEmail1 {
+	display:block;
+	width: 200px;
+}
+#userEmail2, #emailSelect {
+	display:block;
+	width: 170px;
+}
+#checkBtn {
+	display: block;
+	width:90px;
+}
+
+
+.popBtn {
+   display: flex;
+   width: 100%;
+   align-items: center;
+   background-color: rgba(0,0,0,0.5);
+   border: none;
+   border-radius: 20px;
+   margin-bottom: 10px;
+   height: 50px;
+   justify-content: center;
+}
+.popBtn:hover {
+	background-color: rgba(0,0,0,0.7);
+	text-decoration: none;
+}
+
+.popBtnChk {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	background-color: rgba(0,0,0,0.3);
+	border: none;
+	border-radius: 20px;
+	margin-bottom: 10px;
+	height: 70px;
+	justify-content: center;
+}
+
+.popBtnChk.enabled {
+	background-color: rgba(0,0,0,0.5);
+}
+.popBtnChk.enabled:hover {
+	background-color: rgba(0,0,0,0.7);
+	text-decoration: none;
+}
+
+.popBtnCancle {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	background-color: rgba(0,0,0,0.5);
+	border: none;
+	border-radius: 20px;
+	margin-bottom: 10px;
+	height: 70px;
+	justify-content: center;
+}
+
+.popBtnCancle:hover {
+	background-color: rgba(0,0,0,0.7);
+	text-decoration: none;
+}
+
+#btn-span {
+   color: rgba(230,230,230,0.8);
+   padding : 0px 44%;
+}
+#btn-span-email {
+   color: rgba(230,230,230,0.8);
+}
+.form-group {
+	display: flex;
+}
+
+#mail-check-warn{
+	visibility:hidden;
+}
+
+#comeBack{
+     color:#D55353;
+}
+#comeBack:hover{
+   text-decoration: none;
+}
+#comeBackP{
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+     font-size: 2.5rem;
+}

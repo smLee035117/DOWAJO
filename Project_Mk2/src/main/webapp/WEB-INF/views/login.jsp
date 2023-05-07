@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-<link rel="icon" href="resources/img/dowajo-favicon.ico">
+	<link rel="icon" href="resources/img/dowajo-favicon.ico">
     <title>Dowajo - Login</title>
 
     <!-- Custom fonts for this template-->
@@ -56,31 +56,31 @@
     <div class="container">  
   	<!-- 비밀번호 찾기 팝업  -->
       <div class="layer-popup" id="layer-popup-reg">
-       <div class="modal-dialog">
-        <div class="modal-content">
-         <h2 style="margin-bottom: 20px;color: #333;"> 이메일 확인 </h2>
-         <form id="regFrm" name="regFrm" action="pwChange" method="post">
-			<div class="input-group">
-				<input type="text" class="form-control-user" name="userEmail1" id="userEmail1" placeholder="이메일" >
-				<select class="form-control-user" name="userEmail2" id="userEmail2" >
-					<option>@naver.com</option>
-					<option>@daum.net</option>
-					<option>@gmail.com</option>
-					<option>@kakao.com</option>
-				</select>
-				<input type="hidden" id="emailComple">
-				<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
-			</div>   
-			<div class="mail-check-box">
-				<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-			</div>
-			<span id="mail-check-warn"></span><br><br><br>       
-               <button type="button" id="pwChkBtn" class="popBtnChk" onclick="emailCheck()" disabled="disabled"><span id="btn-span" class="btnCheck">확인</span></button>              
-               <button type="button" class="popBtn" onclick="cancelRegister()" ><span id="btn-span">취소</span></button>              
-          </form>         
-         </div>
-        </div>
-      </div>
+      	<div class="modal-dialog">
+       		<div class="modal-content">
+         		<h2 style="margin-bottom: 20px;color: #333;"> 이메일 확인 </h2>
+         		<form id="regFrm" name="regFrm" action="pwChange" method="post">
+					<div class="input-group">
+						<input type="text" class="form-control-user" name="userEmail1" id="userEmail1" placeholder="이메일" >
+						<select class="form-control-user" name="userEmail2" id="userEmail2" >
+							<option>@naver.com</option>
+							<option>@daum.net</option>
+							<option>@gmail.com</option>
+							<option>@kakao.com</option>
+						</select>
+						<input type="hidden" id="emailComple">
+						<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
+					</div>   
+					<div class="mail-check-box">
+						<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+					</div>
+					<span id="mail-check-warn"></span><br><br><br>       
+	               	<button type="button" id="pwChkBtn" class="popBtnChk" onclick="emailCheck()" disabled="disabled"><span id="btn-span" class="btnCheck">확인</span></button>              
+	               	<button type="button" class="popBtn" onclick="cancelRegister()" ><span id="btn-span">취소</span></button>              
+          		</form>         
+         	</div>
+          </div>
+     	</div>
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
@@ -100,8 +100,6 @@
 			                                        Dowajo
 				                                 </a>
 				                            </p>
-		                           
-		                            	
                                     </div>
                                     <form class="user" action="loginCheck" method="post">
                                         <div class="form-group">
