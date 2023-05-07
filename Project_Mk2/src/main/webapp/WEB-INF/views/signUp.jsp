@@ -88,7 +88,7 @@
 						<div>
 							<input type="text" class="form-control" name="userEmail2" id="userEmail2" disabled value="이메일 입력">
 							<select class="form-control" name="emailSelect" id="emailSelect" >
-							<option value="none" disabled> === 선택 === </option>
+							<option value="none" selected disabled> === 선택 === </option>
 							<option value="@naver.com">@naver.com</option>
 							<option value="@daum.net">@daum.net</option>
 							<option value="@gmail.com">@gmail.com</option>
