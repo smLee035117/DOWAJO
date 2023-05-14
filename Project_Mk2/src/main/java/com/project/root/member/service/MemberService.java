@@ -29,4 +29,7 @@ public interface MemberService {
 	
 	//비밀번호 변경
 	public int pwChange(MemberDTO memberDTO);
+	
+	//닉네임 정보
+	public String getNick(MemberDTO memberDTO);
 }

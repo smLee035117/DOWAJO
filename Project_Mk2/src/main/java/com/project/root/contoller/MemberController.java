@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.root.basicdata.dto.BasicDataDTO;
 import com.project.root.basicdata.dto.KakaoUserInfo;
@@ -39,9 +38,12 @@ public class MemberController {
 	public String loginCheck(HttpServletRequest request, HttpSession session) {
 		int result = ms.loginCheck(request);
 		String memKey = ms.getMemKey(request.getParameter("id"));
+		MemberDTO dto1 = new MemberDTO();
+		dto1.setMemId(request.getParameter("id"));
+		String nickName = ms.getNick(dto1);
 		if(result == 1) {
-			session.setAttribute("id", request.getParameter("id"));
-			session.setAttribute("nickName", request.getParameter("nickName"));
+			//session.setAttribute("id", request.getParameter("id"));
+			session.setAttribute("nickName", nickName);
 			session.setAttribute("mem_key", memKey);
 			return "loginSuccess";
 		}

@@ -27,4 +27,7 @@ public interface MemberMapper {
 	
 	//비밀번호 변경
 	public int pwChange(MemberDTO memberDTO);
+	
+	//닉네임 확인
+	public String getNick(MemberDTO memberDTO);
 }
