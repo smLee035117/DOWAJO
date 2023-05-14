@@ -85,11 +85,11 @@ display : block;
  			<!-- 카카오 로그인 -->
           <div id="welcome">
 	         <%if(session.getAttribute("mem_key")==null){ %>
-	       		  <p>guest</p>	
+	       		  <p>guest로 접속중</p>	
 			  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
 	          	 <p>네이버 회원</p>
 			  <%}else if(session.getAttribute("mem_key").equals("U")){ %>
-	          	 	<p>사이트 회원 : ${id}</p>
+	          	 	<p>${nickName } 님</p>
 			  <%}else if(session.getAttribute("mem_key").equals("K")){ %>
 	             	<p>${nickname } 님</p>        	
 			  <%}else if(session.getAttribute("mem_key").equals("A")){ %>
@@ -97,7 +97,7 @@ display : block;
 			  <%} %>	 
 		  </div>
          <!-- Heading -->
-         <div class="sidebar-heading">Addons</div>
+         <!-- <div class="sidebar-heading">Addons</div> -->
        
          <!-- Nav Item - Pages Collapse Menu -->
          <li class="nav-item">
@@ -105,15 +105,15 @@ display : block;
          	<i class="fas fa-fw fa-folder"></i> <span>Pages</span></a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
-                  <c:if test="${id ==null }">
-                  	<a class="collapse-item" href="login">Login</a>
+                  <c:if test="${nickName ==null }">
+                  	<a class="collapse-item" href="login">로그인</a>
                   </c:if>
-                  <c:if test="${id !=null }">
-                  	<a class="collapse-item" href="logout">Logout</a>
+                  <c:if test="${nickName !=null }">
+                  	<a class="collapse-item" href="logout">로그아웃</a>
                   </c:if>
-                  <a class="collapse-item active" id="ToiletInfo" href="${pageContext.request.contextPath }/"  style="color:black;font-weight: normal;">Toilet Info</a>
-                  <a class="collapse-item active" id="ShelterInfo" href="${pageContext.request.contextPath }/shelter"  style="color:black;font-weight: normal;">Shelter Info</a>
-                  <a class="collapse-item active" id="WIFIZoneInfo" href="${pageContext.request.contextPath }/wifi"  style="color:black;font-weight: normal;">WIFIZone Info</a>
+                  <a class="collapse-item active" id="ToiletInfo" href="${pageContext.request.contextPath }/"  style="color:black;font-weight: normal;">화장실 정보</a>
+                  <a class="collapse-item active" id="ShelterInfo" href="${pageContext.request.contextPath }/shelter"  style="color:black;font-weight: normal;">대피소 정보</a>
+                  <a class="collapse-item active" id="WIFIZoneInfo" href="${pageContext.request.contextPath }/wifi"  style="color:black;font-weight: normal;">WIFI존 정보</a>
                </div>
             </div></li>
          <!-- Nav Item - Tables -->
@@ -121,11 +121,11 @@ display : block;
                <!-- Nav Item - Pages Collapse Menu -->
          <li class="nav-item">
          	<a class="nav-link " href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"> 
-            <i class="fas fa-fw fa-cog"></i><span>Components</span></a>
+            <i class="fas fa-fw fa-cog"></i><span>관리자 기능</span></a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="collapse-item" id="ToiletList" href="tables" style="color: black;">DataList</a>
-                  <a class="collapse-item" id="SuggestionsList" href="sugTable" style="color: black;">SuggestionsList</a>
+                  <a class="collapse-item" id="ToiletList" href="tables" style="color: black;">데이터 확인</a>
+                  <a class="collapse-item" id="SuggestionsList" href="sugTable" style="color: black;">요청사항들</a>
                </div>
             </div></li>            
       	</c:if>

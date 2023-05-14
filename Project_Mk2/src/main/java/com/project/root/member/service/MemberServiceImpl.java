@@ -75,5 +75,11 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.pwChange(memberDTO);
 	}
 
+	@Override
+	public String getNick(MemberDTO memberDTO) {
+		return mapper.getNick(memberDTO);
+	}
+
+	
 	
 }
