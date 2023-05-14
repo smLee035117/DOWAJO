@@ -22,7 +22,7 @@
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="resources/css/wifi_css.css" rel="stylesheet">
 <script src="resources/vendor/jquery/jquery.min.js"></script>
-<link rel="icon" href="resources/img/dowajo-favicon.ico">
+<link rel="icon" href="resources/img/dowajo_favicon.ico">
 </head>
    <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
 <script type="text/javascript" src="resources/js/wifiZone.js"></script>
@@ -33,7 +33,7 @@ $(function () {
 	
 	   $('.collapse show').attr('class','collapse')
 	   $('#collapsePages').attr('class','collapse show')
-	   $('#WIFIZoneInfo').css({"color":"#d55353","font-weight": "bold"})
+	   $('#WIFIZoneInfo').css({"color":"#5353D5","font-weight": "bold"})
 	
 	//get url 매개변수 삭제
     history.replaceState({}, null, location.pathname); 

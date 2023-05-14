@@ -7,15 +7,27 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+#white_area {
+ background-color : #ffffff;
+}
+#white_area p {
+	color : #008CD6;
+	font-size : 20px;
+	vertical-align: center;
+}
+
+
 #welcome {
 	display : block;
 	width: 200px;
 	height: 50px;
 }
+
+
 #welcome p {
 display : block;
 	padding-left : 15px;
-	color : white;
+	color : #FFFFFF;
 	font-size : 16px;
 }
 
@@ -36,16 +48,17 @@ display : block;
          class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
          id="accordionSidebar">
          <!-- Sidebar - Brand -->
-         <a
+         <div id="white_area"><a
             class="sidebar-brand d-flex align-items-center justify-content-center"
-            href="${pageContext.request.contextPath }/">
+            href="${pageContext.request.contextPath }/" title="홈페이지">
             <div class="sidebar-brand-icon">
-               <img src="resources/img/dowajoLogo.png" width="50%" height="50%">
+               <img src="resources/img/dowajo_logo_new.png" width="50%" height="50%">
             </div>
             <div class="sidebar-brand-text mx-3">
-               Dowajo
+               <p>Dowajo</p>
             </div>
          </a>
+         </div>
 
          <!-- Divider -->
          <hr class="sidebar-divider my-0">
@@ -85,7 +98,7 @@ display : block;
  			<!-- 카카오 로그인 -->
           <div id="welcome">
 	         <%if(session.getAttribute("mem_key")==null){ %>
-	       		  <p>guest로 접속중</p>	
+	       		  <p>guest</p>	
 			  <%}else if(session.getAttribute("mem_key").equals("N")){ %>
 	          	 <p>네이버 회원</p>
 			  <%}else if(session.getAttribute("mem_key").equals("U")){ %>

@@ -23,7 +23,7 @@
     <!-- Custom styles for this template -->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="resources/css/tablesTest_css.css" rel="stylesheet">
-
+	<link rel="icon" href="resources/img/dowajo_favicon.ico">
     <!-- Custom styles for this page -->
     <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
    <script src="resources/vendor/jquery/jquery.min.js"></script>

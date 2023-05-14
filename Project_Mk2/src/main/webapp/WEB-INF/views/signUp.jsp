@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-	<link rel="icon" href="resources/img/dowajo-favicon.ico">
+	<link rel="icon" href="resources/img/dowajo_favicon.ico">
     <title>Dowajo - Login</title>
     <!-- Custom fonts for this template-->
     <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

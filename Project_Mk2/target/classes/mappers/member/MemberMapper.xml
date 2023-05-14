@@ -63,4 +63,9 @@
 	<update id="pwChange">
 		update member set mem_pass= #{memPass} where mem_id = #{memId}
 	</update>
+	
+	<!-- 닉네임 가져오기 -->
+	<select id="getNick" resultType="String">
+		select mem_nickname from member where mem_id=#{memId}
+	</select>
 </mapper>
