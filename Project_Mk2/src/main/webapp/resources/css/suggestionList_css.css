@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+
+.container {
+	background-color: #F8F8F8;
+	position: relative;
+	top:100px;
+	border-radius: 0.35em;
+	padding: 20px;
+}
+
 a:hover {
 	text-decoration: none;
 }

@@ -32,7 +32,7 @@
 $(function () {
 	$('.collapse show').attr('class','collapse')
 	$('#collapseTwo').attr('class','collapse show')
-	$('#ToiletList').css({"color":"#d55353","font-weight": "bold"})	
+	$('#ToiletList').css({"color":"#1170CE","font-weight": "bold"})	
 })
 
 // 동의항목체크 루틴
@@ -64,7 +64,7 @@ function nextBtn() {
                     <div></div>
                     <div id="logo">
                     	<a id="comeBack" href="${pageContext.request.contextPath }/" >
-				        	<img src="resources/img/dowajoLogo.png" style="background-color: #D55353; min-width:70px; min-height:70px;"  width="15%"  height="15%">
+				        	<img src="resources/img/dowajoLogo.png" style="background-color: #5353D5; min-width:70px; min-height:70px;"  width="15%"  height="15%">
 						</a>
 					</div>
                     <!-- 이용약관 -->

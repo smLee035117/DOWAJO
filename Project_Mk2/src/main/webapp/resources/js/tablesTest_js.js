@@ -1,6 +1,6 @@
 // 관리자 테이블 삭제버튼 클릭
 function delete_info(basNo) {
-	if(confirm("삭제하시겠습까?")){
+	if(confirm("삭제하시겠습니까?")){
 	  $.ajax({
 	         url:"delete_info",
 	         type:"get",

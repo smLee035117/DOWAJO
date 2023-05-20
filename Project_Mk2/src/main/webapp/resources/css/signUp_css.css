@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+
+
+
+
 #clear{
 	clear : both;
 }
@@ -140,7 +144,7 @@ input:focus {
 }
 
 #comeBack{
-     color:#D55353;
+     color:#5353D5;
 }
 #comeBack:hover{
    text-decoration: none;

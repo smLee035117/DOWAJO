@@ -138,7 +138,7 @@ display : block;
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
                   <a class="collapse-item" id="ToiletList" href="tables" style="color: black;">데이터 확인</a>
-                  <a class="collapse-item" id="SuggestionsList" href="sugTable" style="color: black;">요청사항들</a>
+                  <a class="collapse-item" id="SuggestionsList" href="sugTable" style="color: black;">요청사항 확인</a>
                </div>
             </div></li>            
       	</c:if>
