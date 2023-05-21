@@ -64,7 +64,7 @@ function nextBtn() {
                     <div></div>
                     <div id="logo">
                     	<a id="comeBack" href="${pageContext.request.contextPath }/" >
-				        	<img src="resources/img/dowajoLogo.png" style="background-color: #5353D5; min-width:70px; min-height:70px;"  width="15%"  height="15%">
+				        	<img src="resources/img/dowajo_logo_new.png" style="min-width:70px; min-height:70px;"  width="15%"  height="15%">
 						</a>
 					</div>
                     <!-- 이용약관 -->

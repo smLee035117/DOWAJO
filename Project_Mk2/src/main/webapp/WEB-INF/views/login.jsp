@@ -62,11 +62,16 @@
          		<form id="regFrm" name="regFrm" action="pwChange" method="post">
 					<div class="input-group">
 						<input type="text" class="form-control-user" name="userEmail1" id="userEmail1" placeholder="이메일" >
-						<select class="form-control-user" name="userEmail2" id="userEmail2" >
-							<option>@naver.com</option>
-							<option>@daum.net</option>
-							<option>@gmail.com</option>
-							<option>@kakao.com</option>
+						<input type="text" class="form-control" name="userEmail2" id="userEmail2" disabled value="이메일 입력">
+						<select class="form-control-user" name="emailSelect" id="emailSelect" >
+							<option value="none" selected disabled> === 선택 === </option>
+							<option value="@naver.com">@naver.com</option>
+							<option value="@daum.net">@daum.net</option>
+							<option value="@gmail.com">@gmail.com</option>
+							<option value="@kakao.com">@kakao.com</option>
+							<option value="@yahoo.co.kr">@yahoo.co.kr</option>
+							<option value="@nate.com">@nate.com</option>
+							<option value="1">직접입력</option>
 						</select>
 						<input type="hidden" id="emailComple">
 						<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
@@ -183,6 +188,21 @@
   	    event.preventDefault();
   	  };
   	}, true);
+    
+ // 이메일 선택
+    $('#emailSelect').change(function(){
+ 	   $("#emailSelect option:selected").each(function () {
+ 			
+ 			if($(this).val()== '1'){ //직접입력일 경우
+ 				 $("#userEmail2").val('');                        //값 초기화
+ 				 $("#userEmail2").attr("disabled",false); //활성화
+ 				 $("#userEmail2").focus();
+ 			}else{ //직접입력이 아닐경우
+ 				 $("#userEmail2").val($(this).text());      //선택값 입력
+ 				 $("#userEmail2").attr("disabled",true); //비활성화
+ 			}
+ 	   });
+ 	});
     
     //이메일 인증번호 보내기
     function emailBtnClick() {

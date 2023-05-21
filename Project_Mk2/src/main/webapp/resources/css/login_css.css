@@ -13,7 +13,9 @@ input:focus {
 	outline: none;
 }
 
-
+#emailSelect{
+	width: 50px;
+}
 
 #MAIL {
 	display: block;
