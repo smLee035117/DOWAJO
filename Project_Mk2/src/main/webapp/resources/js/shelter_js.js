@@ -163,4 +163,13 @@
 	             console.log('fail')
 	          } 
 	      });
-	}   
+	}
+	
+  //특수문자 입력제한 05/27 
+  function chkChar(obj){
+    var RegExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;	//정규식 구문
+    if (RegExp.test(obj.value)) {
+      // 특수문자 모두 제거    
+      obj.value = obj.value.replace(RegExp , '');
+    }
+  }   

@@ -97,7 +97,7 @@ $(function () {
        						         '<input type="hidden" id="basNo" name="basNo" value="'+a+'">'+
        						         '<input type="hidden" id="count" name="count" value="'+a+'">'+
        						      	 '<input type="hidden" id="reSco" name="reSco" value="0">'+
-       				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="20" placeholder="이름과 전화번호를 적어주세요">&nbsp;'+
+       				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="20" onkeydown="chkChar(this)" placeholder="이름과 전화번호를 적어주세요">&nbsp;'+
        				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
        		                 	'</div>'+
        		                 '</form>'+
@@ -196,7 +196,7 @@ document.addEventListener('keydown', function(event) {
             <div class="modal-content">
             <p> 건의사항 </p>
             <form id="frmSug" name="frmSug">
-     	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
+     	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" onkeydown="chkChar(this)" placeholder="제목입력"><br>   
           	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
                <button  type="button" class="popBtn" onclick="sugWrite()"><span id="btn-span">확인</span></button>
             </form>

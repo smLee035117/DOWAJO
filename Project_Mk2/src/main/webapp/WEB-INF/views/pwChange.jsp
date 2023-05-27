@@ -43,7 +43,7 @@
                                     <div class="text-center" style="padding-bottom: 20px;">
                                    		    <p id="comeBackP">
 				                                <a id="comeBack" href="${pageContext.request.contextPath }/" >
-			                                        <img src="resources/img/dowajoLogo.png" style="background-color: #D55353;"  width="15%" height="15%">
+			                                        <img src="resources/img/dowajo_logo_new.png" width="15%" height="15%">
 			                                        Dowajo
 				                                 </a>
 				                            </p>

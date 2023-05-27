@@ -108,7 +108,7 @@ $(function () {
 					         		 	'</fieldset>'+
 						         '</div><br>'+
 						         '<input type="hidden" id="basNo" name="basNo" value="'+j[0].row[i].POI_ID +'">'+
-				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
+				                 '<input type="text" id="reply" name="reContent" size="35" maxlength="15" onkeydown="chkChar(this)" placeholder="최대등록글자는 15자입니다.">&nbsp;'+
 				                 '<a id="replySend" onclick="popReply()"><img id="send-icon" src="resources/img/send_icon.png" width="8%" height="8%"></a>'+
 		                 	'</div>'+
 		                 '</form>'+
@@ -231,7 +231,7 @@ document.addEventListener('keydown', function(event) {
          <div class="modal-dialog">
             <div class="modal-content">
                <form name="frmModal" id="frmModal">
-                  <input type="text" id="basName" name="basName" style="border:none;border-bottom:1px solid black" placeholder="이름입력"><br>
+                  <input type="text" id="basName" name="basName" style="border:none;border-bottom:1px solid black" onkeydown="chkChar(this)" placeholder="이름입력"><br>
                   <div id = "content">
                      <div id='small'>
                         <span>소변기</span>&nbsp;<input type="text" id="restToi" name="restToi" size="2" maxlength="2" style="border:none" placeholder="0" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
@@ -261,7 +261,7 @@ document.addEventListener('keydown', function(event) {
          <div class="modal-dialog">
             <div class="modal-content">            
             <form id="frmSug" name="frmSug">
-     	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" placeholder="제목입력"><br>   
+     	          <input type="text" id="sugSubject" name="sugSubject" style="border:none;border-bottom:1px solid black;width: 100%;" onkeydown="chkChar(this)" placeholder="제목입력"><br>   
           	     <textarea id="sugContent" name="sugContent" style="width: 100%;height: 6.25em; border: none; resize: none;" placeholder="내용입력" ></textarea><br><br><br>       
                <button type="button" class="popBtn" onclick="sugWrite()"><span id="btn-span">확인</span></button>
             </form>

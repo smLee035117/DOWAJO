@@ -167,6 +167,7 @@ input:focus {
 	box-shadow: 0.5px 0.5px 1px 0.5px gray;
 	border-radius: 50%;
 }
+
 #MAIL {
 	display: block;
 	width: 40px;
@@ -183,6 +184,9 @@ input:focus {
 	position: relative;
 	top: 19%;
 	left: 21%;
+}
+#GPS:hover, #MAIL:hover {
+	background-color:#B7B7B7;
 }
 .layer-popup {
    display: none;

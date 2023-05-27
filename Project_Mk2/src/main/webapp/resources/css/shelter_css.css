@@ -178,6 +178,9 @@ input:focus {
 	top: 19%;
 	left: 21%;
 }
+#GPS:hover, #MAIL:hover {
+	background-color:#B7B7B7;
+}
 .layer-popup {
    display: none;
    position: fixed;
