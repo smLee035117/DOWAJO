@@ -31,25 +31,41 @@
 	<script type="text/javascript" src="resources/js/kakaoLogin.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javascript" src="resources/js/email_js.js"></script>
-<style type="text/css">
-.row { 
-	height: 600px;
-}
+	<script type="text/javascript">
+		function onEnterLogin(){
+	
+			var keyCode = window.event.keyCode;
+	
+			
+			if($("#LoginID").val() != ''){
+				if (keyCode == 13) { //엔터키 누르면
+					
+					userLogin.submit();
+		
+				}
+			}
+		} //onEnterLogin()
 
-#naver_id_login  {
-	position : relative;
-	top : 10px;
-	display: inline-block;
-	height : 52.5px;
-	overflow: hidden;
-	background-image : url("resources/img/naver_login.png");
-	background-size: 350px 52.5px;
-	background-repeat : no-repeat;
-}
-#naver_id_login img{
-	 opacity:0; 
-}
-</style>
+	</script>
+	<style type="text/css">
+	.row { 
+		height: 600px;
+	}
+	
+	#naver_id_login  {
+		position : relative;
+		top : 10px;
+		display: inline-block;
+		height : 52.5px;
+		overflow: hidden;
+		background-image : url("resources/img/naver_login.png");
+		background-size: 350px 52.5px;
+		background-repeat : no-repeat;
+	}
+	#naver_id_login img{
+		 opacity:0; 
+	}
+	</style>
 </head>
 <body class="bg-gradient-primary">
 
@@ -62,24 +78,28 @@
          		<form id="regFrm" name="regFrm" action="pwChange" method="post">
 					<div class="input-group">
 						<input type="text" class="form-control-user" name="userEmail1" id="userEmail1" placeholder="이메일" >
-						<input type="text" class="form-control" name="userEmail2" id="userEmail2" disabled value="이메일 입력">
-						<select class="form-control-user" name="emailSelect" id="emailSelect" >
-							<option value="none" selected disabled> === 선택 === </option>
-							<option value="@naver.com">@naver.com</option>
-							<option value="@daum.net">@daum.net</option>
-							<option value="@gmail.com">@gmail.com</option>
-							<option value="@kakao.com">@kakao.com</option>
-							<option value="@yahoo.co.kr">@yahoo.co.kr</option>
-							<option value="@nate.com">@nate.com</option>
-							<option value="1">직접입력</option>
-						</select>
+						<div>
+							<input type="text" class="form-control" name="userEmail2" id="userEmail2" disabled value="이메일 입력">
+							<select class="form-control-user" name="emailSelect" id="emailSelect" >
+								<option value="none" selected disabled> === 선택 === </option>
+								<option value="@naver.com">@naver.com</option>
+								<option value="@daum.net">@daum.net</option>
+								<option value="@gmail.com">@gmail.com</option>
+								<option value="@kakao.com">@kakao.com</option>
+								<option value="@yahoo.co.kr">@yahoo.co.kr</option>
+								<option value="@nate.com">@nate.com</option>
+								<option value="1">직접입력</option>
+							</select>
+						</div>
 						<input type="hidden" id="emailComple">
-						<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
+						<div class="input-group-addon" id="checkBtn">
+							<button type="button" class="btn btn-primary" id="mail-Check-Btn" onclick="emailBtnClick()">본인인증</button>
+						</div>
 					</div>   
 					<div class="mail-check-box">
 						<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
 					</div>
-					<span id="mail-check-warn"></span><br><br><br>       
+					<span id="mail-check-warn">.</span>       
 	               	<button type="button" id="pwChkBtn" class="popBtnChk" onclick="emailCheck()" disabled="disabled"><span id="btn-span" class="btnCheck">확인</span></button>              
 	               	<button type="button" class="popBtn" onclick="cancelRegister()" ><span id="btn-span">취소</span></button>              
           		</form>         
@@ -106,13 +126,13 @@
 				                                 </a>
 				                            </p>
                                     </div>
-                                    <form class="user" action="loginCheck" method="post">
+                                    <form class="user" action="loginCheck" name="userLogin" method="post">
                                         <div class="form-group">
-                                        	<input type="text" name="id" class="form-control form-control-user" placeholder="ID">
+                                        	<input type="text" name="id" id="LoginID" class="form-control form-control-user" placeholder="ID">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="pw" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="exampleInputPassword" onkeydown="javascript:onEnterLogin();" placeholder="Password">
                                         </div>
                                        	<a href="#" onclick="popRegister()" style="float: right;padding: 0 10px 5px 0;">비밀번호 찾기</a>
                                        	<a href="${pageContext.request.contextPath}/agreement" onclick="" style="float: right;padding: 0 10px 5px 0;">회원가입</a>

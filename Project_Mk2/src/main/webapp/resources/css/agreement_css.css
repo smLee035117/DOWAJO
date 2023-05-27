@@ -26,7 +26,7 @@ h1{
 }
 
 .box {
-    background-color: #F8F8F8;
+    background-color: #BEC7C7;
     border: unset !important;
     border-radius: 6px;
     color: #333;
@@ -35,23 +35,7 @@ h1{
     padding: 30px 40px 36px;
     overflow-y: auto;
 }
-.checkbox_radio {
-    display: block;
-    position: relative;
-    padding-left: 28px;
-    cursor: pointer;
-    font-size: 16px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    display: inline-block;
-    margin-right: 30px;
-    color: #333;
-}
-.align_right {
-    text-align: right !important;
-}
+
 .nextBtnDiv{
 	display:flex;
 	justify-content: center;
@@ -76,3 +60,34 @@ h1{
    	width:100%;
    	justify-content: center;
 }
+
+
+/*.checkbox_radio {
+    display: block;
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: inline-block;
+    margin-right: 30px;
+    color: #333;
+}*/
+
+/* .checkbox_radio */
+.checkbox_radio { display: block; width:100px; position: relative; text-align:right;  color: #333; padding-left: 25px; margin-top: 10px;margin-bottom: 10px; cursor: pointer; font-size: 14px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
+/* 기본 체크박스 숨기기 */
+.checkbox_radio #chk1, .checkbox_radio #chk2 { display: none; }
+
+/* 선택되지 않은 체크박스 스타일 꾸미기 */
+.checkbox_radio .chk1Custom, .checkbox_radio .chk2Custom { width: 20px; height: 20px; background: #ddd; position: absolute; top: 0; left: 0; }
+
+/* 선택된 체크박스 스타일 꾸미기 */
+.checkbox_radio #chk1:checked + .chk1Custom, .checkbox_radio #chk2:checked + .chk2Custom { background: #f86480; }
+.chk1Custom:after, .chk2Custom:after { content: ""; position: absolute; display: none; }
+.checkbox_radio #chk1:checked + .chk1Custom:after, .checkbox_radio #chk2:checked + .chk2Custom:after { display: block; }
+.chk1Custom:after, .chk2Custom:after { width: 6px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); position: absolute; left: 6px; top: 2px; }
