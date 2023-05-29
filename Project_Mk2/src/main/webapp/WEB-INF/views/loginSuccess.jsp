@@ -8,7 +8,7 @@
 <link rel="icon" href="resources/img/dowajo_favicon.ico">
 <script type="text/javascript">
 function loading(){
-	location.href="/root";
+	location.href="/";
 }
 </script>
 </head>

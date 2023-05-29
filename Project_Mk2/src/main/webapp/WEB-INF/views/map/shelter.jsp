@@ -27,7 +27,7 @@
    <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
 <script type="text/javascript" src="resources/js/shelter_js.js"></script>
 <script type="text/javascript"
-   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
+   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b79dc1db7766029ef40b797b707b121b&libraries=services"></script>
 <script type="text/javascript">
 $(function () {
 	$('.collapse show').attr('class','collapse')
@@ -44,7 +44,7 @@ $(function () {
     //showToiletDetail();
           //  공공주차장 데이터 api 정보가져오기 
           $.ajax({
-              url:"http://openapi.seoul.go.kr:8088/754c766f48666967313036634d746a6f/json/TlEtqkP/1/1000",
+              url:"http://openapi.seoul.go.kr:8088/784a63626e776f6e39307554774654/json/TlEtqkP/1/1000",
               type:"get",   
               dataType : "json",
               contentType:"application/json",

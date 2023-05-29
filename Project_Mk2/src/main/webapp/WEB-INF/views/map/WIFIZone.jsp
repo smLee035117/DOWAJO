@@ -27,7 +27,7 @@
    <script type="text/javascript"  src="https://momentjs.com/downloads/moment.min.js"></script>
 <script type="text/javascript" src="resources/js/wifiZone.js"></script>
 <script type="text/javascript"
-   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838c15c312233703a768fa54b12c4495&libraries=services"></script>
+   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b79dc1db7766029ef40b797b707b121b&libraries=services"></script>
 <script type="text/javascript">
 $(function () {
 	

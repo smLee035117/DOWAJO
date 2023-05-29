@@ -19,7 +19,6 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
      <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
@@ -139,16 +138,10 @@
                                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">                                
                                     </form>
                                     <hr>
-                                    <!-- <a href="index.html" class="btn btn-google btn-user btn-block">
-                                        <i class="fab fa-google fa-fw"></i> Login with Google
-                                    </a>
-                                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                    </a> -->
                                     <a id="kakao-login-btn" href="javascript:loginWithKakao()">
   										<img src="resources/img/kakao_login_large_wide.png" width="350" alt="카카오 로그인 버튼" />
 									</a>
-									<div id="naver_id_login"></div>
+		
 									<!-- <p id="token-result"></p> -->
                                 </div>
                             </div>
@@ -171,13 +164,6 @@
 
 </body>
 <script type="text/javascript">
-	// test 전용 id 로 로그인 설정.
-	var naver_id_login = new naver_id_login("kN9BHPF615UoOj8_Sup_", "http://localhost:8080/root/callback");
-	var state = naver_id_login.getUniqState();
-	naver_id_login.setButton("green", 3,76);
-	naver_id_login.setDomain("http://localhost:8080/APIExamNaverLogin");
-	naver_id_login.setState(state);
-	naver_id_login.init_naver_id_login();
 	
     //팝업 띄우기
    function popRegister() {
